@@ -1,0 +1,33 @@
+aid: trigger-dev
+name: Trigger.dev
+description: >-
+  Trigger.dev is an open source background jobs and workflow automation platform for TypeScript developers.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - Workflow Automation
+  - Developer-First
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/trigger-dev/refs/heads/main/apis.yml
+created: 2026-03-27
+modified: 2026-03-27
+specificationVersion: 0.19
+apis:
+  - aid: trigger-dev:trigger-dev
+    name: Trigger.dev
+    description: >-
+      Trigger.dev is an open source background jobs and workflow automation platform for TypeScript developers.
+    humanURL: https://trigger.dev
+    tags:
+      - Workflow Automation
+    properties:
+      - type: Documentation
+        url: https://trigger.dev/docs
+common:
+  - type: Website
+    url: https://trigger.dev
+  - type: Documentation
+    url: https://trigger.dev/docs
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
