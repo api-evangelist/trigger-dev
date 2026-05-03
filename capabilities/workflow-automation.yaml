@@ -1,0 +1,369 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Trigger.dev Workflow Automation"
+  description: >-
+    Unified workflow automation capability combining task triggering, run monitoring,
+    schedule management, queue control, and waitpoint orchestration. Powers AI agent
+    pipelines, background job platforms, and human-in-the-loop approval workflows.
+  tags:
+    - Trigger.dev
+    - Workflow Automation
+    - Background Jobs
+    - Task Management
+    - Scheduling
+    - Queue Management
+    - AI Agents
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      TRIGGER_SECRET_KEY: TRIGGER_SECRET_KEY
+
+capability:
+  consumes:
+    - import: trigger-dev
+      location: ./shared/trigger-dev-management.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: workflow-automation-api
+      description: "Unified REST API for Trigger.dev workflow automation."
+      resources:
+        - path: /v1/tasks/{taskIdentifier}/trigger
+          name: task-trigger
+          description: Trigger a background task
+          operations:
+            - method: POST
+              name: trigger-task
+              description: Trigger a task run with payload and options
+              call: "trigger-dev.trigger-task"
+              with:
+                taskIdentifier: "rest.taskIdentifier"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/tasks/batch
+          name: batch-trigger
+          description: Batch trigger multiple task runs
+          operations:
+            - method: POST
+              name: batch-trigger-tasks
+              description: Trigger multiple tasks in a single batch
+              call: "trigger-dev.batch-trigger-tasks"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/runs
+          name: runs
+          description: Run listing and monitoring
+          operations:
+            - method: GET
+              name: list-runs
+              description: List runs with filtering
+              call: "trigger-dev.list-runs"
+              with:
+                filter[status]: "rest.status"
+                filter[tag]: "rest.tag"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/runs/{runId}
+          name: run-detail
+          description: Individual run details
+          operations:
+            - method: GET
+              name: get-run
+              description: Get run details, status, and output
+              call: "trigger-dev.get-run"
+              with:
+                runId: "rest.runId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/runs/{runId}/cancel
+          name: run-cancel
+          description: Cancel a run
+          operations:
+            - method: POST
+              name: cancel-run
+              description: Cancel a queued or executing run
+              call: "trigger-dev.cancel-run"
+              with:
+                runId: "rest.runId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/runs/{runId}/replay
+          name: run-replay
+          description: Replay a run
+          operations:
+            - method: POST
+              name: replay-run
+              description: Replay a run with the same payload
+              call: "trigger-dev.replay-run"
+              with:
+                runId: "rest.runId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/schedules
+          name: schedules
+          description: Schedule management
+          operations:
+            - method: GET
+              name: list-schedules
+              description: List all configured schedules
+              call: "trigger-dev.list-schedules"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-schedule
+              description: Create a cron schedule
+              call: "trigger-dev.create-schedule"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/queues
+          name: queues
+          description: Queue monitoring and control
+          operations:
+            - method: GET
+              name: list-queues
+              description: List all task queues
+              call: "trigger-dev.list-queues"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/queues/{queueName}/pause
+          name: queue-pause
+          description: Queue pause control
+          operations:
+            - method: POST
+              name: pause-queue
+              description: Pause a queue
+              call: "trigger-dev.pause-queue"
+              with:
+                queueName: "rest.queueName"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/queues/{queueName}/resume
+          name: queue-resume
+          description: Queue resume control
+          operations:
+            - method: POST
+              name: resume-queue
+              description: Resume a paused queue
+              call: "trigger-dev.resume-queue"
+              with:
+                queueName: "rest.queueName"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/waitpoints
+          name: waitpoints
+          description: Waitpoint token management
+          operations:
+            - method: POST
+              name: create-waitpoint-token
+              description: Create a waitpoint token for human-in-the-loop approval
+              call: "trigger-dev.create-waitpoint-token"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/waitpoints/{tokenId}/complete
+          name: waitpoint-complete
+          description: Complete a waitpoint
+          operations:
+            - method: POST
+              name: complete-waitpoint-token
+              description: Complete a waitpoint to resume the waiting run
+              call: "trigger-dev.complete-waitpoint-token"
+              with:
+                tokenId: "rest.tokenId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9090
+      namespace: workflow-automation-mcp
+      transport: http
+      description: "MCP server for AI-assisted workflow automation with Trigger.dev."
+      tools:
+        - name: trigger-task
+          description: Trigger a background task with a payload
+          hints:
+            readOnly: false
+            openWorld: false
+          call: "trigger-dev.trigger-task"
+          with:
+            taskIdentifier: "tools.taskIdentifier"
+            payload: "tools.payload"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: batch-trigger-tasks
+          description: Trigger multiple task runs in a single batch request
+          hints:
+            readOnly: false
+            openWorld: false
+          call: "trigger-dev.batch-trigger-tasks"
+          with:
+            items: "tools.items"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-runs
+          description: List task runs, filterable by status, tags, or task identifier
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "trigger-dev.list-runs"
+          with:
+            filter[status]: "tools.status"
+            filter[tag]: "tools.tag"
+            filter[taskIdentifier]: "tools.taskIdentifier"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-run
+          description: Get detailed status, output, and metadata for a specific run
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "trigger-dev.get-run"
+          with:
+            runId: "tools.runId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: cancel-run
+          description: Cancel a queued or currently executing run
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+          call: "trigger-dev.cancel-run"
+          with:
+            runId: "tools.runId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: replay-run
+          description: Replay a completed run with the original payload
+          hints:
+            readOnly: false
+            openWorld: false
+          call: "trigger-dev.replay-run"
+          with:
+            runId: "tools.runId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-schedules
+          description: List all configured task schedules with their cron expressions
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "trigger-dev.list-schedules"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: create-schedule
+          description: Create a new cron schedule to run a task automatically
+          hints:
+            readOnly: false
+            openWorld: false
+          call: "trigger-dev.create-schedule"
+          with:
+            task: "tools.task"
+            cron: "tools.cron"
+            deduplicationKey: "tools.deduplicationKey"
+            timezone: "tools.timezone"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-queues
+          description: List all task queues with their current depth and concurrency
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "trigger-dev.list-queues"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: pause-queue
+          description: Pause a queue to prevent new runs from starting
+          hints:
+            readOnly: false
+            idempotent: true
+          call: "trigger-dev.pause-queue"
+          with:
+            queueName: "tools.queueName"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: resume-queue
+          description: Resume a paused queue to allow runs to execute
+          hints:
+            readOnly: false
+            idempotent: true
+          call: "trigger-dev.resume-queue"
+          with:
+            queueName: "tools.queueName"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: create-waitpoint-token
+          description: Create a waitpoint token for a human-in-the-loop approval workflow
+          hints:
+            readOnly: false
+            openWorld: false
+          call: "trigger-dev.create-waitpoint-token"
+          with:
+            ttl: "tools.ttl"
+            idempotencyKey: "tools.idempotencyKey"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: complete-waitpoint-token
+          description: Complete a waitpoint to resume a paused run with approval data
+          hints:
+            readOnly: false
+            idempotent: true
+          call: "trigger-dev.complete-waitpoint-token"
+          with:
+            tokenId: "tools.tokenId"
+            data: "tools.data"
+          outputParameters:
+            - type: object
+              mapping: "$."

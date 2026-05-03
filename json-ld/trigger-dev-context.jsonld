@@ -1,0 +1,130 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "tdev": "https://trigger.dev/vocab/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "Run": "tdev:Run",
+    "Schedule": "tdev:Schedule",
+    "Deployment": "tdev:Deployment",
+    "Queue": "tdev:Queue",
+    "Batch": "tdev:Batch",
+    "WaitpointToken": "tdev:WaitpointToken",
+
+    "id": {
+      "@id": "@id"
+    },
+    "status": {
+      "@id": "tdev:status",
+      "@type": "xsd:string"
+    },
+    "taskIdentifier": {
+      "@id": "tdev:taskIdentifier",
+      "@type": "xsd:string"
+    },
+    "version": {
+      "@id": "schema:version",
+      "@type": "xsd:string"
+    },
+    "createdAt": {
+      "@id": "schema:dateCreated",
+      "@type": "xsd:dateTime"
+    },
+    "updatedAt": {
+      "@id": "schema:dateModified",
+      "@type": "xsd:dateTime"
+    },
+    "startedAt": {
+      "@id": "tdev:startedAt",
+      "@type": "xsd:dateTime"
+    },
+    "finishedAt": {
+      "@id": "tdev:finishedAt",
+      "@type": "xsd:dateTime"
+    },
+    "isTest": {
+      "@id": "tdev:isTest",
+      "@type": "xsd:boolean"
+    },
+    "payload": {
+      "@id": "tdev:payload"
+    },
+    "output": {
+      "@id": "tdev:output"
+    },
+    "tags": {
+      "@id": "schema:keywords",
+      "@container": "@set"
+    },
+    "metadata": {
+      "@id": "schema:additionalProperty"
+    },
+    "relatedRuns": {
+      "@id": "tdev:relatedRuns"
+    },
+    "attempts": {
+      "@id": "tdev:attempts",
+      "@container": "@list"
+    },
+
+    "task": {
+      "@id": "tdev:task",
+      "@type": "xsd:string"
+    },
+    "cron": {
+      "@id": "tdev:cronExpression",
+      "@type": "xsd:string"
+    },
+    "timezone": {
+      "@id": "tdev:timezone",
+      "@type": "xsd:string"
+    },
+    "nextRun": {
+      "@id": "tdev:nextRun",
+      "@type": "xsd:dateTime"
+    },
+    "active": {
+      "@id": "tdev:active",
+      "@type": "xsd:boolean"
+    },
+    "deduplicationKey": {
+      "@id": "tdev:deduplicationKey",
+      "@type": "xsd:string"
+    },
+    "externalId": {
+      "@id": "tdev:externalId",
+      "@type": "xsd:string"
+    },
+
+    "name": {
+      "@id": "schema:name",
+      "@type": "xsd:string"
+    },
+    "paused": {
+      "@id": "tdev:paused",
+      "@type": "xsd:boolean"
+    },
+    "concurrencyLimit": {
+      "@id": "tdev:concurrencyLimit",
+      "@type": "xsd:integer"
+    },
+    "depth": {
+      "@id": "tdev:depth",
+      "@type": "xsd:integer"
+    },
+
+    "idempotencyKey": {
+      "@id": "tdev:idempotencyKey",
+      "@type": "xsd:string"
+    },
+    "ttl": {
+      "@id": "tdev:ttl",
+      "@type": "xsd:string"
+    },
+    "expiresAt": {
+      "@id": "tdev:expiresAt",
+      "@type": "xsd:dateTime"
+    }
+  }
+}

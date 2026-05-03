@@ -1,0 +1,119 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/trigger-dev/main/json-schema/trigger-dev-run-schema.json",
+  "title": "Trigger.dev Run",
+  "description": "A single execution of a Trigger.dev background task",
+  "type": "object",
+  "required": ["id", "status", "taskIdentifier"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^run_",
+      "description": "Unique run identifier (prefixed with run_)"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "QUEUED", "EXECUTING", "REATTEMPTING", "WAITING_FOR_DEPLOY",
+        "WAITING_TO_RESUME", "COMPLETED_SUCCESSFULLY", "COMPLETED_WITH_ERRORS",
+        "INTERRUPTED", "CANCELLED", "CRASHED", "FAILED_TO_RUN",
+        "TIMED_OUT", "EXPIRED", "DELAYED", "SYSTEM_FAILURE"
+      ],
+      "description": "Current execution status of the run"
+    },
+    "taskIdentifier": {
+      "type": "string",
+      "description": "The task that this run executes (e.g., process-payment)"
+    },
+    "version": {
+      "type": "string",
+      "description": "Deployment version that ran the task"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the run was created"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "startedAt": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "When the run started executing"
+    },
+    "finishedAt": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "When the run completed (null if still running)"
+    },
+    "isTest": {
+      "type": "boolean",
+      "description": "Whether this is a test run"
+    },
+    "payload": {
+      "description": "The payload data passed to the task"
+    },
+    "output": {
+      "description": "The task's return value (only present when completed successfully)"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "maxLength": 128
+      },
+      "maxItems": 10,
+      "description": "Tags for filtering and categorizing runs"
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Arbitrary metadata attached to the run"
+    },
+    "relatedRuns": {
+      "type": "object",
+      "description": "Parent/child run hierarchy",
+      "properties": {
+        "root": { "$ref": "#/definitions/RunReference" },
+        "parent": { "$ref": "#/definitions/RunReference" },
+        "children": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/RunReference" }
+        }
+      }
+    },
+    "attempts": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/RunAttempt" },
+      "description": "Execution attempt history"
+    }
+  },
+  "definitions": {
+    "RunReference": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "pattern": "^run_" },
+        "status": { "type": "string" },
+        "taskIdentifier": { "type": "string" }
+      }
+    },
+    "RunAttempt": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "status": { "type": "string" },
+        "startedAt": { "type": "string", "format": "date-time" },
+        "completedAt": { "type": ["string", "null"], "format": "date-time" },
+        "error": {
+          "type": "object",
+          "properties": {
+            "message": { "type": "string" },
+            "stack": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

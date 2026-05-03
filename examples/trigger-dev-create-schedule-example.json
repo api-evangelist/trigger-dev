@@ -1,0 +1,41 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.trigger.dev/api/v1/schedules",
+    "headers": {
+      "Authorization": "Bearer tr_prod_your_secret_key",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "task": "daily-report-generator",
+      "cron": "0 9 * * MON-FRI",
+      "deduplicationKey": "daily-business-report",
+      "externalId": "report-schedule-001",
+      "timezone": "America/New_York"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "id": "sched_xyz789",
+      "task": "daily-report-generator",
+      "type": "IMPERATIVE",
+      "active": true,
+      "deduplicationKey": "daily-business-report",
+      "externalId": "report-schedule-001",
+      "timezone": "America/New_York",
+      "nextRun": "2026-05-04T13:00:00Z",
+      "generator": {
+        "type": "CRON",
+        "expression": "0 9 * * MON-FRI",
+        "description": "Every weekday at 9:00 AM Eastern"
+      },
+      "environments": [
+        {
+          "id": "env_prod123",
+          "type": "PRODUCTION"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.trigger.dev/api/v1/tasks/process-user-signup/trigger",
+    "headers": {
+      "Authorization": "Bearer tr_dev_your_secret_key",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "payload": {
+        "userId": "usr_12345",
+        "email": "user@example.com",
+        "plan": "pro"
+      },
+      "options": {
+        "idempotencyKey": "signup-usr_12345",
+        "tags": ["signup", "pro"],
+        "machine": "small-1x"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "id": "run_abc123xyz456"
+    }
+  }
+}

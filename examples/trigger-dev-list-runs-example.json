@@ -1,0 +1,44 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.trigger.dev/api/v1/runs?filter[status][]=EXECUTING&filter[status][]=QUEUED&filter[tag][]=production&page[size]=25",
+    "headers": {
+      "Authorization": "Bearer tr_prod_your_secret_key"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "run_abc123",
+          "status": "EXECUTING",
+          "taskIdentifier": "process-payment",
+          "version": "20260503.1",
+          "createdAt": "2026-05-03T10:00:00Z",
+          "updatedAt": "2026-05-03T10:00:05Z",
+          "startedAt": "2026-05-03T10:00:03Z",
+          "finishedAt": null,
+          "isTest": false,
+          "tags": ["production", "payment"]
+        },
+        {
+          "id": "run_def456",
+          "status": "QUEUED",
+          "taskIdentifier": "send-welcome-email",
+          "version": "20260503.1",
+          "createdAt": "2026-05-03T10:01:00Z",
+          "updatedAt": "2026-05-03T10:01:00Z",
+          "startedAt": null,
+          "finishedAt": null,
+          "isTest": false,
+          "tags": ["production", "email"]
+        }
+      ],
+      "pagination": {
+        "next": "run_def456",
+        "previous": null
+      }
+    }
+  }
+}

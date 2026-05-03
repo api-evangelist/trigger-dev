@@ -1,0 +1,45 @@
+{
+  "title": "Trigger.dev Run Structure",
+  "description": "Structure documentation for Trigger.dev task run entities",
+  "structure": {
+    "id": "string — Unique run identifier with run_ prefix (e.g., run_abc123xyz456)",
+    "status": "enum — Current run state (QUEUED, EXECUTING, COMPLETED_SUCCESSFULLY, etc.)",
+    "taskIdentifier": "string — The task's export identifier (kebab-case by convention)",
+    "version": "string — Deployment version string (e.g., 20260503.1)",
+    "createdAt": "string — ISO 8601 datetime when the run was enqueued",
+    "updatedAt": "string — ISO 8601 datetime of last status change",
+    "startedAt": "string|null — ISO 8601 datetime when execution began",
+    "finishedAt": "string|null — ISO 8601 datetime when execution completed",
+    "isTest": "boolean — Whether triggered as a test run from the dashboard",
+    "payload": "any — The JSON payload passed to task.run(payload)",
+    "output": "any — The return value of task.run() (only on COMPLETED_SUCCESSFULLY)",
+    "tags": "array<string> — Up to 10 tags, each max 128 chars",
+    "metadata": "object — Arbitrary key-value metadata",
+    "relatedRuns": {
+      "root": "object — The root/top-level run in a chain",
+      "parent": "object — The direct parent run (for child tasks)",
+      "children": "array — Child runs triggered from within this run"
+    },
+    "attempts": {
+      "_type": "array",
+      "_item": {
+        "id": "string — Attempt identifier",
+        "status": "string — Attempt status",
+        "startedAt": "string — Attempt start time",
+        "completedAt": "string|null — Attempt end time",
+        "error": "object — Error details on failed attempts"
+      }
+    }
+  },
+  "runStatuses": {
+    "terminal": ["COMPLETED_SUCCESSFULLY", "COMPLETED_WITH_ERRORS", "CANCELLED", "CRASHED", "FAILED_TO_RUN", "TIMED_OUT", "EXPIRED"],
+    "active": ["QUEUED", "EXECUTING", "REATTEMPTING", "WAITING_FOR_DEPLOY", "WAITING_TO_RESUME", "DELAYED"],
+    "retrying": ["REATTEMPTING"]
+  },
+  "notes": [
+    "payload and output are omitted when using Public API keys",
+    "Presigned URLs are provided for payload/output exceeding response size limits",
+    "Tag filtering uses exact string match",
+    "Pagination uses run IDs (not page numbers) for consistent ordering"
+  ]
+}

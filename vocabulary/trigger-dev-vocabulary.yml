@@ -1,0 +1,149 @@
+vocabulary:
+  name: Trigger.dev Vocabulary
+  description: >-
+    Domain vocabulary for the Trigger.dev background job and workflow automation
+    platform. Covers task execution, scheduling, queue management, deployment
+    lifecycle, and human-in-the-loop workflow patterns.
+  version: "1.0.0"
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+domains:
+  - name: Task Execution
+    description: Core concepts for defining and running background tasks
+    terms:
+      - term: Task
+        definition: The fundamental unit of work in Trigger.dev, defined as a TypeScript export using the task() function
+        synonyms: [background job, worker, handler]
+      - term: Task Identifier
+        definition: A unique string identifier for a task (kebab-case by convention, e.g., process-payment)
+        synonyms: [taskId, task name, task key]
+      - term: Run
+        definition: A single execution instance of a task, created when the task is triggered
+        synonyms: [execution, job run, task run, invocation]
+      - term: Run ID
+        definition: A unique identifier for a specific run, prefixed with run_ (e.g., run_abc123)
+        synonyms: [runId, execution ID, job ID]
+      - term: Payload
+        definition: The JSON data passed to a task when it is triggered, accessible as the first argument of task.run()
+        synonyms: [input, job data, trigger payload]
+      - term: Output
+        definition: The value returned by task.run() upon successful completion
+        synonyms: [result, return value, task result]
+      - term: Attempt
+        definition: A single execution attempt of a run (multiple attempts occur on retry after failure)
+        synonyms: [execution attempt, retry attempt]
+
+  - name: Run Lifecycle
+    description: Status states and lifecycle events for task runs
+    terms:
+      - term: QUEUED
+        definition: The run is waiting to be picked up by a worker
+        synonyms: [pending, waiting, enqueued]
+      - term: EXECUTING
+        definition: The run is actively being processed by a worker
+        synonyms: [running, processing, in-progress]
+      - term: COMPLETED_SUCCESSFULLY
+        definition: The run finished and task.run() returned a value without throwing
+        synonyms: [succeeded, completed, done]
+      - term: COMPLETED_WITH_ERRORS
+        definition: The run finished but task.run() threw an error or returned an error result
+        synonyms: [failed, error]
+      - term: REATTEMPTING
+        definition: The run failed and is waiting to be retried based on retry configuration
+        synonyms: [retrying, awaiting retry]
+      - term: WAITING_TO_RESUME
+        definition: The run is paused at a wait point (wait.for, wait.until, or waitpoint token)
+        synonyms: [paused, suspended, waiting]
+      - term: CANCELLED
+        definition: The run was manually cancelled via the API or dashboard
+        synonyms: [stopped, aborted]
+      - term: DELAYED
+        definition: The run was triggered with a delay and is waiting for its scheduled execution time
+        synonyms: [scheduled, deferred]
+
+  - name: Scheduling
+    description: Concepts for recurring and time-based task execution
+    terms:
+      - term: Schedule
+        definition: A configuration that triggers a task automatically on a recurring basis using a cron expression
+        synonyms: [cron job, scheduled task, recurring job]
+      - term: Schedule ID
+        definition: Unique identifier for a schedule, prefixed with sched_
+        synonyms: [scheduleId, schedule identifier]
+      - term: CRON Expression
+        definition: A string in cron format specifying when a task should run (e.g., 0 9 * * MON-FRI)
+        synonyms: [cron, cron string, schedule expression]
+      - term: IMPERATIVE Schedule
+        definition: A schedule created via the Management API (as opposed to defined in code)
+        synonyms: [dynamic schedule, API-created schedule]
+      - term: Deduplication Key
+        definition: A key that prevents creating duplicate schedules with the same configuration
+        synonyms: [deduplicationKey, idempotency key for schedules]
+      - term: External ID
+        definition: A custom identifier linking a Trigger.dev schedule to an external system record
+        synonyms: [externalId, customer ID, external reference]
+
+  - name: Queue Management
+    description: Concepts for controlling task execution concurrency and flow
+    terms:
+      - term: Queue
+        definition: A named buffer that controls the order and concurrency of task runs
+        synonyms: [task queue, job queue, work queue]
+      - term: Concurrency Limit
+        definition: The maximum number of runs that can execute simultaneously in a queue
+        synonyms: [concurrencyLimit, max concurrent, parallelism limit]
+      - term: Queue Depth
+        definition: The number of runs currently waiting in a queue to be executed
+        synonyms: [depth, queue length, backlog]
+      - term: Concurrency Key
+        definition: A dynamic key that scopes concurrency limits (e.g., per-tenant isolation)
+        synonyms: [concurrencyKey, scope key, isolation key]
+
+  - name: Deployments
+    description: Concepts for managing task code deployments
+    terms:
+      - term: Deployment
+        definition: A versioned snapshot of task code pushed to Trigger.dev Cloud or a self-hosted instance
+        synonyms: [version, release, code deployment]
+      - term: Deployment Version
+        definition: A semantic version string assigned to each deployment (e.g., 20260503.1)
+        synonyms: [version string, build version]
+      - term: Promote
+        definition: The act of making a specific deployment version the active version for production traffic
+        synonyms: [promote to production, activate version]
+
+  - name: Workflow Patterns
+    description: Advanced workflow orchestration patterns
+    terms:
+      - term: Batch
+        definition: A group of multiple task runs triggered together in a single API call
+        synonyms: [batch run, bulk trigger, parallel batch]
+      - term: Waitpoint
+        definition: A pause point within a run that suspends execution until an external condition is met
+        synonyms: [wait token, pause point, checkpoint]
+      - term: Waitpoint Token
+        definition: A unique token created to represent a waitpoint that can be completed externally
+        synonyms: [wait token, approval token, human-in-the-loop token]
+      - term: Human-in-the-Loop
+        definition: A workflow pattern where execution pauses for human input or approval via a waitpoint token
+        synonyms: [HITL, approval workflow, manual review step]
+      - term: Child Task
+        definition: A task triggered from within another task using triggerAndWait() or trigger()
+        synonyms: [subtask, nested task, child run]
+      - term: Idempotency Key
+        definition: A unique key that prevents duplicate runs when the same request is submitted multiple times
+        synonyms: [idempotencyKey, dedup key, request deduplication]
+
+  - name: Authentication
+    description: API authentication concepts
+    terms:
+      - term: Secret Key
+        definition: >-
+          An API key for server-side authentication, prefixed by environment:
+          tr_dev_ (development), tr_prod_ (production), tr_stg_ (staging).
+          Set as TRIGGER_SECRET_KEY environment variable.
+        synonyms: [secret API key, TRIGGER_SECRET_KEY, bearer token]
+      - term: Environment
+        definition: An isolated deployment context (Development, Staging, Production) with separate runs and configuration
+        synonyms: [env, deployment environment]
