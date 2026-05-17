@@ -125,7 +125,7 @@ common:
     url: https://trigger.dev/pricing
   - type: Blog
     url: https://trigger.dev/blog
-  - type: Changelog
+  - type: ChangeLog
     url: https://trigger.dev/changelog
 maintainers:
   - FN: Kin Lane
