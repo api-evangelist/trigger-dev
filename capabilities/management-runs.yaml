@@ -1,0 +1,349 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Trigger.dev Management API — Runs
+  description: 'Trigger.dev Management API — Runs. 6 operations. Lead operation: List Runs. Self-contained Naftiko capability
+    covering one Trigger Dev business surface.'
+  tags:
+  - Trigger Dev
+  - Runs
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TRIGGER_DEV_API_KEY: TRIGGER_DEV_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: management-runs
+    baseUri: https://api.trigger.dev
+    description: Trigger.dev Management API — Runs business capability. Self-contained, no shared references.
+    resources:
+    - name: api-v1-runs
+      path: /api/v1/runs
+      operations:
+      - name: listruns
+        method: GET
+        description: List Runs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: filter[status]
+          in: query
+          type: array
+          description: Filter by run status
+        - name: filter[taskIdentifier]
+          in: query
+          type: array
+          description: Filter by task identifiers
+        - name: filter[tag]
+          in: query
+          type: array
+          description: Filter by tags
+        - name: filter[isTest]
+          in: query
+          type: boolean
+          description: Filter to test runs only
+        - name: filter[createdAt.from]
+          in: query
+          type: string
+          description: Filter runs created after this time
+        - name: filter[createdAt.to]
+          in: query
+          type: string
+          description: Filter runs created before this time
+        - name: page[size]
+          in: query
+          type: integer
+          description: Runs per page
+        - name: page[after]
+          in: query
+          type: string
+          description: Run ID to paginate after
+        - name: page[before]
+          in: query
+          type: string
+          description: Run ID to paginate before
+    - name: api-v1-runs-runId
+      path: /api/v1/runs/{runId}
+      operations:
+      - name: getrunbyid
+        method: GET
+        description: Retrieve Run
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: runId
+          in: path
+          type: string
+          description: Run identifier (prefixed with run_)
+          required: true
+    - name: api-v1-runs-runId-cancel
+      path: /api/v1/runs/{runId}/cancel
+      operations:
+      - name: cancelrun
+        method: POST
+        description: Cancel Run
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: runId
+          in: path
+          type: string
+          description: Run identifier
+          required: true
+    - name: api-v1-runs-runId-replay
+      path: /api/v1/runs/{runId}/replay
+      operations:
+      - name: replayrun
+        method: POST
+        description: Replay Run
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: runId
+          in: path
+          type: string
+          description: Run identifier
+          required: true
+    - name: api-v1-runs-runId-reschedule
+      path: /api/v1/runs/{runId}/reschedule
+      operations:
+      - name: reschedulerun
+        method: POST
+        description: Reschedule Run
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: runId
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-runs-runId-tags
+      path: /api/v1/runs/{runId}/tags
+      operations:
+      - name: addtagstorun
+        method: PUT
+        description: Add Tags to Run
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: runId
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.TRIGGER_DEV_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: management-runs-rest
+    port: 8080
+    description: REST adapter for Trigger.dev Management API — Runs. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/api/v1/runs
+      name: api-v1-runs
+      description: REST surface for api-v1-runs.
+      operations:
+      - method: GET
+        name: listruns
+        description: List Runs
+        call: management-runs.listruns
+        with:
+          filter[status]: rest.filter[status]
+          filter[taskIdentifier]: rest.filter[taskIdentifier]
+          filter[tag]: rest.filter[tag]
+          filter[isTest]: rest.filter[isTest]
+          filter[createdAt.from]: rest.filter[createdAt.from]
+          filter[createdAt.to]: rest.filter[createdAt.to]
+          page[size]: rest.page[size]
+          page[after]: rest.page[after]
+          page[before]: rest.page[before]
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/runs/{runid}
+      name: api-v1-runs-runid
+      description: REST surface for api-v1-runs-runId.
+      operations:
+      - method: GET
+        name: getrunbyid
+        description: Retrieve Run
+        call: management-runs.getrunbyid
+        with:
+          runId: rest.runId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/runs/{runid}/cancel
+      name: api-v1-runs-runid-cancel
+      description: REST surface for api-v1-runs-runId-cancel.
+      operations:
+      - method: POST
+        name: cancelrun
+        description: Cancel Run
+        call: management-runs.cancelrun
+        with:
+          runId: rest.runId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/runs/{runid}/replay
+      name: api-v1-runs-runid-replay
+      description: REST surface for api-v1-runs-runId-replay.
+      operations:
+      - method: POST
+        name: replayrun
+        description: Replay Run
+        call: management-runs.replayrun
+        with:
+          runId: rest.runId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/runs/{runid}/reschedule
+      name: api-v1-runs-runid-reschedule
+      description: REST surface for api-v1-runs-runId-reschedule.
+      operations:
+      - method: POST
+        name: reschedulerun
+        description: Reschedule Run
+        call: management-runs.reschedulerun
+        with:
+          runId: rest.runId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/runs/{runid}/tags
+      name: api-v1-runs-runid-tags
+      description: REST surface for api-v1-runs-runId-tags.
+      operations:
+      - method: PUT
+        name: addtagstorun
+        description: Add Tags to Run
+        call: management-runs.addtagstorun
+        with:
+          runId: rest.runId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: management-runs-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Trigger.dev Management API — Runs. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-runs
+      description: List Runs
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: management-runs.listruns
+      with:
+        filter[status]: tools.filter[status]
+        filter[taskIdentifier]: tools.filter[taskIdentifier]
+        filter[tag]: tools.filter[tag]
+        filter[isTest]: tools.filter[isTest]
+        filter[createdAt.from]: tools.filter[createdAt.from]
+        filter[createdAt.to]: tools.filter[createdAt.to]
+        page[size]: tools.page[size]
+        page[after]: tools.page[after]
+        page[before]: tools.page[before]
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-run
+      description: Retrieve Run
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: management-runs.getrunbyid
+      with:
+        runId: tools.runId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: cancel-run
+      description: Cancel Run
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: management-runs.cancelrun
+      with:
+        runId: tools.runId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: replay-run
+      description: Replay Run
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: management-runs.replayrun
+      with:
+        runId: tools.runId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: reschedule-run
+      description: Reschedule Run
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: management-runs.reschedulerun
+      with:
+        runId: tools.runId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: add-tags-run
+      description: Add Tags to Run
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: management-runs.addtagstorun
+      with:
+        runId: tools.runId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

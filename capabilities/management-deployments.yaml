@@ -1,0 +1,184 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Trigger.dev Management API — Deployments
+  description: 'Trigger.dev Management API — Deployments. 4 operations. Lead operation: List Deployments. Self-contained Naftiko
+    capability covering one Trigger Dev business surface.'
+  tags:
+  - Trigger Dev
+  - Deployments
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TRIGGER_DEV_API_KEY: TRIGGER_DEV_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: management-deployments
+    baseUri: https://api.trigger.dev
+    description: Trigger.dev Management API — Deployments business capability. Self-contained, no shared references.
+    resources:
+    - name: api-v1-deployments
+      path: /api/v1/deployments
+      operations:
+      - name: listdeployments
+        method: GET
+        description: List Deployments
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: api-v1-deployments-latest
+      path: /api/v1/deployments/latest
+      operations:
+      - name: getlatestdeployment
+        method: GET
+        description: Get Latest Deployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: api-v1-deployments-deploymentId
+      path: /api/v1/deployments/{deploymentId}
+      operations:
+      - name: getdeploymentbyid
+        method: GET
+        description: Get Deployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: deploymentId
+          in: path
+          type: string
+          required: true
+    - name: api-v1-deployments-deploymentId-promote
+      path: /api/v1/deployments/{deploymentId}/promote
+      operations:
+      - name: promotedeployment
+        method: POST
+        description: Promote Deployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: deploymentId
+          in: path
+          type: string
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.TRIGGER_DEV_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: management-deployments-rest
+    port: 8080
+    description: REST adapter for Trigger.dev Management API — Deployments. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/api/v1/deployments
+      name: api-v1-deployments
+      description: REST surface for api-v1-deployments.
+      operations:
+      - method: GET
+        name: listdeployments
+        description: List Deployments
+        call: management-deployments.listdeployments
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/deployments/latest
+      name: api-v1-deployments-latest
+      description: REST surface for api-v1-deployments-latest.
+      operations:
+      - method: GET
+        name: getlatestdeployment
+        description: Get Latest Deployment
+        call: management-deployments.getlatestdeployment
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/deployments/{deploymentid}
+      name: api-v1-deployments-deploymentid
+      description: REST surface for api-v1-deployments-deploymentId.
+      operations:
+      - method: GET
+        name: getdeploymentbyid
+        description: Get Deployment
+        call: management-deployments.getdeploymentbyid
+        with:
+          deploymentId: rest.deploymentId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/deployments/{deploymentid}/promote
+      name: api-v1-deployments-deploymentid-promote
+      description: REST surface for api-v1-deployments-deploymentId-promote.
+      operations:
+      - method: POST
+        name: promotedeployment
+        description: Promote Deployment
+        call: management-deployments.promotedeployment
+        with:
+          deploymentId: rest.deploymentId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: management-deployments-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Trigger.dev Management API — Deployments. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: list-deployments
+      description: List Deployments
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: management-deployments.listdeployments
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-latest-deployment
+      description: Get Latest Deployment
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: management-deployments.getlatestdeployment
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-deployment
+      description: Get Deployment
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: management-deployments.getdeploymentbyid
+      with:
+        deploymentId: tools.deploymentId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: promote-deployment
+      description: Promote Deployment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: management-deployments.promotedeployment
+      with:
+        deploymentId: tools.deploymentId
+      outputParameters:
+      - type: object
+        mapping: $.

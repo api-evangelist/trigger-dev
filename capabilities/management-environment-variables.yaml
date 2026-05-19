@@ -1,0 +1,264 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Trigger.dev Management API — Environment Variables
+  description: 'Trigger.dev Management API — Environment Variables. 6 operations. Lead operation: List Environment Variables.
+    Self-contained Naftiko capability covering one Trigger Dev business surface.'
+  tags:
+  - Trigger Dev
+  - Environment Variables
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TRIGGER_DEV_API_KEY: TRIGGER_DEV_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: management-environment-variables
+    baseUri: https://api.trigger.dev
+    description: Trigger.dev Management API — Environment Variables business capability. Self-contained, no shared references.
+    resources:
+    - name: api-v1-envvars
+      path: /api/v1/envvars
+      operations:
+      - name: listenvvars
+        method: GET
+        description: List Environment Variables
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createenvvar
+        method: POST
+        description: Create Environment Variable
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-envvars-import
+      path: /api/v1/envvars/import
+      operations:
+      - name: importenvvars
+        method: POST
+        description: Import Environment Variables
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-envvars-name
+      path: /api/v1/envvars/{name}
+      operations:
+      - name: getenvvarbyname
+        method: GET
+        description: Retrieve Environment Variable
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: name
+          in: path
+          type: string
+          description: Variable name
+          required: true
+      - name: updateenvvar
+        method: PUT
+        description: Update Environment Variable
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: name
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteenvvar
+        method: DELETE
+        description: Delete Environment Variable
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: name
+          in: path
+          type: string
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.TRIGGER_DEV_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: management-environment-variables-rest
+    port: 8080
+    description: REST adapter for Trigger.dev Management API — Environment Variables. One Spectral-compliant resource per
+      consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/api/v1/envvars
+      name: api-v1-envvars
+      description: REST surface for api-v1-envvars.
+      operations:
+      - method: GET
+        name: listenvvars
+        description: List Environment Variables
+        call: management-environment-variables.listenvvars
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createenvvar
+        description: Create Environment Variable
+        call: management-environment-variables.createenvvar
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/envvars/import
+      name: api-v1-envvars-import
+      description: REST surface for api-v1-envvars-import.
+      operations:
+      - method: POST
+        name: importenvvars
+        description: Import Environment Variables
+        call: management-environment-variables.importenvvars
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/envvars/{name}
+      name: api-v1-envvars-name
+      description: REST surface for api-v1-envvars-name.
+      operations:
+      - method: GET
+        name: getenvvarbyname
+        description: Retrieve Environment Variable
+        call: management-environment-variables.getenvvarbyname
+        with:
+          name: rest.name
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updateenvvar
+        description: Update Environment Variable
+        call: management-environment-variables.updateenvvar
+        with:
+          name: rest.name
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteenvvar
+        description: Delete Environment Variable
+        call: management-environment-variables.deleteenvvar
+        with:
+          name: rest.name
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: management-environment-variables-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Trigger.dev Management API — Environment Variables. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: list-environment-variables
+      description: List Environment Variables
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: management-environment-variables.listenvvars
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-environment-variable
+      description: Create Environment Variable
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: management-environment-variables.createenvvar
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: import-environment-variables
+      description: Import Environment Variables
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: management-environment-variables.importenvvars
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-environment-variable
+      description: Retrieve Environment Variable
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: management-environment-variables.getenvvarbyname
+      with:
+        name: tools.name
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-environment-variable
+      description: Update Environment Variable
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: management-environment-variables.updateenvvar
+      with:
+        name: tools.name
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-environment-variable
+      description: Delete Environment Variable
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: management-environment-variables.deleteenvvar
+      with:
+        name: tools.name
+      outputParameters:
+      - type: object
+        mapping: $.

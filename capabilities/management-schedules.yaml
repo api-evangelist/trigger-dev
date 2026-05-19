@@ -1,0 +1,336 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Trigger.dev Management API — Schedules
+  description: 'Trigger.dev Management API — Schedules. 8 operations. Lead operation: List Schedules. Self-contained Naftiko
+    capability covering one Trigger Dev business surface.'
+  tags:
+  - Trigger Dev
+  - Schedules
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TRIGGER_DEV_API_KEY: TRIGGER_DEV_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: management-schedules
+    baseUri: https://api.trigger.dev
+    description: Trigger.dev Management API — Schedules business capability. Self-contained, no shared references.
+    resources:
+    - name: api-v1-schedules
+      path: /api/v1/schedules
+      operations:
+      - name: listschedules
+        method: GET
+        description: List Schedules
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createschedule
+        method: POST
+        description: Create Schedule
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-schedules-timezones
+      path: /api/v1/schedules/timezones
+      operations:
+      - name: gettimezones
+        method: GET
+        description: Get Timezones
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: api-v1-schedules-scheduleId
+      path: /api/v1/schedules/{scheduleId}
+      operations:
+      - name: getschedulebyid
+        method: GET
+        description: Retrieve Schedule
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: scheduleId
+          in: path
+          type: string
+          description: Schedule identifier (prefixed with sched_)
+          required: true
+      - name: updateschedule
+        method: PUT
+        description: Update Schedule
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: scheduleId
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteschedule
+        method: DELETE
+        description: Delete Schedule
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: scheduleId
+          in: path
+          type: string
+          required: true
+    - name: api-v1-schedules-scheduleId-activate
+      path: /api/v1/schedules/{scheduleId}/activate
+      operations:
+      - name: activateschedule
+        method: POST
+        description: Activate Schedule
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: scheduleId
+          in: path
+          type: string
+          required: true
+    - name: api-v1-schedules-scheduleId-deactivate
+      path: /api/v1/schedules/{scheduleId}/deactivate
+      operations:
+      - name: deactivateschedule
+        method: POST
+        description: Deactivate Schedule
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: scheduleId
+          in: path
+          type: string
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.TRIGGER_DEV_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: management-schedules-rest
+    port: 8080
+    description: REST adapter for Trigger.dev Management API — Schedules. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/api/v1/schedules
+      name: api-v1-schedules
+      description: REST surface for api-v1-schedules.
+      operations:
+      - method: GET
+        name: listschedules
+        description: List Schedules
+        call: management-schedules.listschedules
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createschedule
+        description: Create Schedule
+        call: management-schedules.createschedule
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/schedules/timezones
+      name: api-v1-schedules-timezones
+      description: REST surface for api-v1-schedules-timezones.
+      operations:
+      - method: GET
+        name: gettimezones
+        description: Get Timezones
+        call: management-schedules.gettimezones
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/schedules/{scheduleid}
+      name: api-v1-schedules-scheduleid
+      description: REST surface for api-v1-schedules-scheduleId.
+      operations:
+      - method: GET
+        name: getschedulebyid
+        description: Retrieve Schedule
+        call: management-schedules.getschedulebyid
+        with:
+          scheduleId: rest.scheduleId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updateschedule
+        description: Update Schedule
+        call: management-schedules.updateschedule
+        with:
+          scheduleId: rest.scheduleId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteschedule
+        description: Delete Schedule
+        call: management-schedules.deleteschedule
+        with:
+          scheduleId: rest.scheduleId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/schedules/{scheduleid}/activate
+      name: api-v1-schedules-scheduleid-activate
+      description: REST surface for api-v1-schedules-scheduleId-activate.
+      operations:
+      - method: POST
+        name: activateschedule
+        description: Activate Schedule
+        call: management-schedules.activateschedule
+        with:
+          scheduleId: rest.scheduleId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/schedules/{scheduleid}/deactivate
+      name: api-v1-schedules-scheduleid-deactivate
+      description: REST surface for api-v1-schedules-scheduleId-deactivate.
+      operations:
+      - method: POST
+        name: deactivateschedule
+        description: Deactivate Schedule
+        call: management-schedules.deactivateschedule
+        with:
+          scheduleId: rest.scheduleId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: management-schedules-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Trigger.dev Management API — Schedules. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-schedules
+      description: List Schedules
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: management-schedules.listschedules
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-schedule
+      description: Create Schedule
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: management-schedules.createschedule
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-timezones
+      description: Get Timezones
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: management-schedules.gettimezones
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-schedule
+      description: Retrieve Schedule
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: management-schedules.getschedulebyid
+      with:
+        scheduleId: tools.scheduleId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-schedule
+      description: Update Schedule
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: management-schedules.updateschedule
+      with:
+        scheduleId: tools.scheduleId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-schedule
+      description: Delete Schedule
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: management-schedules.deleteschedule
+      with:
+        scheduleId: tools.scheduleId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: activate-schedule
+      description: Activate Schedule
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: management-schedules.activateschedule
+      with:
+        scheduleId: tools.scheduleId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deactivate-schedule
+      description: Deactivate Schedule
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: management-schedules.deactivateschedule
+      with:
+        scheduleId: tools.scheduleId
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,283 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Trigger.dev Management API — Queues
+  description: 'Trigger.dev Management API — Queues. 6 operations. Lead operation: List Queues. Self-contained Naftiko capability
+    covering one Trigger Dev business surface.'
+  tags:
+  - Trigger Dev
+  - Queues
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TRIGGER_DEV_API_KEY: TRIGGER_DEV_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: management-queues
+    baseUri: https://api.trigger.dev
+    description: Trigger.dev Management API — Queues business capability. Self-contained, no shared references.
+    resources:
+    - name: api-v1-queues
+      path: /api/v1/queues
+      operations:
+      - name: listqueues
+        method: GET
+        description: List Queues
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: api-v1-queues-queueName
+      path: /api/v1/queues/{queueName}
+      operations:
+      - name: getqueuebyname
+        method: GET
+        description: Retrieve Queue
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: queueName
+          in: path
+          type: string
+          description: Queue name
+          required: true
+    - name: api-v1-queues-queueName-concurrency
+      path: /api/v1/queues/{queueName}/concurrency
+      operations:
+      - name: overridequeueconcurrency
+        method: PUT
+        description: Override Queue Concurrency
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: queueName
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-queues-queueName-concurrency-reset
+      path: /api/v1/queues/{queueName}/concurrency/reset
+      operations:
+      - name: resetqueueconcurrency
+        method: POST
+        description: Reset Queue Concurrency
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: queueName
+          in: path
+          type: string
+          required: true
+    - name: api-v1-queues-queueName-pause
+      path: /api/v1/queues/{queueName}/pause
+      operations:
+      - name: pausequeue
+        method: POST
+        description: Pause Queue
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: queueName
+          in: path
+          type: string
+          required: true
+    - name: api-v1-queues-queueName-resume
+      path: /api/v1/queues/{queueName}/resume
+      operations:
+      - name: resumequeue
+        method: POST
+        description: Resume Queue
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: queueName
+          in: path
+          type: string
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.TRIGGER_DEV_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: management-queues-rest
+    port: 8080
+    description: REST adapter for Trigger.dev Management API — Queues. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/api/v1/queues
+      name: api-v1-queues
+      description: REST surface for api-v1-queues.
+      operations:
+      - method: GET
+        name: listqueues
+        description: List Queues
+        call: management-queues.listqueues
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/queues/{queuename}
+      name: api-v1-queues-queuename
+      description: REST surface for api-v1-queues-queueName.
+      operations:
+      - method: GET
+        name: getqueuebyname
+        description: Retrieve Queue
+        call: management-queues.getqueuebyname
+        with:
+          queueName: rest.queueName
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/queues/{queuename}/concurrency
+      name: api-v1-queues-queuename-concurrency
+      description: REST surface for api-v1-queues-queueName-concurrency.
+      operations:
+      - method: PUT
+        name: overridequeueconcurrency
+        description: Override Queue Concurrency
+        call: management-queues.overridequeueconcurrency
+        with:
+          queueName: rest.queueName
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/queues/{queuename}/concurrency/reset
+      name: api-v1-queues-queuename-concurrency-reset
+      description: REST surface for api-v1-queues-queueName-concurrency-reset.
+      operations:
+      - method: POST
+        name: resetqueueconcurrency
+        description: Reset Queue Concurrency
+        call: management-queues.resetqueueconcurrency
+        with:
+          queueName: rest.queueName
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/queues/{queuename}/pause
+      name: api-v1-queues-queuename-pause
+      description: REST surface for api-v1-queues-queueName-pause.
+      operations:
+      - method: POST
+        name: pausequeue
+        description: Pause Queue
+        call: management-queues.pausequeue
+        with:
+          queueName: rest.queueName
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/queues/{queuename}/resume
+      name: api-v1-queues-queuename-resume
+      description: REST surface for api-v1-queues-queueName-resume.
+      operations:
+      - method: POST
+        name: resumequeue
+        description: Resume Queue
+        call: management-queues.resumequeue
+        with:
+          queueName: rest.queueName
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: management-queues-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Trigger.dev Management API — Queues. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-queues
+      description: List Queues
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: management-queues.listqueues
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-queue
+      description: Retrieve Queue
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: management-queues.getqueuebyname
+      with:
+        queueName: tools.queueName
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: override-queue-concurrency
+      description: Override Queue Concurrency
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: management-queues.overridequeueconcurrency
+      with:
+        queueName: tools.queueName
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: reset-queue-concurrency
+      description: Reset Queue Concurrency
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: management-queues.resetqueueconcurrency
+      with:
+        queueName: tools.queueName
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: pause-queue
+      description: Pause Queue
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: management-queues.pausequeue
+      with:
+        queueName: tools.queueName
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: resume-queue
+      description: Resume Queue
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: management-queues.resumequeue
+      with:
+        queueName: tools.queueName
+      outputParameters:
+      - type: object
+        mapping: $.
