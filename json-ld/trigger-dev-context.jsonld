@@ -125,6 +125,60 @@
     "expiresAt": {
       "@id": "tdev:expiresAt",
       "@type": "xsd:dateTime"
+    },
+
+    "RunEvent": "tdev:RunEvent",
+    "Query": "tdev:Query",
+    "Dashboard": "tdev:Dashboard",
+    "PreviewBranch": "tdev:PreviewBranch",
+
+    "spanId": {
+      "@id": "tdev:spanId",
+      "@type": "xsd:string"
+    },
+    "parentId": {
+      "@id": "tdev:parentId",
+      "@type": "xsd:string"
+    },
+    "runId": {
+      "@id": "tdev:runId",
+      "@type": "xsd:string"
+    },
+    "level": {
+      "@id": "tdev:logLevel",
+      "@type": "xsd:string"
+    },
+    "kind": {
+      "@id": "tdev:spanKind",
+      "@type": "xsd:string"
+    },
+    "duration": {
+      "@id": "tdev:durationNs",
+      "@type": "xsd:integer"
+    },
+    "attemptNumber": {
+      "@id": "tdev:attemptNumber",
+      "@type": "xsd:integer"
+    },
+    "taskSlug": {
+      "@id": "tdev:taskSlug",
+      "@type": "xsd:string"
+    },
+    "query": {
+      "@id": "tdev:trqlQuery",
+      "@type": "xsd:string"
+    },
+    "scope": {
+      "@id": "tdev:queryScope",
+      "@type": "xsd:string"
+    },
+    "format": {
+      "@id": "tdev:format",
+      "@type": "xsd:string"
+    },
+    "isReplay": {
+      "@id": "tdev:isReplay",
+      "@type": "xsd:boolean"
     }
   }
 }

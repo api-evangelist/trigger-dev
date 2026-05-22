@@ -8,7 +8,7 @@ info:
     of background job workflows including triggering, monitoring, cancellation,
     and observability. Authenticated via bearer token (secret API key starting
     with tr_dev_, tr_prod_, or tr_stg_).
-  version: 3.0.0
+  version: 3.1.0
   contact:
     url: https://trigger.dev
   license:
@@ -21,6 +21,25 @@ servers:
     description: Self-hosted Trigger.dev instance
 security:
   - bearerAuth: []
+tags:
+  - name: Tasks
+    description: Trigger individual or batched task runs.
+  - name: Runs
+    description: List, retrieve, cancel, replay, reschedule, tag, and inspect run events, results, and traces.
+  - name: Schedules
+    description: Create and manage cron schedules with IANA timezone support.
+  - name: Deployments
+    description: List deployments and promote versions to production.
+  - name: Queues
+    description: Manage task queues including pause, resume, and concurrency overrides.
+  - name: Environment Variables
+    description: Create, read, update, delete, and import environment variables per project and environment.
+  - name: Batches
+    description: Create and retrieve large-scale batch runs.
+  - name: Waitpoints
+    description: Create, list, retrieve, and complete waitpoint tokens for human-in-the-loop workflows.
+  - name: Query
+    description: Execute TRQL queries against runs, tasks, and metrics for dashboards and analytics.
 paths:
 
   # ── Tasks ──────────────────────────────────────────────────────────
@@ -312,6 +331,127 @@ paths:
       responses:
         '200':
           description: Tags added successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Run'
+
+  /api/v1/runs/{runId}/events:
+    get:
+      operationId: retrieveRunEvents
+      summary: Retrieve Run Events
+      description: Retrieve the OpenTelemetry spans / events for a specific run, including timing, level, kind, and nested events. Used for tracing and debugging task execution.
+      tags:
+        - Runs
+      parameters:
+        - name: runId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Run identifier (prefixed with run_)
+      responses:
+        '200':
+          description: List of run events
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  events:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/RunEvent'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Run not found
+
+  /api/v1/runs/{runId}/result:
+    get:
+      operationId: retrieveRunResult
+      summary: Retrieve Run Result
+      description: Retrieve the final result of a completed run, including output payload or error details.
+      tags:
+        - Runs
+      parameters:
+        - name: runId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Run result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  output:
+                    description: Successful output payload
+                  error:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                      stack:
+                        type: string
+        '404':
+          description: Run not found
+
+  /api/v1/runs/{runId}/trace:
+    get:
+      operationId: retrieveRunTrace
+      summary: Retrieve Run Trace
+      description: Retrieve the distributed trace tree for a run including all child runs, spans, and timing data.
+      tags:
+        - Runs
+      parameters:
+        - name: runId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Run trace tree
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '404':
+          description: Run not found
+
+  /api/v1/runs/{runId}/metadata:
+    put:
+      operationId: updateRunMetadata
+      summary: Update Run Metadata
+      description: Update the metadata object attached to a run. Useful for storing custom progress or context.
+      tags:
+        - Runs
+      parameters:
+        - name: runId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                metadata:
+                  type: object
+                  additionalProperties: true
+      responses:
+        '200':
+          description: Metadata updated
           content:
             application/json:
               schema:
@@ -907,6 +1047,156 @@ paths:
         '200':
           description: Waitpoint completed
 
+  /api/v1/waitpoints/tokens:
+    get:
+      operationId: listWaitpointTokens
+      summary: List Waitpoint Tokens
+      description: Returns a paginated list of waitpoint tokens filterable by status, tags, idempotency key, and creation period.
+      tags:
+        - Waitpoints
+      parameters:
+        - name: page[size]
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+          description: Tokens per page
+        - name: page[after]
+          in: query
+          schema:
+            type: string
+          description: Cursor for next page
+        - name: page[before]
+          in: query
+          schema:
+            type: string
+          description: Cursor for previous page
+        - name: filter[status]
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+              enum: [WAITING, COMPLETED, TIMED_OUT]
+        - name: filter[tags]
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+        - name: filter[idempotencyKey]
+          in: query
+          schema:
+            type: string
+        - name: filter[createdAt][period]
+          in: query
+          schema:
+            type: string
+            description: Time shorthand such as 24h or 7d
+      responses:
+        '200':
+          description: Paginated list of waitpoint tokens
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/WaitpointToken'
+                  pagination:
+                    type: object
+                    properties:
+                      next:
+                        type: string
+                      previous:
+                        type: string
+
+  /api/v1/waitpoints/{tokenId}/callback:
+    post:
+      operationId: completeWaitpointTokenCallback
+      summary: Complete Waitpoint Token via Callback
+      description: Complete a waitpoint token by callback URL — used when an external system signals completion of a human-in-the-loop step.
+      tags:
+        - Waitpoints
+      parameters:
+        - name: tokenId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  description: Result payload returned to the waiting run
+      responses:
+        '200':
+          description: Waitpoint completed via callback
+
+  # ── Query / Dashboards ────────────────────────────────────────────
+  /api/v1/query:
+    post:
+      operationId: executeQuery
+      summary: Execute Query
+      description: Execute a TRQL query against runs, tasks, and metrics. Supports environment, project, or organization scope. Returns JSON rows or CSV.
+      tags:
+        - Query
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [query]
+              properties:
+                query:
+                  type: string
+                  description: TRQL query string
+                scope:
+                  type: string
+                  enum: [environment, project, organization]
+                  default: environment
+                period:
+                  type: string
+                  description: Time shorthand such as 7d or 30d
+                from:
+                  type: string
+                  format: date-time
+                to:
+                  type: string
+                  format: date-time
+                format:
+                  type: string
+                  enum: [json, csv]
+                  default: json
+      responses:
+        '200':
+          description: Query result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  format:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: true
+            text/csv:
+              schema:
+                type: string
+        '400':
+          description: Invalid query
+
 components:
   securitySchemes:
     bearerAuth:
@@ -1302,6 +1592,54 @@ components:
           format: date-time
         data:
           description: Completion data returned to the waiting run
+
+    RunEvent:
+      type: object
+      properties:
+        spanId:
+          type: string
+        parentId:
+          type: string
+        runId:
+          type: string
+        message:
+          type: string
+        startTime:
+          type: string
+          format: date-time
+        duration:
+          type: integer
+          description: Span duration in nanoseconds
+        isError:
+          type: boolean
+        isPartial:
+          type: boolean
+        isCancelled:
+          type: boolean
+        level:
+          type: string
+          enum: [TRACE, DEBUG, LOG, INFO, WARN, ERROR]
+        kind:
+          type: string
+          enum: [INTERNAL, SERVER, CLIENT, PRODUCER, CONSUMER]
+        attemptNumber:
+          type: integer
+        taskSlug:
+          type: string
+        events:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        style:
+          type: object
+          properties:
+            icon:
+              type: string
+            variant:
+              type: string
+            accessory:
+              type: string
 
     ErrorResponse:
       type: object

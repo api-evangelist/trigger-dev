@@ -4,9 +4,9 @@ vocabulary:
     Domain vocabulary for the Trigger.dev background job and workflow automation
     platform. Covers task execution, scheduling, queue management, deployment
     lifecycle, and human-in-the-loop workflow patterns.
-  version: "1.0.0"
+  version: "1.1.0"
   created: "2026-05-03"
-  modified: "2026-05-03"
+  modified: "2026-05-22"
 
 domains:
   - name: Task Execution
@@ -144,6 +144,53 @@ domains:
           tr_dev_ (development), tr_prod_ (production), tr_stg_ (staging).
           Set as TRIGGER_SECRET_KEY environment variable.
         synonyms: [secret API key, TRIGGER_SECRET_KEY, bearer token]
+      - term: Personal Access Token
+        definition: User-scoped token (prefix tr_pat_) granting access to every org, project, and environment
+          the user belongs to. Requires projectRef when calling project-scoped endpoints.
+        synonyms: [PAT, tr_pat_, user token]
       - term: Environment
         definition: An isolated deployment context (Development, Staging, Production) with separate runs and configuration
         synonyms: [env, deployment environment]
+      - term: Preview Branch
+        definition: A per-branch deployment environment selected via the x-trigger-branch header or the
+          previewBranch SDK option. Only applicable to the preview environment.
+        synonyms: [preview environment, branch deployment]
+
+  - name: Realtime and Streaming
+    description: Concepts for live run subscriptions and typed streams
+    terms:
+      - term: Realtime Run
+        definition: A subscription to the live state of a single run, surfaced via the useRealtimeRun
+          React hook or backend subscribeToRun method.
+        synonyms: [live run, subscription]
+      - term: Realtime Stream
+        definition: A typed data stream emitted from a running task and consumed by clients via
+          useRealtimeStream or backend stream APIs.
+        synonyms: [task stream, output stream]
+      - term: Input Stream
+        definition: Bidirectional typed data channel allowing clients to send data into a running task.
+        synonyms: [task input channel]
+      - term: Wait Token Hook
+        definition: The useWaitToken React hook that resolves when a waitpoint token is completed.
+        synonyms: [useWaitToken, approval hook]
+
+  - name: Query and Observability
+    description: Concepts for analyzing run data and dashboards
+    terms:
+      - term: TRQL
+        definition: Trigger.dev's query language for analyzing runs, tasks, and metrics. Executed via
+          POST /api/v1/query with environment, project, or organization scope.
+        synonyms: [Trigger Query Language, query]
+      - term: Dashboard
+        definition: A saved set of TRQL queries rendered as charts and tables in the Trigger.dev UI.
+        synonyms: [analytics dashboard, observability board]
+      - term: Run Event
+        definition: An OpenTelemetry span emitted during run execution. Includes level, kind, duration,
+          and nested events.
+        synonyms: [span, trace event, log event]
+      - term: Run Trace
+        definition: The full distributed trace tree for a run, including all child runs and their spans.
+        synonyms: [distributed trace, run tree]
+      - term: Replay Detection
+        definition: The ctx.run.isReplay flag indicating a task is executing as a replay of a prior run.
+        synonyms: [replay flag, isReplay]

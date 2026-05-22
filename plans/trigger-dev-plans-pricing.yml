@@ -4,142 +4,291 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Trigger.dev
 providerId: trigger-dev
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-22'
+sources:
+  - https://trigger.dev/pricing
+  - https://trigger.dev/docs/limits
 tags:
   - Developer-First
   - Workflow Automation
   - Background Jobs
+  - Durable Execution
   - TypeScript
   - AI Agents
   - Open Source
-description: Machine-readable plans and pricing scaffold for this API provider. Conforms to the API Commons
-  Plans schema. Tier limits and prices are scaffold defaults; replace with provider-published values.
+description: Machine-readable plans and pricing for the Trigger.dev Cloud platform. Captures the four published
+  tiers — Free, Hobby, Pro, Enterprise — along with included usage credits, concurrency, schedules, realtime
+  connections, log retention, team seats, and per-second compute pricing.
 plans:
   - id: trigger-dev-free
     name: Free
     type: freemium
-    description: Free entry tier for the Trigger.dev API surface. Intended for evaluation, prototyping,
-      and low-volume integrations. Real limits and pricing must be reconciled with the provider's published
-      plan documentation.
+    price: '0.00'
+    currency: USD
+    description: Free entry tier with $5 of included monthly usage, intended for evaluation, prototyping,
+      and low-volume hobby workloads on Trigger.dev Cloud. Includes self-hosted-equivalent feature surface.
     entries:
-      - label: API Requests
-        description: Monthly API request quota across all included endpoints
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 1000
+      - label: Included Monthly Usage
+        description: '"$5 free monthly usage" applied against per-second compute and per-run charges.'
+        name: included_usage
+        type: credit
+        metric: usd
+        limit: 5
         timeFrame: month
-        geo: global
-        domains: []
         unit: 1
         price: '0.00'
         userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the free tier
-        name: rate_limit
+      - label: Concurrent Runs
+        description: Maximum simultaneous task executions.
+        name: concurrent_runs
         type: rate
-        metric: requests_per_minute
+        metric: concurrent_runs
+        limit: 20
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+      - label: Schedules
+        description: Active cron schedules per project.
+        name: schedules
+        type: quota
+        metric: schedules
         limit: 10
-        timeFrame: minute
-        geo: global
-        domains: []
         unit: 1
         price: '0.00'
         userMultiplied: false
-    elements:
-      - name: Public Documentation
-      - name: Community Support
-      - name: Sandbox Access
-      - name: Trigger.dev Management API
-      - name: Trigger.dev Realtime API
-  - id: trigger-dev-pro
-    name: Professional
-    type: paid
-    description: Production tier for Trigger.dev. Provides higher quotas, priority support, and access
-      to the broader API portfolio. Pricing placeholder; align with the provider's pricing page.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota
-        name: api_requests
+      - label: Log Retention
+        description: Days of run logs retained.
+        name: log_retention_days
         type: quota
-        metric: requests
-        limit: 100000
-        timeFrame: month
-        geo: global
-        domains: []
-        unit: 1
-        price: TBD
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the professional tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 100
-        timeFrame: minute
-        geo: global
-        domains: []
+        metric: days
+        limit: 1
         unit: 1
         price: '0.00'
         userMultiplied: false
-      - label: Overage
-        description: Per-request price after monthly quota is exceeded
-        name: overage
-        type: metered
-        metric: requests
-        limit: -1
-        timeFrame: month
-        geo: global
-        domains: []
-        unit: 1000
-        price: TBD
+      - label: Realtime Connections
+        description: Concurrent Realtime API / hook subscriptions.
+        name: realtime_connections
+        type: rate
+        metric: connections
+        limit: 10
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+      - label: Team Members
+        description: Seats included on the organization.
+        name: team_seats
+        type: quota
+        metric: seats
+        limit: 5
+        unit: 1
+        price: '0.00'
         userMultiplied: false
     elements:
-      - name: All Production Endpoints
-      - name: Email Support
-      - name: SLA Targets
-      - name: Webhook Subscriptions
+      - name: Community Support
       - name: Trigger.dev Management API
       - name: Trigger.dev Realtime API
+      - name: Cloud + Self-Host
+  - id: trigger-dev-hobby
+    name: Hobby
+    type: paid
+    price: '10.00'
+    currency: USD
+    billingPeriod: month
+    description: $10/month tier with $10 of included monthly usage, higher concurrency, and 7-day log
+      retention. Aimed at side projects and small production workloads.
+    entries:
+      - label: Included Monthly Usage
+        description: '"$10 monthly usage included" applied against compute and run charges.'
+        name: included_usage
+        type: credit
+        metric: usd
+        limit: 10
+        timeFrame: month
+        unit: 1
+        price: '10.00'
+        userMultiplied: false
+      - label: Concurrent Runs
+        name: concurrent_runs
+        type: rate
+        metric: concurrent_runs
+        limit: 50
+        unit: 1
+        userMultiplied: false
+      - label: Schedules
+        name: schedules
+        type: quota
+        metric: schedules
+        limit: 100
+        unit: 1
+        userMultiplied: false
+      - label: Log Retention
+        name: log_retention_days
+        type: quota
+        metric: days
+        limit: 7
+        unit: 1
+        userMultiplied: false
+      - label: Realtime Connections
+        name: realtime_connections
+        type: rate
+        metric: connections
+        limit: 50
+        unit: 1
+        userMultiplied: false
+      - label: Team Members
+        name: team_seats
+        type: quota
+        metric: seats
+        limit: 5
+        unit: 1
+        userMultiplied: false
+      - label: Preview Branches
+        name: preview_branches
+        type: quota
+        metric: branches
+        limit: 5
+        unit: 1
+        userMultiplied: false
+    elements:
+      - name: Community Support
+      - name: All Free Features
+  - id: trigger-dev-pro
+    name: Pro
+    type: paid
+    price: '50.00'
+    currency: USD
+    billingPeriod: month
+    description: $50/month tier with $50 of included monthly usage, "200+ concurrent runs", 30-day log
+      retention, and "Dedicated Slack support". Concurrency add-on at "$10/month per 50"; additional
+      seats at "$20/month per seat".
+    entries:
+      - label: Included Monthly Usage
+        description: '"$50 monthly usage included".'
+        name: included_usage
+        type: credit
+        metric: usd
+        limit: 50
+        timeFrame: month
+        unit: 1
+        price: '50.00'
+        userMultiplied: false
+      - label: Concurrent Runs (Base)
+        description: Base concurrent runs ("200+ concurrent runs").
+        name: concurrent_runs_base
+        type: rate
+        metric: concurrent_runs
+        limit: 200
+        unit: 1
+        userMultiplied: false
+      - label: Concurrency Add-On
+        description: '"Then $10/month per 50" additional concurrent runs.'
+        name: concurrency_addon
+        type: metered
+        metric: concurrent_runs
+        unit: 50
+        price: '10.00'
+        timeFrame: month
+        userMultiplied: false
+      - label: Schedules
+        name: schedules
+        type: quota
+        metric: schedules
+        limit: 1000
+        unit: 1
+        userMultiplied: false
+      - label: Log Retention
+        name: log_retention_days
+        type: quota
+        metric: days
+        limit: 30
+        unit: 1
+        userMultiplied: false
+      - label: Realtime Connections
+        name: realtime_connections
+        type: rate
+        metric: connections
+        limit: 500
+        unit: 1
+        userMultiplied: false
+      - label: Team Members (Base)
+        name: team_seats_base
+        type: quota
+        metric: seats
+        limit: 25
+        unit: 1
+        userMultiplied: false
+      - label: Team Seat Add-On
+        description: '"Then $20/month per seat" beyond 25.'
+        name: team_seat_addon
+        type: metered
+        metric: seats
+        unit: 1
+        price: '20.00'
+        timeFrame: month
+        userMultiplied: true
+      - label: Preview Branches
+        name: preview_branches
+        type: quota
+        metric: branches
+        limit: 20
+        unit: 1
+        userMultiplied: false
+    elements:
+      - name: Dedicated Slack Support
+      - name: All Hobby Features
+      - name: Query and Dashboards
+      - name: Error Tracking Dashboard
   - id: trigger-dev-enterprise
     name: Enterprise
     type: enterprise
-    description: Custom-negotiated tier for Trigger.dev. Includes dedicated capacity, contractual SLAs,
-      security review, data residency options, and named technical account management.
+    price: custom
+    description: Custom-negotiated tier including all Pro features plus configurable log retention, priority
+      support, role-based access control, SOC 2 report, SSO, AWS PrivateLink, and dedicated capacity.
     entries:
-      - label: API Requests
-        description: Negotiated request volume; -1 indicates uncapped subject to fair use
-        name: api_requests
-        type: quota
-        metric: requests
+      - label: Concurrent Runs
+        name: concurrent_runs
+        type: rate
+        metric: concurrent_runs
         limit: -1
-        timeFrame: month
-        geo: configurable
-        domains: []
         unit: 1
         price: custom
         userMultiplied: false
-      - label: Rate Limit
-        description: Negotiated burst and steady-state rate
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 1000
-        timeFrame: minute
-        geo: configurable
-        domains: []
+      - label: Log Retention
+        name: log_retention_days
+        type: quota
+        metric: days
+        limit: -1
         unit: 1
         price: custom
         userMultiplied: false
     elements:
-      - name: Unlimited / Negotiated Volume
-      - name: 24/7 Dedicated Support
-      - name: Contractual SLA
-      - name: Security & Compliance Review
-      - name: Dedicated Account Manager
+      - name: Custom Plans and Support
+      - name: SOC 2 Report
+      - name: SSO
+      - name: Role-Based Access Control
+      - name: AWS PrivateLink
+      - name: Priority Support
       - name: Custom Data Residency
-      - name: Trigger.dev Management API
-      - name: Trigger.dev Realtime API
+computePricing:
+  description: Per-second compute pricing by machine preset, billed in addition to per-run invocation
+    cost. Range reflects micro through large-2x presets as published on the pricing page.
+  unit: usd_per_second
+  range:
+    min: 0.0000169
+    max: 0.0006800
+  presets:
+    - name: micro
+    - name: small-1x
+    - name: small-2x
+    - name: medium-1x
+    - name: medium-2x
+    - name: large-1x
+    - name: large-2x
+runInvocationPricing:
+  description: Flat per-run charge applied to every task invocation.
+  unit: usd_per_run
+  price: 0.000025
+  note: '"$0.000025 ($0.25 per 10,000 runs)"'
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

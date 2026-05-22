@@ -4,92 +4,188 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Trigger.dev
 providerId: trigger-dev
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-22'
+sources:
+  - https://trigger.dev/docs/limits
+  - https://trigger.dev/pricing
 tags:
   - Developer-First
   - Workflow Automation
   - Background Jobs
+  - Durable Execution
   - TypeScript
-  - AI Agents
-  - Open Source
   - Rate Limiting
   - Quotas
   - Throttling
-description: Machine-readable rate limit definitions for the Trigger.dev API surface. Captures per-tier
-  quotas, burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to
-  be replaced with published provider limits.
+description: Machine-readable rate limit definitions for the Trigger.dev Management and Realtime API
+  surfaces. Captures per-tier API request rates, concurrent run ceilings, queue depth, payload size
+  caps, batch trigger limits, realtime concurrency, and retention windows.
 headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
   retryAfter: Retry-After
-  policy: RateLimit-Policy
 responseCodes:
   throttled: 429
   quotaExceeded: 429
   serviceUnavailable: 503
 limits:
-  - tier: free
-    name: Free Tier Default
+  - tier: all
+    name: Management API Request Rate
+    description: Documented Management API rate limit shared across all tiers.
     scope: api-key
     metric: requests_per_minute
+    limit: 1500
+    timeFrame: minute
+    applies:
+      - Trigger.dev Management API
+  - tier: free
+    name: Free — Concurrent Runs
+    scope: organization
+    metric: concurrent_runs
+    limit: 20
+    applies:
+      - Trigger.dev Management API
+  - tier: free
+    name: Free — Realtime Connections
+    scope: organization
+    metric: concurrent_realtime_connections
     limit: 10
-    burst: 20
-    timeFrame: minute
     applies:
-      - Trigger.dev Management API
       - Trigger.dev Realtime API
   - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
+    name: Free — Schedules per Project
+    scope: project
+    metric: schedules
+    limit: 10
     applies:
       - Trigger.dev Management API
+  - tier: free
+    name: Free — Batch Rate
+    description: '"1,200 runs" bucket refilled at "100 runs every 10 sec"; "5 concurrent batches".'
+    scope: organization
+    metric: batch_runs_bucket
+    limit: 1200
+    burst: 1200
+    refill: 100_per_10s
+    applies:
+      - Trigger.dev Management API
+  - tier: free
+    name: Free — Log Retention
+    scope: organization
+    metric: log_retention_days
+    limit: 1
+  - tier: hobby
+    name: Hobby — Concurrent Runs
+    scope: organization
+    metric: concurrent_runs
+    limit: 50
+    applies:
+      - Trigger.dev Management API
+  - tier: hobby
+    name: Hobby — Realtime Connections
+    scope: organization
+    metric: concurrent_realtime_connections
+    limit: 50
+    applies:
       - Trigger.dev Realtime API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
+  - tier: hobby
+    name: Hobby — Schedules per Project
+    scope: project
+    metric: schedules
     limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Trigger.dev Management API
-      - Trigger.dev Realtime API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Trigger.dev Management API
-      - Trigger.dev Realtime API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
+  - tier: hobby
+    name: Hobby — Batch Rate
+    description: '"5,000 runs" bucket refilled at "500 runs every 5 sec"; "10 concurrent batches".'
+    scope: organization
+    metric: batch_runs_bucket
+    limit: 5000
     burst: 5000
-    timeFrame: minute
-    applies:
-      - Trigger.dev Management API
-      - Trigger.dev Realtime API
+    refill: 500_per_5s
+  - tier: hobby
+    name: Hobby — Log Retention
+    scope: organization
+    metric: log_retention_days
+    limit: 7
+  - tier: pro
+    name: Pro — Concurrent Runs
+    scope: organization
+    metric: concurrent_runs
+    limit: 200
+    description: '"100+ concurrent runs" baseline with $10/mo per 50 add-on.'
+  - tier: pro
+    name: Pro — Realtime Connections
+    scope: organization
+    metric: concurrent_realtime_connections
+    limit: 500
+  - tier: pro
+    name: Pro — Schedules per Project
+    scope: project
+    metric: schedules
+    limit: 1000
+  - tier: pro
+    name: Pro — Batch Concurrency
+    scope: organization
+    metric: concurrent_batches
+    limit: 50
+  - tier: pro
+    name: Pro — Log Retention
+    scope: organization
+    metric: log_retention_days
+    limit: 30
+  - tier: all
+    name: Task Payload Cap
+    description: Maximum payload size for a single trigger call.
+    metric: payload_megabytes
+    limit: 3
+  - tier: all
+    name: Task Output Cap
+    description: Maximum output size returned from a task.
+    metric: output_megabytes
+    limit: 10
+  - tier: all
+    name: Batch Size
+    description: Maximum items per batchTrigger call (SDK 4.3.1+).
+    metric: batch_items
+    limit: 1000
+  - tier: all
+    name: Run TTL Max
+    description: Maximum time-to-live for a queued run before expiration.
+    metric: hours
+    limit: 336
+  - tier: all
+    name: Run Tags
+    description: Maximum tags per run.
+    metric: tags_per_run
+    limit: 10
+  - tier: all
+    name: Query Execution Timeout
+    description: Maximum TRQL query execution time.
+    metric: seconds
+    limit: 10
+  - tier: all
+    name: Query Result Rows
+    description: Maximum rows returned by a TRQL query.
+    metric: rows
+    limit: 10000
+queueDepthLimits:
+  free:
+    dev: 500
+    staging_or_prod: 10000
+  hobby:
+    dev: 500
+    staging_or_prod: 250000
+  pro:
+    dev: 5000
+    staging_or_prod: 1000000
 policies:
   - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
+    description: Clients should implement exponential backoff with jitter and honor the Retry-After header.
+  - name: API Key Rotation Grace Window
+    description: '24-hour grace window for API key rotations (changelog May 1, v4.4.5).'
   - name: Burst Handling
     description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
       before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
   - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+    description: Sustained usage that materially impacts shared infrastructure may be subject to fair-use
+      throttling even on enterprise tiers.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

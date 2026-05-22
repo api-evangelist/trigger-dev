@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/trigger-dev/main/json-schema/trigger-dev-waitpoint-token-schema.json",
+  "title": "Trigger.dev Waitpoint Token",
+  "description": "A waitpoint token used for human-in-the-loop and external-completion workflows. A run pauses until the token is completed via API, callback URL, or the useWaitToken React hook.",
+  "type": "object",
+  "required": ["id", "status"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^waitpoint_",
+      "description": "Unique waitpoint token identifier (prefixed with waitpoint_)"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["WAITING", "COMPLETED", "TIMED_OUT", "CANCELLED"],
+      "description": "Current state of the waitpoint token"
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Callback URL for completing this waitpoint via HTTP POST"
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string", "maxLength": 128 },
+      "maxItems": 10
+    },
+    "idempotencyKey": {
+      "type": "string",
+      "description": "Idempotency key used at creation to prevent duplicate tokens"
+    },
+    "ttl": {
+      "type": "string",
+      "description": "Time-to-live string (e.g. 24h, 7d) controlling token expiry"
+    },
+    "expiresAt": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    },
+    "completedAt": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "data": {
+      "description": "Completion payload returned to the waiting run when the token is completed"
+    }
+  }
+}

@@ -1,0 +1,83 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Trigger.dev Management API — Query
+  description: 'Trigger.dev Management API — Query / Dashboards. 1 operation: execute TRQL queries against runs, tasks,
+    and metrics. Returns JSON rows or CSV scoped to environment, project, or organization. Self-contained Naftiko
+    capability covering the Trigger.dev analytics surface.'
+  tags:
+  - Trigger Dev
+  - Query
+  - Analytics
+  - Dashboards
+  created: '2026-05-22'
+  modified: '2026-05-22'
+binds:
+- namespace: env
+  keys:
+    TRIGGER_DEV_API_KEY: TRIGGER_DEV_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: management-query
+    baseUri: https://api.trigger.dev
+    description: Trigger.dev Management API — Query business capability for TRQL execution and dashboard data.
+    resources:
+    - name: api-v1-query
+      path: /api/v1/query
+      operations:
+      - name: executequery
+        method: POST
+        description: Execute Query
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: TRQL query body with query, scope, period/from/to, and format.
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.TRIGGER_DEV_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: management-query-rest
+    port: 8080
+    description: REST adapter for Trigger.dev Management API — Query. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/api/v1/query
+      name: api-v1-query
+      description: REST surface for api-v1-query.
+      operations:
+      - method: POST
+        name: executequery
+        description: Execute Query
+        call: management-query.executequery
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: management-query-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Trigger.dev Management API — Query.
+    tools:
+    - name: execute-query
+      description: Execute a TRQL query against runs, tasks, or metrics. Supports environment/project/organization scope
+        and JSON or CSV output.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: management-query.executequery
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

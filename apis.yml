@@ -1,117 +1,210 @@
 aid: trigger-dev
 name: Trigger.dev
-description: Trigger.dev is an open source background jobs and workflow automation platform for TypeScript developers. It
-  enables building and deploying fully-managed AI agents and background workflows with real-time observability, scheduled
-  tasks, durable execution, and an extensive management API. Tasks are written in plain async TypeScript and can be triggered
-  via REST API, SDK, or on a schedule. Supports cloud-hosted and self-hosted deployments.
+description: Trigger.dev is an open source platform for building and deploying fully-managed
+  AI agents and background workflows in TypeScript. It provides durable task execution
+  without timeout constraints, automatic retries, scheduled cron tasks, queues with
+  concurrency controls, real-time observability, React hooks for streaming run status,
+  human-in-the-loop waitpoints, batch triggering, and a comprehensive Management API.
+  Cloud-hosted at cloud.trigger.dev and self-hostable via Docker or Fly.io.
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
   - Developer-First
   - Workflow Automation
   - Background Jobs
+  - Durable Execution
   - TypeScript
   - AI Agents
+  - Realtime
   - Open Source
 url: https://raw.githubusercontent.com/api-evangelist/trigger-dev/refs/heads/main/apis.yml
 created: '2026-03-27'
-modified: '2026-05-19'
+modified: '2026-05-22'
 specificationVersion: '0.19'
 apis:
   - aid: trigger-dev:trigger-dev-management
     name: Trigger.dev Management API
-    description: The Trigger.dev Management API provides comprehensive REST endpoints for managing workflow runs, tasks, schedules,
-      deployments, queues, environment variables, batches, and waitpoints. Enables programmatic control over the full lifecycle
-      of background job workflows including triggering, monitoring, cancellation, and observability. Authenticated via bearer
-      token (secret API key).
+    description: The Trigger.dev Management API provides comprehensive REST endpoints
+      for managing workflow runs, tasks, schedules, deployments, queues, environment
+      variables, batches, waitpoints, and query/dashboards. Enables programmatic
+      control over the full lifecycle of background job workflows including triggering,
+      monitoring, cancellation, replay, tagging, and observability. Authenticated
+      via bearer token (secret API key prefixed tr_dev_/tr_prod_ or personal access
+      token tr_pat_) at https://api.trigger.dev.
     humanURL: https://trigger.dev/docs/management/overview
+    baseURL: https://api.trigger.dev
     tags:
-    - Workflow Automation
-    - Background Jobs
-    - Task Management
-    - Scheduling
-    - Deployments
-    - Queue Management
+      - Workflow Automation
+      - Background Jobs
+      - Task Management
+      - Scheduling
+      - Deployments
+      - Queue Management
+      - Waitpoints
+      - Batches
+      - Environment Variables
+      - Query
     properties:
-    - type: Documentation
-      url: https://trigger.dev/docs/management/overview
-    - type: GettingStarted
-      url: https://trigger.dev/docs/introduction
-    - type: OpenAPI
-      url: openapi/trigger-dev-management-openapi.yml
-    - type: SDK
-      url: https://www.npmjs.com/package/@trigger.dev/sdk
-    - type: NaftikoCapability
-      url: capabilities/management-batches.yaml
-    - type: NaftikoCapability
-      url: capabilities/management-deployments.yaml
-    - type: NaftikoCapability
-      url: capabilities/management-environment-variables.yaml
-    - type: NaftikoCapability
-      url: capabilities/management-queues.yaml
-    - type: NaftikoCapability
-      url: capabilities/management-runs.yaml
-    - type: NaftikoCapability
-      url: capabilities/management-schedules.yaml
-    - type: NaftikoCapability
-      url: capabilities/management-tasks.yaml
-    - type: NaftikoCapability
-      url: capabilities/management-waitpoints.yaml
+      - type: Documentation
+        url: https://trigger.dev/docs/management/overview
+      - type: GettingStarted
+        url: https://trigger.dev/docs/introduction
+      - type: Authentication
+        url: https://trigger.dev/docs/management/authentication
+      - type: OpenAPI
+        url: openapi/trigger-dev-management-openapi.yml
+      - type: SpectralRules
+        url: rules/trigger-dev-rules.yml
+      - type: SDK
+        url: https://www.npmjs.com/package/@trigger.dev/sdk
+      - type: NaftikoCapability
+        url: capabilities/management-batches.yaml
+      - type: NaftikoCapability
+        url: capabilities/management-deployments.yaml
+      - type: NaftikoCapability
+        url: capabilities/management-environment-variables.yaml
+      - type: NaftikoCapability
+        url: capabilities/management-queues.yaml
+      - type: NaftikoCapability
+        url: capabilities/management-runs.yaml
+      - type: NaftikoCapability
+        url: capabilities/management-schedules.yaml
+      - type: NaftikoCapability
+        url: capabilities/management-tasks.yaml
+      - type: NaftikoCapability
+        url: capabilities/management-waitpoints.yaml
+      - type: NaftikoCapability
+        url: capabilities/management-query.yaml
+      - type: JSONSchema
+        url: json-schema/trigger-dev-run-schema.json
+      - type: JSONSchema
+        url: json-schema/trigger-dev-schedule-schema.json
+      - type: JSONSchema
+        url: json-schema/trigger-dev-waitpoint-token-schema.json
+      - type: JSONStructure
+        url: json-structure/trigger-dev-run-structure.json
+      - type: Example
+        url: examples/trigger-dev-trigger-task-example.json
+      - type: Example
+        url: examples/trigger-dev-list-runs-example.json
+      - type: Example
+        url: examples/trigger-dev-create-schedule-example.json
+      - type: Example
+        url: examples/trigger-dev-create-waitpoint-example.json
+      - type: Example
+        url: examples/trigger-dev-execute-query-example.json
+      - type: Example
+        url: examples/trigger-dev-retrieve-run-events-example.json
   - aid: trigger-dev:trigger-dev-realtime
     name: Trigger.dev Realtime API
-    description: The Trigger.dev Realtime API provides streaming updates and React hooks for monitoring workflow run status
-      in real-time. Includes useRealtimeRun, useRealtimeRunsWithTag, and useRealtimeStream hooks for frontend integration. Supports
-      AI streaming responses and live run status updates.
+    description: The Trigger.dev Realtime API streams live run state and typed stream
+      data to backend and frontend clients. Backend SDK methods include runs.subscribeToRun,
+      runs.subscribeToRunsWithTag, and runs.subscribeToBatch. React hooks include
+      useRealtimeRun, useRealtimeRunsWithTag, useRealtimeBatch, useRealtimeStream,
+      useWaitToken, and trigger-plus-subscribe hooks. Powers progress UIs, AI streaming
+      output, and human-in-the-loop interfaces.
     humanURL: https://trigger.dev/docs/realtime/overview
     tags:
-    - Realtime
-    - Streaming
-    - React
-    - WebSockets
-    - AI Streaming
+      - Realtime
+      - Streaming
+      - React
+      - WebSockets
+      - AI Streaming
+      - Frontend
     properties:
-    - type: Documentation
-      url: https://trigger.dev/docs/realtime/overview
+      - type: Documentation
+        url: https://trigger.dev/docs/realtime/overview
+      - type: Authentication
+        url: https://trigger.dev/docs/realtime/auth
+      - type: SDK
+        url: https://www.npmjs.com/package/@trigger.dev/react-hooks
 features:
-  - Durable background task execution with automatic retries
-  - Scheduled tasks with cron expressions and timezone support
-  - AI agent workflow orchestration
-  - Realtime run monitoring with React hooks
-  - Queue management with concurrency controls
-  - Environment variable management per project
-  - Deployment management with version promotion
+  - Durable background task execution with automatic retries and no execution timeout
+  - Scheduled tasks with cron expressions and timezone support (DST-aware)
+  - AI agent workflow orchestration with tool-calling, prompt chaining, routing, and parallelization
+  - Realtime run monitoring with React hooks (useRealtimeRun, useRealtimeStream)
+  - Queue management with concurrency keys and overrides
+  - Environment variable management per project and environment
+  - Deployment management with version promotion and AWS PrivateLink for private resources
   - Waitpoint tokens for human-in-the-loop workflows
-  - Batch task triggering
-  - Comprehensive observability with traces and spans
+  - Batch task triggering with up to 1,000 items per call (SDK 4.3.1+)
+  - Comprehensive observability with OpenTelemetry traces and spans
+  - Query and Dashboards for analyzing run data using SQL
+  - Input streams for bidirectional typed communication into running tasks
+  - Preview branches for per-branch deployments
+  - Replay detection via ctx.run.isReplay
+  - Build extensions for Prisma, Python, Playwright, Puppeteer, FFmpeg, audioWaveform
 useCases:
   - Background job processing for TypeScript/Node.js applications
-  - AI agent task orchestration with durable execution
-  - Scheduled data processing and reporting jobs
-  - Long-running workflow automation
+  - AI agent task orchestration with durable execution and tool-calling
+  - Scheduled data processing, ETL, and reporting jobs
+  - Long-running workflow automation without serverless timeouts
   - Email and notification delivery pipelines
-  - Data synchronization and ETL workflows
-  - Human-in-the-loop approval workflows
+  - Data synchronization between SaaS systems
+  - Human-in-the-loop approval workflows via waitpoints
+  - Real-time AI streaming UIs (chat, image-gen progress)
+  - Video, audio, and document processing pipelines via FFmpeg, Sharp, LibreOffice extensions
 integrations:
   - TypeScript/Node.js via @trigger.dev/sdk
   - React via @trigger.dev/react-hooks
-  - CLI via trigger.dev/cli
-  - Next.js, Remix, and other full-stack frameworks
-  - Self-hosted deployment via Docker
+  - CLI via trigger.dev (npm) for init, dev, deploy, promote, login, switch, whoami
+  - Next.js, Remix, Nuxt, SvelteKit, Astro, Fastify, Express, RedwoodJS, Bun
+  - Vercel (auto-deploy integration), AWS (PrivateLink), Cloudflare, Google Cloud, Azure, Netlify
+  - OpenAI, Vercel AI SDK, Fal.ai, Deepgram, DALL-E for AI workloads
+  - Supabase, Resend, Sentry for SaaS workflows
+  - FFmpeg, Sharp, Puppeteer, Playwright, LibreOffice, Firecrawl, Browserbase, Lightpanda for processing
+  - Self-hosted deployment via Docker, Fly.io, Render
 solutions:
-  - TypeScript developers needing reliable background jobs
-  - Teams building AI agent workflows requiring durable execution
-  - Applications requiring scheduled task automation
+  - TypeScript developers needing reliable background jobs without managing infrastructure
+  - Teams building AI agent workflows requiring durable execution and tool-calling
+  - Applications requiring scheduled task automation across time zones
   - Platforms needing human-in-the-loop approval workflows
+  - Engineering teams replacing self-managed queue infrastructure (Sidekiq, BullMQ, Celery)
+  - Startups needing AI streaming UX with realtime React hooks
 github:
   - name: trigger.dev
     url: https://github.com/triggerdotdev/trigger.dev
-    description: Main Trigger.dev monorepo - platform, SDK, and CLI
+    description: Main Trigger.dev monorepo - platform, SDK, CLI, dashboard, workers
     language: TypeScript
-    stars: 14763
+    stars: 15025
+  - name: jsonhero-web
+    url: https://github.com/triggerdotdev/jsonhero-web
+    description: JSON Hero - open-source beautiful JSON explorer built by the Trigger.dev team
+    language: TypeScript
+    stars: 10740
+  - name: apihero
+    url: https://github.com/triggerdotdev/apihero
+    description: Makes every API you use faster and more reliable with one line of code
+    language: TypeScript
+    stars: 176
+  - name: examples
+    url: https://github.com/triggerdotdev/examples
+    description: Trigger.dev example projects that anyone can fork and run
+    language: TypeScript
+    stars: 108
+  - name: docker
+    url: https://github.com/triggerdotdev/docker
+    description: Docker templates for self-hosting and running Trigger.dev platform locally
+    language: Shell
+    stars: 94
+  - name: schema-infer
+    url: https://github.com/triggerdotdev/schema-infer
+    description: Infers JSON Schemas and Type Definitions from example JSON
+    language: TypeScript
+    stars: 54
+  - name: fly.io
+    url: https://github.com/triggerdotdev/fly.io
+    description: Self-host Trigger.dev on Fly.io
+    stars: 39
+  - name: skills
+    url: https://github.com/triggerdotdev/skills
+    description: Best practices for building AI agents and background jobs with Trigger.dev
+    stars: 26
   - name: api-reference
     url: https://github.com/triggerdotdev/api-reference
     description: Job code samples for SDK and REST API integrations
     language: TypeScript
+    stars: 8
 common:
   - type: LinkedIn
     url: https://www.linkedin.com/company/triggerdotdev
@@ -122,7 +215,7 @@ common:
   - type: GettingStarted
     url: https://trigger.dev/docs/introduction
   - type: GitHub
-    url: https://github.com/triggerdotdev/trigger.dev
+    url: https://github.com/triggerdotdev
   - type: SDK
     url: https://www.npmjs.com/package/@trigger.dev/sdk
   - type: CLI
@@ -131,10 +224,26 @@ common:
     url: https://cloud.trigger.dev/login
   - type: Pricing
     url: https://trigger.dev/pricing
+  - type: PricingPlans
+    url: plans/trigger-dev-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/trigger-dev-rate-limits.yml
+  - type: FinOps
+    url: finops/trigger-dev-finops.yml
+  - type: Limits
+    url: https://trigger.dev/docs/limits
   - type: Blog
     url: https://trigger.dev/blog
   - type: ChangeLog
     url: https://trigger.dev/changelog
+  - type: StatusPage
+    url: https://status.trigger.dev
+  - type: SelfHosting
+    url: https://github.com/triggerdotdev/docker
+  - type: Vocabulary
+    url: vocabulary/trigger-dev-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/trigger-dev-context.jsonld
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

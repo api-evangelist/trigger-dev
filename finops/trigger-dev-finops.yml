@@ -11,7 +11,7 @@ providerId: trigger-dev
 publisherName: Trigger.dev
 serviceCategory: API
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-22'
 tags:
   - Developer-First
   - Workflow Automation
@@ -86,32 +86,51 @@ focusColumns:
   BillingCurrency: USD
   ChargeCategory: Usage
 meters:
-  - name: api_requests
-    description: Count of billable API requests
-    unit: request
+  - name: run_invocations
+    description: Count of task runs triggered. Billed at $0.000025 per run ($0.25 per 10,000 runs).
+    unit: run
+    unitPrice: 0.000025
+    currency: USD
     aggregation: sum
     dimensions:
-      - api
-      - endpoint
+      - task_identifier
+      - environment
+      - project
       - tier
-      - region
-      - consumer
+      - machine_preset
+  - name: compute_seconds
+    description: Per-second compute time on the configured machine preset. Range $0.0000169 (micro)
+      to $0.0006800 (large-2x) per second.
+    unit: second
+    aggregation: sum
+    dimensions:
+      - machine_preset
+      - task_identifier
+      - environment
+      - project
+  - name: realtime_connections
+    description: Concurrent Realtime API / hook subscriptions held open.
+    unit: connection
+    aggregation: max
+    dimensions:
+      - environment
+      - project
+      - tier
+  - name: schedules
+    description: Active cron schedules per project.
+    unit: schedule
+    aggregation: count
+    dimensions:
+      - project
+      - environment
   - name: data_egress
-    description: Bytes returned over the network in API responses
+    description: Bytes returned to clients via API responses and Realtime streams
     unit: GB
     aggregation: sum
     dimensions:
       - api
       - region
       - consumer
-  - name: compute_seconds
-    description: Server-side compute consumed by the request, where applicable
-    unit: second
-    aggregation: sum
-    dimensions:
-      - api
-      - endpoint
-      - tier
 apis:
   - name: Trigger.dev Management API
     baseURL: ''

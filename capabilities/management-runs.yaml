@@ -1,13 +1,13 @@
 naftiko: 1.0.0-alpha2
 info:
   label: Trigger.dev Management API — Runs
-  description: 'Trigger.dev Management API — Runs. 6 operations. Lead operation: List Runs. Self-contained Naftiko capability
-    covering one Trigger Dev business surface.'
+  description: 'Trigger.dev Management API — Runs. 10 operations. Lead operation: List Runs. Self-contained Naftiko capability
+    covering one Trigger Dev business surface including events, result, trace, and metadata.'
   tags:
   - Trigger Dev
   - Runs
   created: '2026-05-19'
-  modified: '2026-05-19'
+  modified: '2026-05-22'
 binds:
 - namespace: env
   keys:
@@ -145,6 +145,76 @@ capability:
       - name: addtagstorun
         method: PUT
         description: Add Tags to Run
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: runId
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-runs-runId-events
+      path: /api/v1/runs/{runId}/events
+      operations:
+      - name: retrieverunevents
+        method: GET
+        description: Retrieve Run Events
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: runId
+          in: path
+          type: string
+          description: Run identifier (prefixed with run_)
+          required: true
+    - name: api-v1-runs-runId-result
+      path: /api/v1/runs/{runId}/result
+      operations:
+      - name: retrieverunresult
+        method: GET
+        description: Retrieve Run Result
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: runId
+          in: path
+          type: string
+          required: true
+    - name: api-v1-runs-runId-trace
+      path: /api/v1/runs/{runId}/trace
+      operations:
+      - name: retrieveruntrace
+        method: GET
+        description: Retrieve Run Trace
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: runId
+          in: path
+          type: string
+          required: true
+    - name: api-v1-runs-runId-metadata
+      path: /api/v1/runs/{runId}/metadata
+      operations:
+      - name: updaterunmetadata
+        method: PUT
+        description: Update Run Metadata
         outputRawFormat: json
         outputParameters:
         - name: result
@@ -341,6 +411,55 @@ capability:
         destructive: false
         idempotent: true
       call: management-runs.addtagstorun
+      with:
+        runId: tools.runId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-run-events
+      description: Retrieve Run Events
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: management-runs.retrieverunevents
+      with:
+        runId: tools.runId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-run-result
+      description: Retrieve Run Result
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: management-runs.retrieverunresult
+      with:
+        runId: tools.runId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-run-trace
+      description: Retrieve Run Trace
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: management-runs.retrieveruntrace
+      with:
+        runId: tools.runId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-run-metadata
+      description: Update Run Metadata
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: management-runs.updaterunmetadata
       with:
         runId: tools.runId
         body: tools.body

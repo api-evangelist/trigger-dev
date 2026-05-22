@@ -1,0 +1,28 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.trigger.dev/api/v1/query",
+    "headers": {
+      "Authorization": "Bearer tr_prod_xxxxxxxxxxxxxxxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "query": "SELECT status, COUNT(*) AS runs FROM runs WHERE createdAt > now() - 7d GROUP BY status",
+      "scope": "project",
+      "period": "7d",
+      "format": "json"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "format": "json",
+      "data": [
+        { "status": "COMPLETED_SUCCESSFULLY", "runs": 12834 },
+        { "status": "COMPLETED_WITH_ERRORS", "runs": 217 },
+        { "status": "CANCELLED", "runs": 18 },
+        { "status": "TIMED_OUT", "runs": 4 }
+      ]
+    }
+  }
+}
