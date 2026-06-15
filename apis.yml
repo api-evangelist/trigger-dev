@@ -1,11 +1,11 @@
 aid: trigger-dev
 name: Trigger.dev
-description: Trigger.dev is an open source platform for building and deploying fully-managed
-  AI agents and background workflows in TypeScript. It provides durable task execution
-  without timeout constraints, automatic retries, scheduled cron tasks, queues with
-  concurrency controls, real-time observability, React hooks for streaming run status,
-  human-in-the-loop waitpoints, batch triggering, and a comprehensive Management API.
-  Cloud-hosted at cloud.trigger.dev and self-hostable via Docker or Fly.io.
+description: >-
+  Trigger.dev is an open source platform for building and deploying fully-managed AI agents and background workflows in
+  TypeScript. It provides durable task execution without timeout constraints, automatic retries, scheduled cron tasks,
+  queues with concurrency controls, real-time observability, React hooks for streaming run status, human-in-the-loop
+  waitpoints, batch triggering, and a comprehensive Management API. Cloud-hosted at cloud.trigger.dev and self-hostable
+  via Docker or Fly.io.
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
@@ -24,13 +24,12 @@ specificationVersion: '0.19'
 apis:
   - aid: trigger-dev:trigger-dev-management
     name: Trigger.dev Management API
-    description: The Trigger.dev Management API provides comprehensive REST endpoints
-      for managing workflow runs, tasks, schedules, deployments, queues, environment
-      variables, batches, waitpoints, and query/dashboards. Enables programmatic
-      control over the full lifecycle of background job workflows including triggering,
-      monitoring, cancellation, replay, tagging, and observability. Authenticated
-      via bearer token (secret API key prefixed tr_dev_/tr_prod_ or personal access
-      token tr_pat_) at https://api.trigger.dev.
+    description: >-
+      The Trigger.dev Management API provides comprehensive REST endpoints for managing workflow runs, tasks, schedules,
+      deployments, queues, environment variables, batches, waitpoints, and query/dashboards. Enables programmatic
+      control over the full lifecycle of background job workflows including triggering, monitoring, cancellation,
+      replay, tagging, and observability. Authenticated via bearer token (secret API key prefixed tr_dev_/tr_prod_ or
+      personal access token tr_pat_) at https://api.trigger.dev.
     humanURL: https://trigger.dev/docs/management/overview
     baseURL: https://api.trigger.dev
     tags:
@@ -57,24 +56,6 @@ apis:
         url: rules/trigger-dev-rules.yml
       - type: SDK
         url: https://www.npmjs.com/package/@trigger.dev/sdk
-      - type: NaftikoCapability
-        url: capabilities/management-batches.yaml
-      - type: NaftikoCapability
-        url: capabilities/management-deployments.yaml
-      - type: NaftikoCapability
-        url: capabilities/management-environment-variables.yaml
-      - type: NaftikoCapability
-        url: capabilities/management-queues.yaml
-      - type: NaftikoCapability
-        url: capabilities/management-runs.yaml
-      - type: NaftikoCapability
-        url: capabilities/management-schedules.yaml
-      - type: NaftikoCapability
-        url: capabilities/management-tasks.yaml
-      - type: NaftikoCapability
-        url: capabilities/management-waitpoints.yaml
-      - type: NaftikoCapability
-        url: capabilities/management-query.yaml
       - type: JSONSchema
         url: json-schema/trigger-dev-run-schema.json
       - type: JSONSchema
@@ -97,12 +78,11 @@ apis:
         url: examples/trigger-dev-retrieve-run-events-example.json
   - aid: trigger-dev:trigger-dev-realtime
     name: Trigger.dev Realtime API
-    description: The Trigger.dev Realtime API streams live run state and typed stream
-      data to backend and frontend clients. Backend SDK methods include runs.subscribeToRun,
-      runs.subscribeToRunsWithTag, and runs.subscribeToBatch. React hooks include
-      useRealtimeRun, useRealtimeRunsWithTag, useRealtimeBatch, useRealtimeStream,
-      useWaitToken, and trigger-plus-subscribe hooks. Powers progress UIs, AI streaming
-      output, and human-in-the-loop interfaces.
+    description: >-
+      The Trigger.dev Realtime API streams live run state and typed stream data to backend and frontend clients. Backend
+      SDK methods include runs.subscribeToRun, runs.subscribeToRunsWithTag, and runs.subscribeToBatch. React hooks
+      include useRealtimeRun, useRealtimeRunsWithTag, useRealtimeBatch, useRealtimeStream, useWaitToken, and
+      trigger-plus-subscribe hooks. Powers progress UIs, AI streaming output, and human-in-the-loop interfaces.
     humanURL: https://trigger.dev/docs/realtime/overview
     tags:
       - Realtime

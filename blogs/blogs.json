@@ -2,6 +2,13 @@
   "repo": "trigger-dev",
   "feeds": [
     {
+      "source": "https://trigger.dev/blog",
+      "feed_url": "https://trigger.dev/blog",
+      "title": "",
+      "saved": 0,
+      "method": "none"
+    },
+    {
       "source": "https://trigger.dev/docs/limits",
       "feed_url": "https://trigger.dev/docs/limits",
       "title": "",
@@ -9,6 +16,6 @@
       "method": "none"
     }
   ],
-  "fetched": "2026-06-01T23:35:02Z",
-  "post_count": 0
+  "post_count": 0,
+  "fetched": "2026-06-14T20:42:17Z"
 }

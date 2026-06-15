@@ -1,0 +1,944 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Trigger.dev Management API",
+    "version": "3.1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tasks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Trigger Task",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trigger.dev/api/v1/tasks/:taskIdentifier/trigger",
+            "params": [
+              {
+                "name": "taskIdentifier",
+                "value": "",
+                "type": "path",
+                "description": "The task identifier (e.g., my-task)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Trigger a single task run. Returns the run ID for tracking. Supports payload, context, queue options, concurrency keys, idempotency, TTL, delay, tags, and machine preset selection."
+        },
+        {
+          "info": {
+            "name": "Batch Trigger Tasks",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trigger.dev/api/v1/tasks/batch",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Trigger multiple task runs in a single batch request. Returns a batch ID and array of run IDs. All items in the batch must reference the same task."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Runs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Runs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trigger.dev/api/v1/runs",
+            "params": [
+              {
+                "name": "filter[status]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by run status"
+              },
+              {
+                "name": "filter[taskIdentifier]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by task identifiers"
+              },
+              {
+                "name": "filter[tag]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by tags"
+              },
+              {
+                "name": "filter[isTest]",
+                "value": "",
+                "type": "query",
+                "description": "Filter to test runs only"
+              },
+              {
+                "name": "filter[createdAt.from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter runs created after this time"
+              },
+              {
+                "name": "filter[createdAt.to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter runs created before this time"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Runs per page"
+              },
+              {
+                "name": "page[after]",
+                "value": "",
+                "type": "query",
+                "description": "Run ID to paginate after"
+              },
+              {
+                "name": "page[before]",
+                "value": "",
+                "type": "query",
+                "description": "Run ID to paginate before"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of runs filtered by status, task, tags, date range, and other criteria."
+        },
+        {
+          "info": {
+            "name": "Retrieve Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trigger.dev/api/v1/runs/:runId",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path",
+                "description": "Run identifier (prefixed with run_)"
+              }
+            ]
+          },
+          "docs": "Retrieve detailed information about a specific run including status, payload, output, hierarchy (root/parent/children), attempts, tags, and cost metadata."
+        },
+        {
+          "info": {
+            "name": "Cancel Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trigger.dev/api/v1/runs/:runId/cancel",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path",
+                "description": "Run identifier"
+              }
+            ]
+          },
+          "docs": "Cancel a queued or executing run."
+        },
+        {
+          "info": {
+            "name": "Replay Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trigger.dev/api/v1/runs/:runId/replay",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path",
+                "description": "Run identifier"
+              }
+            ]
+          },
+          "docs": "Replay a completed run with the same payload. Creates a new run with the original task and payload."
+        },
+        {
+          "info": {
+            "name": "Reschedule Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trigger.dev/api/v1/runs/:runId/reschedule",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Reschedule a delayed run to execute at a new time."
+        },
+        {
+          "info": {
+            "name": "Add Tags to Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.trigger.dev/api/v1/runs/:runId/tags",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add one or more tags to an existing run for filtering and organization."
+        },
+        {
+          "info": {
+            "name": "Retrieve Run Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trigger.dev/api/v1/runs/:runId/events",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path",
+                "description": "Run identifier (prefixed with run_)"
+              }
+            ]
+          },
+          "docs": "Retrieve the OpenTelemetry spans / events for a specific run, including timing, level, kind, and nested events. Used for tracing and debugging task execution."
+        },
+        {
+          "info": {
+            "name": "Retrieve Run Result",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trigger.dev/api/v1/runs/:runId/result",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve the final result of a completed run, including output payload or error details."
+        },
+        {
+          "info": {
+            "name": "Retrieve Run Trace",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trigger.dev/api/v1/runs/:runId/trace",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve the distributed trace tree for a run including all child runs, spans, and timing data."
+        },
+        {
+          "info": {
+            "name": "Update Run Metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.trigger.dev/api/v1/runs/:runId/metadata",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the metadata object attached to a run. Useful for storing custom progress or context."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Schedules",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Schedules",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trigger.dev/api/v1/schedules"
+          },
+          "docs": "Returns all configured schedules for the project."
+        },
+        {
+          "info": {
+            "name": "Create Schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trigger.dev/api/v1/schedules",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new cron schedule that triggers a task on a recurring basis. Supports IANA timezone configuration and deduplication keys."
+        },
+        {
+          "info": {
+            "name": "Retrieve Schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trigger.dev/api/v1/schedules/:scheduleId",
+            "params": [
+              {
+                "name": "scheduleId",
+                "value": "",
+                "type": "path",
+                "description": "Schedule identifier (prefixed with sched_)"
+              }
+            ]
+          },
+          "docs": "Get details of a specific schedule including next run time and status."
+        },
+        {
+          "info": {
+            "name": "Update Schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.trigger.dev/api/v1/schedules/:scheduleId",
+            "params": [
+              {
+                "name": "scheduleId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing schedule's cron expression, timezone, or external ID."
+        },
+        {
+          "info": {
+            "name": "Delete Schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.trigger.dev/api/v1/schedules/:scheduleId",
+            "params": [
+              {
+                "name": "scheduleId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Permanently delete a schedule."
+        },
+        {
+          "info": {
+            "name": "Activate Schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trigger.dev/api/v1/schedules/:scheduleId/activate",
+            "params": [
+              {
+                "name": "scheduleId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Activate a deactivated schedule to resume its execution."
+        },
+        {
+          "info": {
+            "name": "Deactivate Schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trigger.dev/api/v1/schedules/:scheduleId/deactivate",
+            "params": [
+              {
+                "name": "scheduleId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Pause a schedule without deleting it."
+        },
+        {
+          "info": {
+            "name": "Get Timezones",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trigger.dev/api/v1/schedules/timezones"
+          },
+          "docs": "Returns a list of valid IANA timezone identifiers for schedule configuration."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Deployments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Deployments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trigger.dev/api/v1/deployments"
+          },
+          "docs": "Returns all deployments for the project, including version and status."
+        },
+        {
+          "info": {
+            "name": "Get Deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trigger.dev/api/v1/deployments/:deploymentId",
+            "params": [
+              {
+                "name": "deploymentId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve details of a specific deployment."
+        },
+        {
+          "info": {
+            "name": "Get Latest Deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trigger.dev/api/v1/deployments/latest"
+          },
+          "docs": "Returns the most recent deployment for the project."
+        },
+        {
+          "info": {
+            "name": "Promote Deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trigger.dev/api/v1/deployments/:deploymentId/promote",
+            "params": [
+              {
+                "name": "deploymentId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Promote a specific deployment version to production."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Queues",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Queues",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trigger.dev/api/v1/queues"
+          },
+          "docs": "Returns all task queues for the project."
+        },
+        {
+          "info": {
+            "name": "Retrieve Queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trigger.dev/api/v1/queues/:queueName",
+            "params": [
+              {
+                "name": "queueName",
+                "value": "",
+                "type": "path",
+                "description": "Queue name"
+              }
+            ]
+          },
+          "docs": "Get details of a specific queue including current depth and concurrency settings."
+        },
+        {
+          "info": {
+            "name": "Pause Queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trigger.dev/api/v1/queues/:queueName/pause",
+            "params": [
+              {
+                "name": "queueName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Pause a queue to prevent new runs from starting."
+        },
+        {
+          "info": {
+            "name": "Resume Queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trigger.dev/api/v1/queues/:queueName/resume",
+            "params": [
+              {
+                "name": "queueName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Resume a paused queue to allow runs to execute."
+        },
+        {
+          "info": {
+            "name": "Override Queue Concurrency",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.trigger.dev/api/v1/queues/:queueName/concurrency",
+            "params": [
+              {
+                "name": "queueName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Override the concurrency limit for a queue."
+        },
+        {
+          "info": {
+            "name": "Reset Queue Concurrency",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trigger.dev/api/v1/queues/:queueName/concurrency/reset",
+            "params": [
+              {
+                "name": "queueName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Reset a queue's concurrency limit to its default."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Environment Variables",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Environment Variables",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trigger.dev/api/v1/envvars"
+          },
+          "docs": "Returns all environment variables for the project/environment."
+        },
+        {
+          "info": {
+            "name": "Create Environment Variable",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trigger.dev/api/v1/envvars",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new environment variable."
+        },
+        {
+          "info": {
+            "name": "Import Environment Variables",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trigger.dev/api/v1/envvars/import",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Import multiple environment variables at once."
+        },
+        {
+          "info": {
+            "name": "Retrieve Environment Variable",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trigger.dev/api/v1/envvars/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Variable name"
+              }
+            ]
+          },
+          "docs": "Get the value of a specific environment variable."
+        },
+        {
+          "info": {
+            "name": "Update Environment Variable",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.trigger.dev/api/v1/envvars/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the value of an environment variable."
+        },
+        {
+          "info": {
+            "name": "Delete Environment Variable",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.trigger.dev/api/v1/envvars/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete an environment variable from the project."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Batches",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Batch",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trigger.dev/api/v1/batches",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new batch of task runs. Used for large-scale parallel processing where runs can be streamed in incrementally."
+        },
+        {
+          "info": {
+            "name": "Retrieve Batch",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trigger.dev/api/v1/batches/:batchId",
+            "params": [
+              {
+                "name": "batchId",
+                "value": "",
+                "type": "path",
+                "description": "Batch identifier"
+              }
+            ]
+          },
+          "docs": "Get details of a specific batch including status and run count."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Waitpoints",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Waitpoint Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trigger.dev/api/v1/waitpoints",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a waitpoint token for human-in-the-loop workflows. The run will pause until this token is completed."
+        },
+        {
+          "info": {
+            "name": "Retrieve Waitpoint Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trigger.dev/api/v1/waitpoints/:tokenId",
+            "params": [
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the status and details of a waitpoint token."
+        },
+        {
+          "info": {
+            "name": "Complete Waitpoint Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trigger.dev/api/v1/waitpoints/:tokenId/complete",
+            "params": [
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Complete a waitpoint token to resume the paused run. Optionally pass a result payload back to the waiting run."
+        },
+        {
+          "info": {
+            "name": "List Waitpoint Tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trigger.dev/api/v1/waitpoints/tokens",
+            "params": [
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Tokens per page"
+              },
+              {
+                "name": "page[after]",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for next page"
+              },
+              {
+                "name": "page[before]",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for previous page"
+              },
+              {
+                "name": "filter[status]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter[tags]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter[idempotencyKey]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter[createdAt][period]",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of waitpoint tokens filterable by status, tags, idempotency key, and creation period."
+        },
+        {
+          "info": {
+            "name": "Complete Waitpoint Token via Callback",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trigger.dev/api/v1/waitpoints/:tokenId/callback",
+            "params": [
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Complete a waitpoint token by callback URL — used when an external system signals completion of a human-in-the-loop step."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Query",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Execute Query",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trigger.dev/api/v1/query",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Execute a TRQL query against runs, tasks, and metrics. Supports environment, project, or organization scope. Returns JSON rows or CSV."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
