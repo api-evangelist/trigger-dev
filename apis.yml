@@ -54,7 +54,7 @@ apis:
         url: openapi/trigger-dev-management-openapi.yml
       - type: SpectralRules
         url: rules/trigger-dev-rules.yml
-      - type: SDK
+      - type: SDKs
         url: https://www.npmjs.com/package/@trigger.dev/sdk
       - type: JSONSchema
         url: json-schema/trigger-dev-run-schema.json
@@ -64,17 +64,17 @@ apis:
         url: json-schema/trigger-dev-waitpoint-token-schema.json
       - type: JSONStructure
         url: json-structure/trigger-dev-run-structure.json
-      - type: Example
+      - type: Examples
         url: examples/trigger-dev-trigger-task-example.json
-      - type: Example
+      - type: Examples
         url: examples/trigger-dev-list-runs-example.json
-      - type: Example
+      - type: Examples
         url: examples/trigger-dev-create-schedule-example.json
-      - type: Example
+      - type: Examples
         url: examples/trigger-dev-create-waitpoint-example.json
-      - type: Example
+      - type: Examples
         url: examples/trigger-dev-execute-query-example.json
-      - type: Example
+      - type: Examples
         url: examples/trigger-dev-retrieve-run-events-example.json
   - aid: trigger-dev:trigger-dev-realtime
     name: Trigger.dev Realtime API
@@ -96,7 +96,7 @@ apis:
         url: https://trigger.dev/docs/realtime/overview
       - type: Authentication
         url: https://trigger.dev/docs/realtime/auth
-      - type: SDK
+      - type: SDKs
         url: https://www.npmjs.com/package/@trigger.dev/react-hooks
 features:
   - Durable background task execution with automatic retries and no execution timeout
@@ -196,11 +196,11 @@ common:
     url: https://trigger.dev/docs/introduction
   - type: GitHub
     url: https://github.com/triggerdotdev
-  - type: SDK
+  - type: SDKs
     url: https://www.npmjs.com/package/@trigger.dev/sdk
   - type: CLI
     url: https://www.npmjs.com/package/trigger.dev
-  - type: SignUp
+  - type: Signup
     url: https://cloud.trigger.dev/login
   - type: Pricing
     url: https://trigger.dev/pricing
