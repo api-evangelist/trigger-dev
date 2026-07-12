@@ -186,6 +186,12 @@ github:
     language: TypeScript
     stars: 8
 common:
+  - type: TrustCenter
+    url: security/trigger-dev-trust-center.yml
+  - type: DomainSecurity
+    url: security/trigger-dev-domain-security.yml
+  - type: Authentication
+    url: authentication/trigger-dev-authentication.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/triggerdotdev
   - type: Website

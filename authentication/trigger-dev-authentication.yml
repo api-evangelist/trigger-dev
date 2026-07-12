@@ -1,0 +1,14 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/trigger-dev-management-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  description: Secret API key (starts with tr_dev_, tr_prod_, or tr_stg_). Set TRIGGER_SECRET_KEY
+    environment variable or pass in Authorization header.
+  sources:
+  - openapi/trigger-dev-management-openapi.yml
