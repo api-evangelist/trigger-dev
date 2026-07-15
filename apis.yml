@@ -186,6 +186,8 @@ github:
     language: TypeScript
     stars: 8
 common:
+  - type: AgenticAccess
+    url: agentic-access/trigger-dev-agentic-access.yml
   - type: TrustCenter
     url: security/trigger-dev-trust-center.yml
   - type: DomainSecurity
