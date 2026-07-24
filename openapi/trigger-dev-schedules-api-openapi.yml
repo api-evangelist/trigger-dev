@@ -1,0 +1,256 @@
+openapi: 3.0.3
+info:
+  title: Trigger.dev Management Batches Schedules API
+  description: The Trigger.dev Management API provides comprehensive REST endpoints for managing workflow runs, tasks, schedules, deployments, queues, environment variables, batches, and waitpoints. Enables programmatic control over the full lifecycle of background job workflows including triggering, monitoring, cancellation, and observability. Authenticated via bearer token (secret API key starting with tr_dev_, tr_prod_, or tr_stg_).
+  version: 3.1.0
+  contact:
+    url: https://trigger.dev
+  license:
+    name: AGPL-3.0
+    url: https://github.com/triggerdotdev/trigger.dev/blob/main/LICENSE
+servers:
+- url: https://api.trigger.dev
+  description: Trigger.dev Cloud API
+- url: https://your-self-hosted-instance.com
+  description: Self-hosted Trigger.dev instance
+security:
+- bearerAuth: []
+tags:
+- name: Schedules
+  description: Create and manage cron schedules with IANA timezone support.
+paths:
+  /api/v1/schedules:
+    get:
+      operationId: listSchedules
+      summary: List Schedules
+      description: Returns all configured schedules for the project.
+      tags:
+      - Schedules
+      responses:
+        '200':
+          description: List of schedules
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Schedule'
+    post:
+      operationId: createSchedule
+      summary: Create Schedule
+      description: Create a new cron schedule that triggers a task on a recurring basis. Supports IANA timezone configuration and deduplication keys.
+      tags:
+      - Schedules
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateScheduleRequest'
+      responses:
+        '200':
+          description: Schedule created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Schedule'
+        '400':
+          description: Bad request
+  /api/v1/schedules/{scheduleId}:
+    get:
+      operationId: getScheduleById
+      summary: Retrieve Schedule
+      description: Get details of a specific schedule including next run time and status.
+      tags:
+      - Schedules
+      parameters:
+      - name: scheduleId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Schedule identifier (prefixed with sched_)
+      responses:
+        '200':
+          description: Schedule details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Schedule'
+    put:
+      operationId: updateSchedule
+      summary: Update Schedule
+      description: Update an existing schedule's cron expression, timezone, or external ID.
+      tags:
+      - Schedules
+      parameters:
+      - name: scheduleId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateScheduleRequest'
+      responses:
+        '200':
+          description: Schedule updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Schedule'
+    delete:
+      operationId: deleteSchedule
+      summary: Delete Schedule
+      description: Permanently delete a schedule.
+      tags:
+      - Schedules
+      parameters:
+      - name: scheduleId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Schedule deleted
+  /api/v1/schedules/{scheduleId}/activate:
+    post:
+      operationId: activateSchedule
+      summary: Activate Schedule
+      description: Activate a deactivated schedule to resume its execution.
+      tags:
+      - Schedules
+      parameters:
+      - name: scheduleId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Schedule activated
+  /api/v1/schedules/{scheduleId}/deactivate:
+    post:
+      operationId: deactivateSchedule
+      summary: Deactivate Schedule
+      description: Pause a schedule without deleting it.
+      tags:
+      - Schedules
+      parameters:
+      - name: scheduleId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Schedule deactivated
+  /api/v1/schedules/timezones:
+    get:
+      operationId: getTimezones
+      summary: Get Timezones
+      description: Returns a list of valid IANA timezone identifiers for schedule configuration.
+      tags:
+      - Schedules
+      responses:
+        '200':
+          description: List of IANA timezone identifiers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+components:
+  schemas:
+    Schedule:
+      type: object
+      required:
+      - id
+      - task
+      properties:
+        id:
+          type: string
+          description: Schedule identifier (prefixed with sched_)
+        task:
+          type: string
+          description: The task identifier that this schedule triggers
+        type:
+          type: string
+          enum:
+          - IMPERATIVE
+          - DECLARATIVE
+        active:
+          type: boolean
+          description: Whether the schedule is active
+        deduplicationKey:
+          type: string
+        externalId:
+          type: string
+          description: Custom external identifier
+        timezone:
+          type: string
+          description: IANA timezone identifier
+        nextRun:
+          type: string
+          format: date-time
+          description: Next scheduled execution time
+        generator:
+          type: object
+          properties:
+            type:
+              type: string
+            expression:
+              type: string
+              description: Cron expression
+            description:
+              type: string
+        environments:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              type:
+                type: string
+    CreateScheduleRequest:
+      type: object
+      required:
+      - task
+      - cron
+      - deduplicationKey
+      properties:
+        task:
+          type: string
+          description: Task identifier to trigger
+        cron:
+          type: string
+          description: CRON expression (e.g., "0 9 * * MON-FRI")
+        deduplicationKey:
+          type: string
+          description: Prevents duplicate schedule creation
+        externalId:
+          type: string
+          description: Custom external identifier
+        timezone:
+          type: string
+          description: IANA timezone (defaults to UTC)
+    UpdateScheduleRequest:
+      type: object
+      properties:
+        cron:
+          type: string
+        timezone:
+          type: string
+        externalId:
+          type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Secret API key (starts with tr_dev_, tr_prod_, or tr_stg_). Set TRIGGER_SECRET_KEY environment variable or pass in Authorization header.

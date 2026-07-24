@@ -1,0 +1,126 @@
+openapi: 3.0.3
+info:
+  title: Trigger.dev Management Batches Deployments API
+  description: The Trigger.dev Management API provides comprehensive REST endpoints for managing workflow runs, tasks, schedules, deployments, queues, environment variables, batches, and waitpoints. Enables programmatic control over the full lifecycle of background job workflows including triggering, monitoring, cancellation, and observability. Authenticated via bearer token (secret API key starting with tr_dev_, tr_prod_, or tr_stg_).
+  version: 3.1.0
+  contact:
+    url: https://trigger.dev
+  license:
+    name: AGPL-3.0
+    url: https://github.com/triggerdotdev/trigger.dev/blob/main/LICENSE
+servers:
+- url: https://api.trigger.dev
+  description: Trigger.dev Cloud API
+- url: https://your-self-hosted-instance.com
+  description: Self-hosted Trigger.dev instance
+security:
+- bearerAuth: []
+tags:
+- name: Deployments
+  description: List deployments and promote versions to production.
+paths:
+  /api/v1/deployments:
+    get:
+      operationId: listDeployments
+      summary: List Deployments
+      description: Returns all deployments for the project, including version and status.
+      tags:
+      - Deployments
+      responses:
+        '200':
+          description: List of deployments
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Deployment'
+  /api/v1/deployments/{deploymentId}:
+    get:
+      operationId: getDeploymentById
+      summary: Get Deployment
+      description: Retrieve details of a specific deployment.
+      tags:
+      - Deployments
+      parameters:
+      - name: deploymentId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Deployment details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deployment'
+  /api/v1/deployments/latest:
+    get:
+      operationId: getLatestDeployment
+      summary: Get Latest Deployment
+      description: Returns the most recent deployment for the project.
+      tags:
+      - Deployments
+      responses:
+        '200':
+          description: Latest deployment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deployment'
+  /api/v1/deployments/{deploymentId}/promote:
+    post:
+      operationId: promoteDeployment
+      summary: Promote Deployment
+      description: Promote a specific deployment version to production.
+      tags:
+      - Deployments
+      parameters:
+      - name: deploymentId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Deployment promoted
+components:
+  schemas:
+    Deployment:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Deployment identifier
+        version:
+          type: string
+          description: Deployment version string
+        status:
+          type: string
+          enum:
+          - PENDING
+          - BUILDING
+          - DEPLOYING
+          - DEPLOYED
+          - FAILED
+        createdAt:
+          type: string
+          format: date-time
+        deployedAt:
+          type: string
+          format: date-time
+        tasks:
+          type: array
+          items:
+            type: object
+            properties:
+              identifier:
+                type: string
+              filePath:
+                type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Secret API key (starts with tr_dev_, tr_prod_, or tr_stg_). Set TRIGGER_SECRET_KEY environment variable or pass in Authorization header.

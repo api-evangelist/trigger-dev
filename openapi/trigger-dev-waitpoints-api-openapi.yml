@@ -1,0 +1,216 @@
+openapi: 3.0.3
+info:
+  title: Trigger.dev Management Batches Waitpoints API
+  description: The Trigger.dev Management API provides comprehensive REST endpoints for managing workflow runs, tasks, schedules, deployments, queues, environment variables, batches, and waitpoints. Enables programmatic control over the full lifecycle of background job workflows including triggering, monitoring, cancellation, and observability. Authenticated via bearer token (secret API key starting with tr_dev_, tr_prod_, or tr_stg_).
+  version: 3.1.0
+  contact:
+    url: https://trigger.dev
+  license:
+    name: AGPL-3.0
+    url: https://github.com/triggerdotdev/trigger.dev/blob/main/LICENSE
+servers:
+- url: https://api.trigger.dev
+  description: Trigger.dev Cloud API
+- url: https://your-self-hosted-instance.com
+  description: Self-hosted Trigger.dev instance
+security:
+- bearerAuth: []
+tags:
+- name: Waitpoints
+  description: Create, list, retrieve, and complete waitpoint tokens for human-in-the-loop workflows.
+paths:
+  /api/v1/waitpoints:
+    post:
+      operationId: createWaitpointToken
+      summary: Create Waitpoint Token
+      description: Create a waitpoint token for human-in-the-loop workflows. The run will pause until this token is completed.
+      tags:
+      - Waitpoints
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                idempotencyKey:
+                  type: string
+                  description: Prevent duplicate token creation
+                ttl:
+                  type: string
+                  description: Token expiry time (e.g., 24h, 7d)
+      responses:
+        '200':
+          description: Waitpoint token created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WaitpointToken'
+  /api/v1/waitpoints/{tokenId}:
+    get:
+      operationId: getWaitpointToken
+      summary: Retrieve Waitpoint Token
+      description: Get the status and details of a waitpoint token.
+      tags:
+      - Waitpoints
+      parameters:
+      - name: tokenId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Waitpoint token details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WaitpointToken'
+  /api/v1/waitpoints/{tokenId}/complete:
+    post:
+      operationId: completeWaitpointToken
+      summary: Complete Waitpoint Token
+      description: Complete a waitpoint token to resume the paused run. Optionally pass a result payload back to the waiting run.
+      tags:
+      - Waitpoints
+      parameters:
+      - name: tokenId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  description: Result data to return to the waiting run
+      responses:
+        '200':
+          description: Waitpoint completed
+  /api/v1/waitpoints/tokens:
+    get:
+      operationId: listWaitpointTokens
+      summary: List Waitpoint Tokens
+      description: Returns a paginated list of waitpoint tokens filterable by status, tags, idempotency key, and creation period.
+      tags:
+      - Waitpoints
+      parameters:
+      - name: page[size]
+        in: query
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+        description: Tokens per page
+      - name: page[after]
+        in: query
+        schema:
+          type: string
+        description: Cursor for next page
+      - name: page[before]
+        in: query
+        schema:
+          type: string
+        description: Cursor for previous page
+      - name: filter[status]
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - WAITING
+            - COMPLETED
+            - TIMED_OUT
+      - name: filter[tags]
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      - name: filter[idempotencyKey]
+        in: query
+        schema:
+          type: string
+      - name: filter[createdAt][period]
+        in: query
+        schema:
+          type: string
+          description: Time shorthand such as 24h or 7d
+      responses:
+        '200':
+          description: Paginated list of waitpoint tokens
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/WaitpointToken'
+                  pagination:
+                    type: object
+                    properties:
+                      next:
+                        type: string
+                      previous:
+                        type: string
+  /api/v1/waitpoints/{tokenId}/callback:
+    post:
+      operationId: completeWaitpointTokenCallback
+      summary: Complete Waitpoint Token via Callback
+      description: Complete a waitpoint token by callback URL — used when an external system signals completion of a human-in-the-loop step.
+      tags:
+      - Waitpoints
+      parameters:
+      - name: tokenId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  description: Result payload returned to the waiting run
+      responses:
+        '200':
+          description: Waitpoint completed via callback
+components:
+  schemas:
+    WaitpointToken:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Waitpoint token identifier
+        status:
+          type: string
+          enum:
+          - PENDING
+          - COMPLETED
+          - EXPIRED
+          - CANCELLED
+        expiresAt:
+          type: string
+          format: date-time
+          description: Token expiry time
+        completedAt:
+          type: string
+          format: date-time
+        data:
+          description: Completion data returned to the waiting run
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Secret API key (starts with tr_dev_, tr_prod_, or tr_stg_). Set TRIGGER_SECRET_KEY environment variable or pass in Authorization header.

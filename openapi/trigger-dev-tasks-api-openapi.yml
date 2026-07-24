@@ -1,0 +1,176 @@
+openapi: 3.0.3
+info:
+  title: Trigger.dev Management Batches Tasks API
+  description: The Trigger.dev Management API provides comprehensive REST endpoints for managing workflow runs, tasks, schedules, deployments, queues, environment variables, batches, and waitpoints. Enables programmatic control over the full lifecycle of background job workflows including triggering, monitoring, cancellation, and observability. Authenticated via bearer token (secret API key starting with tr_dev_, tr_prod_, or tr_stg_).
+  version: 3.1.0
+  contact:
+    url: https://trigger.dev
+  license:
+    name: AGPL-3.0
+    url: https://github.com/triggerdotdev/trigger.dev/blob/main/LICENSE
+servers:
+- url: https://api.trigger.dev
+  description: Trigger.dev Cloud API
+- url: https://your-self-hosted-instance.com
+  description: Self-hosted Trigger.dev instance
+security:
+- bearerAuth: []
+tags:
+- name: Tasks
+  description: Trigger individual or batched task runs.
+paths:
+  /api/v1/tasks/{taskIdentifier}/trigger:
+    post:
+      operationId: triggerTask
+      summary: Trigger Task
+      description: Trigger a single task run. Returns the run ID for tracking. Supports payload, context, queue options, concurrency keys, idempotency, TTL, delay, tags, and machine preset selection.
+      tags:
+      - Tasks
+      parameters:
+      - name: taskIdentifier
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The task identifier (e.g., my-task)
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TriggerTaskRequest'
+      responses:
+        '200':
+          description: Task triggered successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TriggerTaskResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Task not found
+  /api/v1/tasks/batch:
+    post:
+      operationId: batchTriggerTask
+      summary: Batch Trigger Tasks
+      description: Trigger multiple task runs in a single batch request. Returns a batch ID and array of run IDs. All items in the batch must reference the same task.
+      tags:
+      - Tasks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchTriggerRequest'
+      responses:
+        '200':
+          description: Batch triggered successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchTriggerResponse'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+components:
+  schemas:
+    BatchTriggerResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Batch identifier
+        runs:
+          type: array
+          items:
+            $ref: '#/components/schemas/TriggerTaskResponse'
+    BatchTriggerRequest:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/TriggerTaskRequest'
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              message:
+                type: string
+              path:
+                type: string
+    TriggerTaskRequest:
+      type: object
+      properties:
+        payload:
+          description: Task payload data (any JSON value)
+        context:
+          description: Additional context data
+        options:
+          type: object
+          properties:
+            queue:
+              type: object
+              properties:
+                name:
+                  type: string
+                concurrencyLimit:
+                  type: integer
+            concurrencyKey:
+              type: string
+              description: Scope concurrency to a specific key
+            idempotencyKey:
+              type: string
+              description: Prevent duplicate runs
+            ttl:
+              type: string
+              description: Time-to-live (e.g., 1h42m)
+            delay:
+              type: string
+              description: Execution delay (e.g., 1h, 30d)
+            tags:
+              type: array
+              maxItems: 10
+              items:
+                type: string
+                maxLength: 128
+            machine:
+              type: string
+              enum:
+              - micro
+              - small-1x
+              - small-2x
+              - medium-1x
+              - medium-2x
+              - large-1x
+              - large-2x
+              description: Machine preset for the run
+    TriggerTaskResponse:
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+          description: Run identifier (prefixed with run_)
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Secret API key (starts with tr_dev_, tr_prod_, or tr_stg_). Set TRIGGER_SECRET_KEY environment variable or pass in Authorization header.

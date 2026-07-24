@@ -1,0 +1,165 @@
+openapi: 3.0.3
+info:
+  title: Trigger.dev Management Batches API
+  description: The Trigger.dev Management API provides comprehensive REST endpoints for managing workflow runs, tasks, schedules, deployments, queues, environment variables, batches, and waitpoints. Enables programmatic control over the full lifecycle of background job workflows including triggering, monitoring, cancellation, and observability. Authenticated via bearer token (secret API key starting with tr_dev_, tr_prod_, or tr_stg_).
+  version: 3.1.0
+  contact:
+    url: https://trigger.dev
+  license:
+    name: AGPL-3.0
+    url: https://github.com/triggerdotdev/trigger.dev/blob/main/LICENSE
+servers:
+- url: https://api.trigger.dev
+  description: Trigger.dev Cloud API
+- url: https://your-self-hosted-instance.com
+  description: Self-hosted Trigger.dev instance
+security:
+- bearerAuth: []
+tags:
+- name: Batches
+  description: Create and retrieve large-scale batch runs.
+paths:
+  /api/v1/batches:
+    post:
+      operationId: createBatch
+      summary: Create Batch
+      description: Create a new batch of task runs. Used for large-scale parallel processing where runs can be streamed in incrementally.
+      tags:
+      - Batches
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchTriggerRequest'
+      responses:
+        '200':
+          description: Batch created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchTriggerResponse'
+  /api/v1/batches/{batchId}:
+    get:
+      operationId: getBatchById
+      summary: Retrieve Batch
+      description: Get details of a specific batch including status and run count.
+      tags:
+      - Batches
+      parameters:
+      - name: batchId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Batch identifier
+      responses:
+        '200':
+          description: Batch details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Batch'
+components:
+  schemas:
+    BatchTriggerRequest:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/TriggerTaskRequest'
+    BatchTriggerResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Batch identifier
+        runs:
+          type: array
+          items:
+            $ref: '#/components/schemas/TriggerTaskResponse'
+    TriggerTaskRequest:
+      type: object
+      properties:
+        payload:
+          description: Task payload data (any JSON value)
+        context:
+          description: Additional context data
+        options:
+          type: object
+          properties:
+            queue:
+              type: object
+              properties:
+                name:
+                  type: string
+                concurrencyLimit:
+                  type: integer
+            concurrencyKey:
+              type: string
+              description: Scope concurrency to a specific key
+            idempotencyKey:
+              type: string
+              description: Prevent duplicate runs
+            ttl:
+              type: string
+              description: Time-to-live (e.g., 1h42m)
+            delay:
+              type: string
+              description: Execution delay (e.g., 1h, 30d)
+            tags:
+              type: array
+              maxItems: 10
+              items:
+                type: string
+                maxLength: 128
+            machine:
+              type: string
+              enum:
+              - micro
+              - small-1x
+              - small-2x
+              - medium-1x
+              - medium-2x
+              - large-1x
+              - large-2x
+              description: Machine preset for the run
+    Batch:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Batch identifier
+        status:
+          type: string
+          enum:
+          - PENDING
+          - PROCESSING
+          - COMPLETED
+          - FAILED
+        totalCount:
+          type: integer
+        completedCount:
+          type: integer
+        failedCount:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        completedAt:
+          type: string
+          format: date-time
+    TriggerTaskResponse:
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+          description: Run identifier (prefixed with run_)
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Secret API key (starts with tr_dev_, tr_prod_, or tr_stg_). Set TRIGGER_SECRET_KEY environment variable or pass in Authorization header.

@@ -1,0 +1,88 @@
+openapi: 3.0.3
+info:
+  title: Trigger.dev Management Batches Query API
+  description: The Trigger.dev Management API provides comprehensive REST endpoints for managing workflow runs, tasks, schedules, deployments, queues, environment variables, batches, and waitpoints. Enables programmatic control over the full lifecycle of background job workflows including triggering, monitoring, cancellation, and observability. Authenticated via bearer token (secret API key starting with tr_dev_, tr_prod_, or tr_stg_).
+  version: 3.1.0
+  contact:
+    url: https://trigger.dev
+  license:
+    name: AGPL-3.0
+    url: https://github.com/triggerdotdev/trigger.dev/blob/main/LICENSE
+servers:
+- url: https://api.trigger.dev
+  description: Trigger.dev Cloud API
+- url: https://your-self-hosted-instance.com
+  description: Self-hosted Trigger.dev instance
+security:
+- bearerAuth: []
+tags:
+- name: Query
+  description: Execute TRQL queries against runs, tasks, and metrics for dashboards and analytics.
+paths:
+  /api/v1/query:
+    post:
+      operationId: executeQuery
+      summary: Execute Query
+      description: Execute a TRQL query against runs, tasks, and metrics. Supports environment, project, or organization scope. Returns JSON rows or CSV.
+      tags:
+      - Query
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - query
+              properties:
+                query:
+                  type: string
+                  description: TRQL query string
+                scope:
+                  type: string
+                  enum:
+                  - environment
+                  - project
+                  - organization
+                  default: environment
+                period:
+                  type: string
+                  description: Time shorthand such as 7d or 30d
+                from:
+                  type: string
+                  format: date-time
+                to:
+                  type: string
+                  format: date-time
+                format:
+                  type: string
+                  enum:
+                  - json
+                  - csv
+                  default: json
+      responses:
+        '200':
+          description: Query result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  format:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: true
+            text/csv:
+              schema:
+                type: string
+        '400':
+          description: Invalid query
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Secret API key (starts with tr_dev_, tr_prod_, or tr_stg_). Set TRIGGER_SECRET_KEY environment variable or pass in Authorization header.

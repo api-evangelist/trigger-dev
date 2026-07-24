@@ -1,0 +1,555 @@
+openapi: 3.0.3
+info:
+  title: Trigger.dev Management Batches Runs API
+  description: The Trigger.dev Management API provides comprehensive REST endpoints for managing workflow runs, tasks, schedules, deployments, queues, environment variables, batches, and waitpoints. Enables programmatic control over the full lifecycle of background job workflows including triggering, monitoring, cancellation, and observability. Authenticated via bearer token (secret API key starting with tr_dev_, tr_prod_, or tr_stg_).
+  version: 3.1.0
+  contact:
+    url: https://trigger.dev
+  license:
+    name: AGPL-3.0
+    url: https://github.com/triggerdotdev/trigger.dev/blob/main/LICENSE
+servers:
+- url: https://api.trigger.dev
+  description: Trigger.dev Cloud API
+- url: https://your-self-hosted-instance.com
+  description: Self-hosted Trigger.dev instance
+security:
+- bearerAuth: []
+tags:
+- name: Runs
+  description: List, retrieve, cancel, replay, reschedule, tag, and inspect run events, results, and traces.
+paths:
+  /api/v1/runs:
+    get:
+      operationId: listRuns
+      summary: List Runs
+      description: Returns a paginated list of runs filtered by status, task, tags, date range, and other criteria.
+      tags:
+      - Runs
+      parameters:
+      - name: filter[status]
+        in: query
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/RunStatus'
+        description: Filter by run status
+      - name: filter[taskIdentifier]
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+        description: Filter by task identifiers
+      - name: filter[tag]
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+        description: Filter by tags
+      - name: filter[isTest]
+        in: query
+        schema:
+          type: boolean
+        description: Filter to test runs only
+      - name: filter[createdAt.from]
+        in: query
+        schema:
+          type: string
+          format: date-time
+        description: Filter runs created after this time
+      - name: filter[createdAt.to]
+        in: query
+        schema:
+          type: string
+          format: date-time
+        description: Filter runs created before this time
+      - name: page[size]
+        in: query
+        schema:
+          type: integer
+          minimum: 10
+          maximum: 100
+          default: 25
+        description: Runs per page
+      - name: page[after]
+        in: query
+        schema:
+          type: string
+        description: Run ID to paginate after
+      - name: page[before]
+        in: query
+        schema:
+          type: string
+        description: Run ID to paginate before
+      responses:
+        '200':
+          description: Paginated list of runs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListRunsResponse'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+  /api/v1/runs/{runId}:
+    get:
+      operationId: getRunById
+      summary: Retrieve Run
+      description: Retrieve detailed information about a specific run including status, payload, output, hierarchy (root/parent/children), attempts, tags, and cost metadata.
+      tags:
+      - Runs
+      parameters:
+      - name: runId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Run identifier (prefixed with run_)
+      responses:
+        '200':
+          description: Run details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Run'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Run not found
+  /api/v1/runs/{runId}/cancel:
+    post:
+      operationId: cancelRun
+      summary: Cancel Run
+      description: Cancel a queued or executing run.
+      tags:
+      - Runs
+      parameters:
+      - name: runId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Run identifier
+      responses:
+        '200':
+          description: Run cancelled
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Run'
+        '404':
+          description: Run not found
+  /api/v1/runs/{runId}/replay:
+    post:
+      operationId: replayRun
+      summary: Replay Run
+      description: Replay a completed run with the same payload. Creates a new run with the original task and payload.
+      tags:
+      - Runs
+      parameters:
+      - name: runId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Run identifier
+      responses:
+        '200':
+          description: New run created via replay
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TriggerTaskResponse'
+        '404':
+          description: Run not found
+  /api/v1/runs/{runId}/reschedule:
+    post:
+      operationId: rescheduleRun
+      summary: Reschedule Run
+      description: Reschedule a delayed run to execute at a new time.
+      tags:
+      - Runs
+      parameters:
+      - name: runId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - delay
+              properties:
+                delay:
+                  type: string
+                  description: New delay duration (e.g., 1h, 30m)
+      responses:
+        '200':
+          description: Run rescheduled
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Run'
+  /api/v1/runs/{runId}/tags:
+    put:
+      operationId: addTagsToRun
+      summary: Add Tags to Run
+      description: Add one or more tags to an existing run for filtering and organization.
+      tags:
+      - Runs
+      parameters:
+      - name: runId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - tags
+              properties:
+                tags:
+                  type: array
+                  maxItems: 10
+                  items:
+                    type: string
+                    maxLength: 128
+      responses:
+        '200':
+          description: Tags added successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Run'
+  /api/v1/runs/{runId}/events:
+    get:
+      operationId: retrieveRunEvents
+      summary: Retrieve Run Events
+      description: Retrieve the OpenTelemetry spans / events for a specific run, including timing, level, kind, and nested events. Used for tracing and debugging task execution.
+      tags:
+      - Runs
+      parameters:
+      - name: runId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Run identifier (prefixed with run_)
+      responses:
+        '200':
+          description: List of run events
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  events:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/RunEvent'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Run not found
+  /api/v1/runs/{runId}/result:
+    get:
+      operationId: retrieveRunResult
+      summary: Retrieve Run Result
+      description: Retrieve the final result of a completed run, including output payload or error details.
+      tags:
+      - Runs
+      parameters:
+      - name: runId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Run result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  output:
+                    description: Successful output payload
+                  error:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                      stack:
+                        type: string
+        '404':
+          description: Run not found
+  /api/v1/runs/{runId}/trace:
+    get:
+      operationId: retrieveRunTrace
+      summary: Retrieve Run Trace
+      description: Retrieve the distributed trace tree for a run including all child runs, spans, and timing data.
+      tags:
+      - Runs
+      parameters:
+      - name: runId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Run trace tree
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '404':
+          description: Run not found
+  /api/v1/runs/{runId}/metadata:
+    put:
+      operationId: updateRunMetadata
+      summary: Update Run Metadata
+      description: Update the metadata object attached to a run. Useful for storing custom progress or context.
+      tags:
+      - Runs
+      parameters:
+      - name: runId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                metadata:
+                  type: object
+                  additionalProperties: true
+      responses:
+        '200':
+          description: Metadata updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Run'
+components:
+  schemas:
+    RunStatus:
+      type: string
+      enum:
+      - QUEUED
+      - EXECUTING
+      - REATTEMPTING
+      - WAITING_FOR_DEPLOY
+      - WAITING_TO_RESUME
+      - COMPLETED_SUCCESSFULLY
+      - COMPLETED_WITH_ERRORS
+      - INTERRUPTED
+      - CANCELLED
+      - CRASHED
+      - FAILED_TO_RUN
+      - TIMED_OUT
+      - EXPIRED
+      - DELAYED
+      - SYSTEM_FAILURE
+      description: Current status of a task run
+    ListRunsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Run'
+        pagination:
+          type: object
+          properties:
+            next:
+              type: string
+              description: Run ID for next page
+            previous:
+              type: string
+              description: Run ID for previous page
+    Run:
+      type: object
+      required:
+      - id
+      - status
+      - taskIdentifier
+      properties:
+        id:
+          type: string
+          description: Run identifier (prefixed with run_)
+        status:
+          $ref: '#/components/schemas/RunStatus'
+        taskIdentifier:
+          type: string
+          description: The task that this run executes
+        version:
+          type: string
+          description: Deployment version that ran the task
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        startedAt:
+          type: string
+          format: date-time
+        finishedAt:
+          type: string
+          format: date-time
+        isTest:
+          type: boolean
+        payload:
+          description: The payload data passed to the task
+        output:
+          description: The task's return value (if completed successfully)
+        tags:
+          type: array
+          items:
+            type: string
+        metadata:
+          type: object
+          additionalProperties: true
+        relatedRuns:
+          type: object
+          properties:
+            root:
+              $ref: '#/components/schemas/RunReference'
+            parent:
+              $ref: '#/components/schemas/RunReference'
+            children:
+              type: array
+              items:
+                $ref: '#/components/schemas/RunReference'
+        attempts:
+          type: array
+          items:
+            $ref: '#/components/schemas/RunAttempt'
+        schedule:
+          type: object
+          properties:
+            id:
+              type: string
+            type:
+              type: string
+            expression:
+              type: string
+    RunEvent:
+      type: object
+      properties:
+        spanId:
+          type: string
+        parentId:
+          type: string
+        runId:
+          type: string
+        message:
+          type: string
+        startTime:
+          type: string
+          format: date-time
+        duration:
+          type: integer
+          description: Span duration in nanoseconds
+        isError:
+          type: boolean
+        isPartial:
+          type: boolean
+        isCancelled:
+          type: boolean
+        level:
+          type: string
+          enum:
+          - TRACE
+          - DEBUG
+          - LOG
+          - INFO
+          - WARN
+          - ERROR
+        kind:
+          type: string
+          enum:
+          - INTERNAL
+          - SERVER
+          - CLIENT
+          - PRODUCER
+          - CONSUMER
+        attemptNumber:
+          type: integer
+        taskSlug:
+          type: string
+        events:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        style:
+          type: object
+          properties:
+            icon:
+              type: string
+            variant:
+              type: string
+            accessory:
+              type: string
+    RunReference:
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          $ref: '#/components/schemas/RunStatus'
+        taskIdentifier:
+          type: string
+    TriggerTaskResponse:
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+          description: Run identifier (prefixed with run_)
+    RunAttempt:
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          type: string
+        startedAt:
+          type: string
+          format: date-time
+        completedAt:
+          type: string
+          format: date-time
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+            stack:
+              type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Secret API key (starts with tr_dev_, tr_prod_, or tr_stg_). Set TRIGGER_SECRET_KEY environment variable or pass in Authorization header.

@@ -1,0 +1,157 @@
+openapi: 3.0.3
+info:
+  title: Trigger.dev Management Batches Queues API
+  description: The Trigger.dev Management API provides comprehensive REST endpoints for managing workflow runs, tasks, schedules, deployments, queues, environment variables, batches, and waitpoints. Enables programmatic control over the full lifecycle of background job workflows including triggering, monitoring, cancellation, and observability. Authenticated via bearer token (secret API key starting with tr_dev_, tr_prod_, or tr_stg_).
+  version: 3.1.0
+  contact:
+    url: https://trigger.dev
+  license:
+    name: AGPL-3.0
+    url: https://github.com/triggerdotdev/trigger.dev/blob/main/LICENSE
+servers:
+- url: https://api.trigger.dev
+  description: Trigger.dev Cloud API
+- url: https://your-self-hosted-instance.com
+  description: Self-hosted Trigger.dev instance
+security:
+- bearerAuth: []
+tags:
+- name: Queues
+  description: Manage task queues including pause, resume, and concurrency overrides.
+paths:
+  /api/v1/queues:
+    get:
+      operationId: listQueues
+      summary: List Queues
+      description: Returns all task queues for the project.
+      tags:
+      - Queues
+      responses:
+        '200':
+          description: List of queues
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Queue'
+  /api/v1/queues/{queueName}:
+    get:
+      operationId: getQueueByName
+      summary: Retrieve Queue
+      description: Get details of a specific queue including current depth and concurrency settings.
+      tags:
+      - Queues
+      parameters:
+      - name: queueName
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Queue name
+      responses:
+        '200':
+          description: Queue details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Queue'
+  /api/v1/queues/{queueName}/pause:
+    post:
+      operationId: pauseQueue
+      summary: Pause Queue
+      description: Pause a queue to prevent new runs from starting.
+      tags:
+      - Queues
+      parameters:
+      - name: queueName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Queue paused
+  /api/v1/queues/{queueName}/resume:
+    post:
+      operationId: resumeQueue
+      summary: Resume Queue
+      description: Resume a paused queue to allow runs to execute.
+      tags:
+      - Queues
+      parameters:
+      - name: queueName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Queue resumed
+  /api/v1/queues/{queueName}/concurrency:
+    put:
+      operationId: overrideQueueConcurrency
+      summary: Override Queue Concurrency
+      description: Override the concurrency limit for a queue.
+      tags:
+      - Queues
+      parameters:
+      - name: queueName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                concurrencyLimit:
+                  type: integer
+                  description: New concurrency limit
+      responses:
+        '200':
+          description: Concurrency limit updated
+  /api/v1/queues/{queueName}/concurrency/reset:
+    post:
+      operationId: resetQueueConcurrency
+      summary: Reset Queue Concurrency
+      description: Reset a queue's concurrency limit to its default.
+      tags:
+      - Queues
+      parameters:
+      - name: queueName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Concurrency limit reset
+components:
+  schemas:
+    Queue:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Queue name
+        paused:
+          type: boolean
+          description: Whether the queue is paused
+        concurrencyLimit:
+          type: integer
+          description: Maximum concurrent runs
+        currentConcurrency:
+          type: integer
+          description: Currently executing runs
+        depth:
+          type: integer
+          description: Queued runs waiting to execute
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Secret API key (starts with tr_dev_, tr_prod_, or tr_stg_). Set TRIGGER_SECRET_KEY environment variable or pass in Authorization header.
