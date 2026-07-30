@@ -7,7 +7,20 @@ description: >-
   waitpoints, batch triggering, and a comprehensive Management API. Cloud-hosted at cloud.trigger.dev and self-hostable
   via Docker or Fly.io.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/trigger-dev.png
 tags:
   - Developer-First
   - Workflow Automation
@@ -22,82 +35,391 @@ created: '2026-03-27'
 modified: '2026-05-22'
 specificationVersion: '0.19'
 apis:
-  - aid: trigger-dev:trigger-dev-management
-    name: Trigger.dev Management API
-    description: >-
-      The Trigger.dev Management API provides comprehensive REST endpoints for managing workflow runs, tasks, schedules,
-      deployments, queues, environment variables, batches, waitpoints, and query/dashboards. Enables programmatic
-      control over the full lifecycle of background job workflows including triggering, monitoring, cancellation,
-      replay, tagging, and observability. Authenticated via bearer token (secret API key prefixed tr_dev_/tr_prod_ or
-      personal access token tr_pat_) at https://api.trigger.dev.
-    humanURL: https://trigger.dev/docs/management/overview
-    baseURL: https://api.trigger.dev
-    tags:
-      - Workflow Automation
-      - Background Jobs
-      - Task Management
-      - Scheduling
-      - Deployments
-      - Queue Management
-      - Waitpoints
-      - Batches
-      - Environment Variables
-      - Query
-    properties:
-      - type: Documentation
-        url: https://trigger.dev/docs/management/overview
-      - type: GettingStarted
-        url: https://trigger.dev/docs/introduction
-      - type: Authentication
-        url: https://trigger.dev/docs/management/authentication
-      - type: OpenAPI
-        url: openapi/trigger-dev-management-openapi.yml
-      - type: SpectralRules
-        url: rules/trigger-dev-rules.yml
-      - type: SDKs
-        url: https://www.npmjs.com/package/@trigger.dev/sdk
-      - type: JSONSchema
-        url: json-schema/trigger-dev-run-schema.json
-      - type: JSONSchema
-        url: json-schema/trigger-dev-schedule-schema.json
-      - type: JSONSchema
-        url: json-schema/trigger-dev-waitpoint-token-schema.json
-      - type: JSONStructure
-        url: json-structure/trigger-dev-run-structure.json
-      - type: Examples
-        url: examples/trigger-dev-trigger-task-example.json
-      - type: Examples
-        url: examples/trigger-dev-list-runs-example.json
-      - type: Examples
-        url: examples/trigger-dev-create-schedule-example.json
-      - type: Examples
-        url: examples/trigger-dev-create-waitpoint-example.json
-      - type: Examples
-        url: examples/trigger-dev-execute-query-example.json
-      - type: Examples
-        url: examples/trigger-dev-retrieve-run-events-example.json
-  - aid: trigger-dev:trigger-dev-realtime
-    name: Trigger.dev Realtime API
-    description: >-
-      The Trigger.dev Realtime API streams live run state and typed stream data to backend and frontend clients. Backend
-      SDK methods include runs.subscribeToRun, runs.subscribeToRunsWithTag, and runs.subscribeToBatch. React hooks
-      include useRealtimeRun, useRealtimeRunsWithTag, useRealtimeBatch, useRealtimeStream, useWaitToken, and
-      trigger-plus-subscribe hooks. Powers progress UIs, AI streaming output, and human-in-the-loop interfaces.
-    humanURL: https://trigger.dev/docs/realtime/overview
-    tags:
-      - Realtime
-      - Streaming
-      - React
-      - WebSockets
-      - AI Streaming
-      - Frontend
-    properties:
-      - type: Documentation
-        url: https://trigger.dev/docs/realtime/overview
-      - type: Authentication
-        url: https://trigger.dev/docs/realtime/auth
-      - type: SDKs
-        url: https://www.npmjs.com/package/@trigger.dev/react-hooks
+- aid: trigger-dev:trigger-dev-realtime
+  name: Trigger.dev Realtime API
+  description: >-
+    The Trigger.dev Realtime API streams live run state and typed stream data to backend and frontend
+    clients. Backend SDK methods include runs.subscribeToRun, runs.subscribeToRunsWithTag, and runs.subscribeToBatch.
+    React hooks include useRealtimeRun, useRealtimeRunsWithTag, useRealtimeBatch, useRealtimeStream, useWaitToken,
+    and trigger-plus-subscribe hooks. Powers progress UIs, AI streaming output, and human-in-the-loop
+    interfaces.
+  humanURL: https://trigger.dev/docs/realtime/overview
+  tags:
+  - Realtime
+  - Streaming
+  - React
+  - WebSockets
+  - AI Streaming
+  - Frontend
+  properties:
+  - type: Documentation
+    url: https://trigger.dev/docs/realtime/overview
+  - type: Authentication
+    url: https://trigger.dev/docs/realtime/auth
+  - type: SDKs
+    url: https://www.npmjs.com/package/@trigger.dev/react-hooks
+- aid: trigger-dev:trigger-dev-batches-api
+  name: Trigger.dev Batches API
+  description: Create and retrieve large-scale batch runs.
+  humanURL: https://trigger.dev/docs/management/overview
+  baseURL: https://api.trigger.dev
+  tags:
+  - Batches
+  properties:
+  - type: OpenAPI
+    url: openapi/trigger-dev-batches-api-openapi.yml
+  - type: Documentation
+    url: https://trigger.dev/docs/management/overview
+  - type: GettingStarted
+    url: https://trigger.dev/docs/introduction
+  - type: Authentication
+    url: https://trigger.dev/docs/management/authentication
+  - type: SpectralRules
+    url: rules/trigger-dev-rules.yml
+  - type: SDKs
+    url: https://www.npmjs.com/package/@trigger.dev/sdk
+  - type: JSONSchema
+    url: json-schema/trigger-dev-run-schema.json
+  - type: JSONSchema
+    url: json-schema/trigger-dev-schedule-schema.json
+  - type: JSONSchema
+    url: json-schema/trigger-dev-waitpoint-token-schema.json
+  - type: JSONStructure
+    url: json-structure/trigger-dev-run-structure.json
+  - type: Examples
+    url: examples/trigger-dev-trigger-task-example.json
+  - type: Examples
+    url: examples/trigger-dev-list-runs-example.json
+  - type: Examples
+    url: examples/trigger-dev-create-schedule-example.json
+  - type: Examples
+    url: examples/trigger-dev-create-waitpoint-example.json
+  - type: Examples
+    url: examples/trigger-dev-execute-query-example.json
+  - type: Examples
+    url: examples/trigger-dev-retrieve-run-events-example.json
+- aid: trigger-dev:trigger-dev-deployments-api
+  name: Trigger.dev Deployments API
+  description: List deployments and promote versions to production.
+  humanURL: https://trigger.dev/docs/management/overview
+  baseURL: https://api.trigger.dev
+  tags:
+  - Deployments
+  properties:
+  - type: OpenAPI
+    url: openapi/trigger-dev-deployments-api-openapi.yml
+  - type: Documentation
+    url: https://trigger.dev/docs/management/overview
+  - type: GettingStarted
+    url: https://trigger.dev/docs/introduction
+  - type: Authentication
+    url: https://trigger.dev/docs/management/authentication
+  - type: SpectralRules
+    url: rules/trigger-dev-rules.yml
+  - type: SDKs
+    url: https://www.npmjs.com/package/@trigger.dev/sdk
+  - type: JSONSchema
+    url: json-schema/trigger-dev-run-schema.json
+  - type: JSONSchema
+    url: json-schema/trigger-dev-schedule-schema.json
+  - type: JSONSchema
+    url: json-schema/trigger-dev-waitpoint-token-schema.json
+  - type: JSONStructure
+    url: json-structure/trigger-dev-run-structure.json
+  - type: Examples
+    url: examples/trigger-dev-trigger-task-example.json
+  - type: Examples
+    url: examples/trigger-dev-list-runs-example.json
+  - type: Examples
+    url: examples/trigger-dev-create-schedule-example.json
+  - type: Examples
+    url: examples/trigger-dev-create-waitpoint-example.json
+  - type: Examples
+    url: examples/trigger-dev-execute-query-example.json
+  - type: Examples
+    url: examples/trigger-dev-retrieve-run-events-example.json
+- aid: trigger-dev:trigger-dev-environment-variables-api
+  name: Trigger.dev Environment Variables API
+  description: >-
+    Create, read, update, delete, and import environment variables per project and environment.
+  humanURL: https://trigger.dev/docs/management/overview
+  baseURL: https://api.trigger.dev
+  tags:
+  - Environment Variables
+  properties:
+  - type: OpenAPI
+    url: openapi/trigger-dev-environment-variables-api-openapi.yml
+  - type: Documentation
+    url: https://trigger.dev/docs/management/overview
+  - type: GettingStarted
+    url: https://trigger.dev/docs/introduction
+  - type: Authentication
+    url: https://trigger.dev/docs/management/authentication
+  - type: SpectralRules
+    url: rules/trigger-dev-rules.yml
+  - type: SDKs
+    url: https://www.npmjs.com/package/@trigger.dev/sdk
+  - type: JSONSchema
+    url: json-schema/trigger-dev-run-schema.json
+  - type: JSONSchema
+    url: json-schema/trigger-dev-schedule-schema.json
+  - type: JSONSchema
+    url: json-schema/trigger-dev-waitpoint-token-schema.json
+  - type: JSONStructure
+    url: json-structure/trigger-dev-run-structure.json
+  - type: Examples
+    url: examples/trigger-dev-trigger-task-example.json
+  - type: Examples
+    url: examples/trigger-dev-list-runs-example.json
+  - type: Examples
+    url: examples/trigger-dev-create-schedule-example.json
+  - type: Examples
+    url: examples/trigger-dev-create-waitpoint-example.json
+  - type: Examples
+    url: examples/trigger-dev-execute-query-example.json
+  - type: Examples
+    url: examples/trigger-dev-retrieve-run-events-example.json
+- aid: trigger-dev:trigger-dev-query-api
+  name: Trigger.dev Query API
+  description: Execute TRQL queries against runs, tasks, and metrics for dashboards and analytics.
+  humanURL: https://trigger.dev/docs/management/overview
+  baseURL: https://api.trigger.dev
+  tags:
+  - Query
+  properties:
+  - type: OpenAPI
+    url: openapi/trigger-dev-query-api-openapi.yml
+  - type: Documentation
+    url: https://trigger.dev/docs/management/overview
+  - type: GettingStarted
+    url: https://trigger.dev/docs/introduction
+  - type: Authentication
+    url: https://trigger.dev/docs/management/authentication
+  - type: SpectralRules
+    url: rules/trigger-dev-rules.yml
+  - type: SDKs
+    url: https://www.npmjs.com/package/@trigger.dev/sdk
+  - type: JSONSchema
+    url: json-schema/trigger-dev-run-schema.json
+  - type: JSONSchema
+    url: json-schema/trigger-dev-schedule-schema.json
+  - type: JSONSchema
+    url: json-schema/trigger-dev-waitpoint-token-schema.json
+  - type: JSONStructure
+    url: json-structure/trigger-dev-run-structure.json
+  - type: Examples
+    url: examples/trigger-dev-trigger-task-example.json
+  - type: Examples
+    url: examples/trigger-dev-list-runs-example.json
+  - type: Examples
+    url: examples/trigger-dev-create-schedule-example.json
+  - type: Examples
+    url: examples/trigger-dev-create-waitpoint-example.json
+  - type: Examples
+    url: examples/trigger-dev-execute-query-example.json
+  - type: Examples
+    url: examples/trigger-dev-retrieve-run-events-example.json
+- aid: trigger-dev:trigger-dev-queues-api
+  name: Trigger.dev Queues API
+  description: Manage task queues including pause, resume, and concurrency overrides.
+  humanURL: https://trigger.dev/docs/management/overview
+  baseURL: https://api.trigger.dev
+  tags:
+  - Queues
+  properties:
+  - type: OpenAPI
+    url: openapi/trigger-dev-queues-api-openapi.yml
+  - type: Documentation
+    url: https://trigger.dev/docs/management/overview
+  - type: GettingStarted
+    url: https://trigger.dev/docs/introduction
+  - type: Authentication
+    url: https://trigger.dev/docs/management/authentication
+  - type: SpectralRules
+    url: rules/trigger-dev-rules.yml
+  - type: SDKs
+    url: https://www.npmjs.com/package/@trigger.dev/sdk
+  - type: JSONSchema
+    url: json-schema/trigger-dev-run-schema.json
+  - type: JSONSchema
+    url: json-schema/trigger-dev-schedule-schema.json
+  - type: JSONSchema
+    url: json-schema/trigger-dev-waitpoint-token-schema.json
+  - type: JSONStructure
+    url: json-structure/trigger-dev-run-structure.json
+  - type: Examples
+    url: examples/trigger-dev-trigger-task-example.json
+  - type: Examples
+    url: examples/trigger-dev-list-runs-example.json
+  - type: Examples
+    url: examples/trigger-dev-create-schedule-example.json
+  - type: Examples
+    url: examples/trigger-dev-create-waitpoint-example.json
+  - type: Examples
+    url: examples/trigger-dev-execute-query-example.json
+  - type: Examples
+    url: examples/trigger-dev-retrieve-run-events-example.json
+- aid: trigger-dev:trigger-dev-runs-api
+  name: Trigger.dev Runs API
+  description: >-
+    List, retrieve, cancel, replay, reschedule, tag, and inspect run events, results, and traces.
+  humanURL: https://trigger.dev/docs/management/overview
+  baseURL: https://api.trigger.dev
+  tags:
+  - Runs
+  properties:
+  - type: OpenAPI
+    url: openapi/trigger-dev-runs-api-openapi.yml
+  - type: Documentation
+    url: https://trigger.dev/docs/management/overview
+  - type: GettingStarted
+    url: https://trigger.dev/docs/introduction
+  - type: Authentication
+    url: https://trigger.dev/docs/management/authentication
+  - type: SpectralRules
+    url: rules/trigger-dev-rules.yml
+  - type: SDKs
+    url: https://www.npmjs.com/package/@trigger.dev/sdk
+  - type: JSONSchema
+    url: json-schema/trigger-dev-run-schema.json
+  - type: JSONSchema
+    url: json-schema/trigger-dev-schedule-schema.json
+  - type: JSONSchema
+    url: json-schema/trigger-dev-waitpoint-token-schema.json
+  - type: JSONStructure
+    url: json-structure/trigger-dev-run-structure.json
+  - type: Examples
+    url: examples/trigger-dev-trigger-task-example.json
+  - type: Examples
+    url: examples/trigger-dev-list-runs-example.json
+  - type: Examples
+    url: examples/trigger-dev-create-schedule-example.json
+  - type: Examples
+    url: examples/trigger-dev-create-waitpoint-example.json
+  - type: Examples
+    url: examples/trigger-dev-execute-query-example.json
+  - type: Examples
+    url: examples/trigger-dev-retrieve-run-events-example.json
+- aid: trigger-dev:trigger-dev-schedules-api
+  name: Trigger.dev Schedules API
+  description: Create and manage cron schedules with IANA timezone support.
+  humanURL: https://trigger.dev/docs/management/overview
+  baseURL: https://api.trigger.dev
+  tags:
+  - Schedules
+  properties:
+  - type: OpenAPI
+    url: openapi/trigger-dev-schedules-api-openapi.yml
+  - type: Documentation
+    url: https://trigger.dev/docs/management/overview
+  - type: GettingStarted
+    url: https://trigger.dev/docs/introduction
+  - type: Authentication
+    url: https://trigger.dev/docs/management/authentication
+  - type: SpectralRules
+    url: rules/trigger-dev-rules.yml
+  - type: SDKs
+    url: https://www.npmjs.com/package/@trigger.dev/sdk
+  - type: JSONSchema
+    url: json-schema/trigger-dev-run-schema.json
+  - type: JSONSchema
+    url: json-schema/trigger-dev-schedule-schema.json
+  - type: JSONSchema
+    url: json-schema/trigger-dev-waitpoint-token-schema.json
+  - type: JSONStructure
+    url: json-structure/trigger-dev-run-structure.json
+  - type: Examples
+    url: examples/trigger-dev-trigger-task-example.json
+  - type: Examples
+    url: examples/trigger-dev-list-runs-example.json
+  - type: Examples
+    url: examples/trigger-dev-create-schedule-example.json
+  - type: Examples
+    url: examples/trigger-dev-create-waitpoint-example.json
+  - type: Examples
+    url: examples/trigger-dev-execute-query-example.json
+  - type: Examples
+    url: examples/trigger-dev-retrieve-run-events-example.json
+- aid: trigger-dev:trigger-dev-tasks-api
+  name: Trigger.dev Tasks API
+  description: Trigger individual or batched task runs.
+  humanURL: https://trigger.dev/docs/management/overview
+  baseURL: https://api.trigger.dev
+  tags:
+  - Tasks
+  properties:
+  - type: OpenAPI
+    url: openapi/trigger-dev-tasks-api-openapi.yml
+  - type: Documentation
+    url: https://trigger.dev/docs/management/overview
+  - type: GettingStarted
+    url: https://trigger.dev/docs/introduction
+  - type: Authentication
+    url: https://trigger.dev/docs/management/authentication
+  - type: SpectralRules
+    url: rules/trigger-dev-rules.yml
+  - type: SDKs
+    url: https://www.npmjs.com/package/@trigger.dev/sdk
+  - type: JSONSchema
+    url: json-schema/trigger-dev-run-schema.json
+  - type: JSONSchema
+    url: json-schema/trigger-dev-schedule-schema.json
+  - type: JSONSchema
+    url: json-schema/trigger-dev-waitpoint-token-schema.json
+  - type: JSONStructure
+    url: json-structure/trigger-dev-run-structure.json
+  - type: Examples
+    url: examples/trigger-dev-trigger-task-example.json
+  - type: Examples
+    url: examples/trigger-dev-list-runs-example.json
+  - type: Examples
+    url: examples/trigger-dev-create-schedule-example.json
+  - type: Examples
+    url: examples/trigger-dev-create-waitpoint-example.json
+  - type: Examples
+    url: examples/trigger-dev-execute-query-example.json
+  - type: Examples
+    url: examples/trigger-dev-retrieve-run-events-example.json
+- aid: trigger-dev:trigger-dev-waitpoints-api
+  name: Trigger.dev Waitpoints API
+  description: Create, list, retrieve, and complete waitpoint tokens for human-in-the-loop workflows.
+  humanURL: https://trigger.dev/docs/management/overview
+  baseURL: https://api.trigger.dev
+  tags:
+  - Waitpoints
+  properties:
+  - type: OpenAPI
+    url: openapi/trigger-dev-waitpoints-api-openapi.yml
+  - type: Documentation
+    url: https://trigger.dev/docs/management/overview
+  - type: GettingStarted
+    url: https://trigger.dev/docs/introduction
+  - type: Authentication
+    url: https://trigger.dev/docs/management/authentication
+  - type: SpectralRules
+    url: rules/trigger-dev-rules.yml
+  - type: SDKs
+    url: https://www.npmjs.com/package/@trigger.dev/sdk
+  - type: JSONSchema
+    url: json-schema/trigger-dev-run-schema.json
+  - type: JSONSchema
+    url: json-schema/trigger-dev-schedule-schema.json
+  - type: JSONSchema
+    url: json-schema/trigger-dev-waitpoint-token-schema.json
+  - type: JSONStructure
+    url: json-structure/trigger-dev-run-structure.json
+  - type: Examples
+    url: examples/trigger-dev-trigger-task-example.json
+  - type: Examples
+    url: examples/trigger-dev-list-runs-example.json
+  - type: Examples
+    url: examples/trigger-dev-create-schedule-example.json
+  - type: Examples
+    url: examples/trigger-dev-create-waitpoint-example.json
+  - type: Examples
+    url: examples/trigger-dev-execute-query-example.json
+  - type: Examples
+    url: examples/trigger-dev-retrieve-run-events-example.json
 features:
   - Durable background task execution with automatic retries and no execution timeout
   - Scheduled tasks with cron expressions and timezone support (DST-aware)
@@ -186,6 +508,8 @@ github:
     language: TypeScript
     stars: 8
 common:
+  - type: PostmanWorkspace
+    url: https://www.postman.com/kinlaneapi/triggerdev/overview
   - type: AgenticAccess
     url: agentic-access/trigger-dev-agentic-access.yml
   - type: TrustCenter
