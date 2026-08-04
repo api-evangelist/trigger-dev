@@ -1,0 +1,661 @@
+{
+  "info": {
+    "_postman_id": "719c7e59-c035-48c0-bb6b-ba8c2b790a32",
+    "name": "Trigger.dev Management Batches Waitpoints API",
+    "description": "The Trigger.dev Management API provides comprehensive REST endpoints for managing workflow runs, tasks, schedules, deployments, queues, environment variables, batches, and waitpoints. Enables programmatic control over the full lifecycle of background job workflows including triggering, monitoring, cancellation, and observability. Authenticated via bearer token (secret API key starting with tr_dev_, tr_prod_, or tr_stg_).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:19:00.000Z",
+    "updatedAt": "2026-07-28T03:19:00.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-719c7e59-c035-48c0-bb6b-ba8c2b790a32"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "waitpoints",
+              "item": [
+                {
+                  "name": "{tokenId}",
+                  "item": [
+                    {
+                      "name": "complete",
+                      "item": [
+                        {
+                          "name": "Complete Waitpoint Token",
+                          "id": "ee9c59b5-b4f5-4488-a4ff-73e0041efdc2",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"data\": {\n    \"description\": \"Result data to return to the waiting run\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/waitpoints/:tokenId/complete",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "waitpoints",
+                                ":tokenId",
+                                "complete"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "ad7c0497-dccb-4f6e-bb9a-756886a30306",
+                                  "key": "tokenId",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Complete a waitpoint token to resume the paused run. Optionally pass a result payload back to the waiting run."
+                          },
+                          "response": [
+                            {
+                              "id": "1cdf33fb-7e6c-459e-a485-2701aa8263de",
+                              "name": "Waitpoint completed",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"data\": {\n    \"description\": \"Result data to return to the waiting run\"\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/waitpoints/:tokenId/complete",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "waitpoints",
+                                    ":tokenId",
+                                    "complete"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "tokenId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T03:19:00.000Z",
+                              "updatedAt": "2026-07-28T03:19:00.000Z",
+                              "uid": "35240-1cdf33fb-7e6c-459e-a485-2701aa8263de"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:19:00.000Z",
+                          "updatedAt": "2026-07-28T03:19:00.000Z",
+                          "uid": "35240-ee9c59b5-b4f5-4488-a4ff-73e0041efdc2"
+                        }
+                      ],
+                      "id": "663825c0-9b39-4c17-b004-450c6b1fe508",
+                      "createdAt": "2026-07-28T03:19:00.000Z",
+                      "updatedAt": "2026-07-28T03:19:00.000Z",
+                      "uid": "35240-663825c0-9b39-4c17-b004-450c6b1fe508"
+                    },
+                    {
+                      "name": "callback",
+                      "item": [
+                        {
+                          "name": "Complete Waitpoint Token via Callback",
+                          "id": "f11efa37-e667-411d-9d7e-aecdf3ffdb19",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"data\": {\n    \"description\": \"Result payload returned to the waiting run\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/waitpoints/:tokenId/callback",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "waitpoints",
+                                ":tokenId",
+                                "callback"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "5a29f9bd-56b6-436b-a15d-3fea69ad413b",
+                                  "key": "tokenId",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Complete a waitpoint token by callback URL \u2014 used when an external system signals completion of a human-in-the-loop step."
+                          },
+                          "response": [
+                            {
+                              "id": "9f5a7814-8213-4889-bd64-607f22c4a22c",
+                              "name": "Waitpoint completed via callback",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"data\": {\n    \"description\": \"Result payload returned to the waiting run\"\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/waitpoints/:tokenId/callback",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "waitpoints",
+                                    ":tokenId",
+                                    "callback"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "tokenId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T03:19:00.000Z",
+                              "updatedAt": "2026-07-28T03:19:00.000Z",
+                              "uid": "35240-9f5a7814-8213-4889-bd64-607f22c4a22c"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:19:00.000Z",
+                          "updatedAt": "2026-07-28T03:19:00.000Z",
+                          "uid": "35240-f11efa37-e667-411d-9d7e-aecdf3ffdb19"
+                        }
+                      ],
+                      "id": "f3b34490-651e-494a-87c8-8fe4c214ed7c",
+                      "createdAt": "2026-07-28T03:19:00.000Z",
+                      "updatedAt": "2026-07-28T03:19:00.000Z",
+                      "uid": "35240-f3b34490-651e-494a-87c8-8fe4c214ed7c"
+                    },
+                    {
+                      "name": "Retrieve Waitpoint Token",
+                      "id": "5b512b9b-fe14-40c1-93e4-ecb48f5b337e",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/waitpoints/:tokenId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "waitpoints",
+                            ":tokenId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "8c20d631-2557-47cf-bda3-c53ad1ea76f6",
+                              "key": "tokenId",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Get the status and details of a waitpoint token."
+                      },
+                      "response": [
+                        {
+                          "id": "94cbd3d2-da8a-44c2-b481-ac68955792ba",
+                          "name": "Waitpoint token details",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/waitpoints/:tokenId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "waitpoints",
+                                ":tokenId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "tokenId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"status\": \"PENDING\",\n  \"expiresAt\": \"<dateTime>\",\n  \"completedAt\": \"<dateTime>\",\n  \"data\": {\n    \"description\": \"Completion data returned to the waiting run\"\n  }\n}",
+                          "createdAt": "2026-07-28T03:19:00.000Z",
+                          "updatedAt": "2026-07-28T03:19:00.000Z",
+                          "uid": "35240-94cbd3d2-da8a-44c2-b481-ac68955792ba"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:19:00.000Z",
+                      "updatedAt": "2026-07-28T03:19:00.000Z",
+                      "uid": "35240-5b512b9b-fe14-40c1-93e4-ecb48f5b337e"
+                    }
+                  ],
+                  "id": "3e8ac8ed-97e9-4cca-b756-a0b8a4952c76",
+                  "createdAt": "2026-07-28T03:19:00.000Z",
+                  "updatedAt": "2026-07-28T03:19:00.000Z",
+                  "uid": "35240-3e8ac8ed-97e9-4cca-b756-a0b8a4952c76"
+                },
+                {
+                  "name": "tokens",
+                  "item": [
+                    {
+                      "name": "List Waitpoint Tokens",
+                      "id": "cdbd3e80-6001-43c5-b576-938bda6089c9",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/waitpoints/tokens?page[size]=<integer>&page[after]=<string>&page[before]=<string>&filter[status]=TIMED_OUT&filter[status]=TIMED_OUT&filter[tags]=<string>&filter[tags]=<string>&filter[idempotencyKey]=<string>&filter[createdAt][period]=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "waitpoints",
+                            "tokens"
+                          ],
+                          "query": [
+                            {
+                              "description": "Tokens per page",
+                              "key": "page[size]",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Cursor for next page",
+                              "key": "page[after]",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Cursor for previous page",
+                              "key": "page[before]",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "filter[status]",
+                              "value": "TIMED_OUT"
+                            },
+                            {
+                              "key": "filter[status]",
+                              "value": "TIMED_OUT"
+                            },
+                            {
+                              "key": "filter[tags]",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "filter[tags]",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "filter[idempotencyKey]",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "filter[createdAt][period]",
+                              "value": "<string>"
+                            }
+                          ]
+                        },
+                        "description": "Returns a paginated list of waitpoint tokens filterable by status, tags, idempotency key, and creation period."
+                      },
+                      "response": [
+                        {
+                          "id": "0786470b-1249-4be2-a3a2-8b4b145fa28f",
+                          "name": "Paginated list of waitpoint tokens",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/waitpoints/tokens?page[size]=<integer>&page[after]=<string>&page[before]=<string>&filter[status]=TIMED_OUT&filter[tags]=<string>&filter[idempotencyKey]=<string>&filter[createdAt][period]=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "waitpoints",
+                                "tokens"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Tokens per page",
+                                  "key": "page[size]",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Cursor for next page",
+                                  "key": "page[after]",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Cursor for previous page",
+                                  "key": "page[before]",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "key": "filter[status]",
+                                  "value": "TIMED_OUT"
+                                },
+                                {
+                                  "key": "filter[tags]",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "key": "filter[idempotencyKey]",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "key": "filter[createdAt][period]",
+                                  "value": "<string>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"status\": \"COMPLETED\",\n      \"expiresAt\": \"<dateTime>\",\n      \"completedAt\": \"<dateTime>\",\n      \"data\": {\n        \"description\": \"Completion data returned to the waiting run\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"status\": \"PENDING\",\n      \"expiresAt\": \"<dateTime>\",\n      \"completedAt\": \"<dateTime>\",\n      \"data\": {\n        \"description\": \"Completion data returned to the waiting run\"\n      }\n    }\n  ],\n  \"pagination\": {\n    \"next\": \"<string>\",\n    \"previous\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-07-28T03:19:00.000Z",
+                          "updatedAt": "2026-07-28T03:19:00.000Z",
+                          "uid": "35240-0786470b-1249-4be2-a3a2-8b4b145fa28f"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:19:00.000Z",
+                      "updatedAt": "2026-07-28T03:19:00.000Z",
+                      "uid": "35240-cdbd3e80-6001-43c5-b576-938bda6089c9"
+                    }
+                  ],
+                  "id": "f9fd5380-0d34-4039-975b-c1471896629d",
+                  "createdAt": "2026-07-28T03:19:00.000Z",
+                  "updatedAt": "2026-07-28T03:19:00.000Z",
+                  "uid": "35240-f9fd5380-0d34-4039-975b-c1471896629d"
+                },
+                {
+                  "name": "Create Waitpoint Token",
+                  "id": "913c5d3b-afa9-47c0-bef9-a13238635933",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"idempotencyKey\": \"<string>\",\n  \"ttl\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/waitpoints",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v1",
+                        "waitpoints"
+                      ]
+                    },
+                    "description": "Create a waitpoint token for human-in-the-loop workflows. The run will pause until this token is completed."
+                  },
+                  "response": [
+                    {
+                      "id": "1bd2d250-8340-4920-9a39-f12e8d8f7136",
+                      "name": "Waitpoint token created",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"idempotencyKey\": \"<string>\",\n  \"ttl\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/waitpoints",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "waitpoints"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"status\": \"PENDING\",\n  \"expiresAt\": \"<dateTime>\",\n  \"completedAt\": \"<dateTime>\",\n  \"data\": {\n    \"description\": \"Completion data returned to the waiting run\"\n  }\n}",
+                      "createdAt": "2026-07-28T03:19:00.000Z",
+                      "updatedAt": "2026-07-28T03:19:00.000Z",
+                      "uid": "35240-1bd2d250-8340-4920-9a39-f12e8d8f7136"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:19:00.000Z",
+                  "updatedAt": "2026-07-28T03:19:00.000Z",
+                  "uid": "35240-913c5d3b-afa9-47c0-bef9-a13238635933"
+                }
+              ],
+              "id": "d7c17fdf-8c45-46e9-bd0f-56f7afd0a3da",
+              "createdAt": "2026-07-28T03:19:00.000Z",
+              "updatedAt": "2026-07-28T03:19:00.000Z",
+              "uid": "35240-d7c17fdf-8c45-46e9-bd0f-56f7afd0a3da"
+            }
+          ],
+          "id": "86de0ee1-04da-494c-8e46-2f5180f53b4f",
+          "createdAt": "2026-07-28T03:19:00.000Z",
+          "updatedAt": "2026-07-28T03:19:00.000Z",
+          "uid": "35240-86de0ee1-04da-494c-8e46-2f5180f53b4f"
+        }
+      ],
+      "id": "474b1566-ec91-4638-b200-fbf180b9e30c",
+      "createdAt": "2026-07-28T03:19:00.000Z",
+      "updatedAt": "2026-07-28T03:19:00.000Z",
+      "uid": "35240-474b1566-ec91-4638-b200-fbf180b9e30c"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.trigger.dev"
+    }
+  ]
+}

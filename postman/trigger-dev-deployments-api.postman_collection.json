@@ -1,0 +1,412 @@
+{
+  "info": {
+    "_postman_id": "22bcf1c4-f608-45e3-ac48-bb9ea5956b01",
+    "name": "Trigger.dev Management Batches Deployments API",
+    "description": "The Trigger.dev Management API provides comprehensive REST endpoints for managing workflow runs, tasks, schedules, deployments, queues, environment variables, batches, and waitpoints. Enables programmatic control over the full lifecycle of background job workflows including triggering, monitoring, cancellation, and observability. Authenticated via bearer token (secret API key starting with tr_dev_, tr_prod_, or tr_stg_).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:18:51.000Z",
+    "updatedAt": "2026-07-28T03:18:51.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-22bcf1c4-f608-45e3-ac48-bb9ea5956b01"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "deployments",
+              "item": [
+                {
+                  "name": "{deploymentId}",
+                  "item": [
+                    {
+                      "name": "promote",
+                      "item": [
+                        {
+                          "name": "Promote Deployment",
+                          "id": "fe66d4f0-92e1-448c-8aff-7804a756fffd",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/deployments/:deploymentId/promote",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "deployments",
+                                ":deploymentId",
+                                "promote"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "f10c53c7-6240-48e3-84da-b9133f378c3d",
+                                  "key": "deploymentId",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Promote a specific deployment version to production."
+                          },
+                          "response": [
+                            {
+                              "id": "6b338a4e-a062-4eb6-a0a5-6d4987bb15b8",
+                              "name": "Deployment promoted",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/deployments/:deploymentId/promote",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "deployments",
+                                    ":deploymentId",
+                                    "promote"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "deploymentId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T03:18:51.000Z",
+                              "updatedAt": "2026-07-28T03:18:51.000Z",
+                              "uid": "35240-6b338a4e-a062-4eb6-a0a5-6d4987bb15b8"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:18:51.000Z",
+                          "updatedAt": "2026-07-28T03:18:51.000Z",
+                          "uid": "35240-fe66d4f0-92e1-448c-8aff-7804a756fffd"
+                        }
+                      ],
+                      "id": "1b115340-9b7d-4007-8bfb-b3b4469c25d9",
+                      "createdAt": "2026-07-28T03:18:51.000Z",
+                      "updatedAt": "2026-07-28T03:18:51.000Z",
+                      "uid": "35240-1b115340-9b7d-4007-8bfb-b3b4469c25d9"
+                    },
+                    {
+                      "name": "Get Deployment",
+                      "id": "d1120641-5fa0-49d7-9391-8216516ccf52",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/deployments/:deploymentId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "deployments",
+                            ":deploymentId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "357f63cd-ff67-4efb-8aca-fc6508d70b84",
+                              "key": "deploymentId",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Retrieve details of a specific deployment."
+                      },
+                      "response": [
+                        {
+                          "id": "62293b55-ec45-414e-be59-a90d01e71b85",
+                          "name": "Deployment details",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/deployments/:deploymentId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "deployments",
+                                ":deploymentId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "deploymentId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"version\": \"<string>\",\n  \"status\": \"PENDING\",\n  \"createdAt\": \"<dateTime>\",\n  \"deployedAt\": \"<dateTime>\",\n  \"tasks\": [\n    {\n      \"identifier\": \"<string>\",\n      \"filePath\": \"<string>\"\n    },\n    {\n      \"identifier\": \"<string>\",\n      \"filePath\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T03:18:51.000Z",
+                          "updatedAt": "2026-07-28T03:18:51.000Z",
+                          "uid": "35240-62293b55-ec45-414e-be59-a90d01e71b85"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:18:51.000Z",
+                      "updatedAt": "2026-07-28T03:18:51.000Z",
+                      "uid": "35240-d1120641-5fa0-49d7-9391-8216516ccf52"
+                    }
+                  ],
+                  "id": "127b921c-2d99-4c80-904d-5c4980bf1bb0",
+                  "createdAt": "2026-07-28T03:18:51.000Z",
+                  "updatedAt": "2026-07-28T03:18:51.000Z",
+                  "uid": "35240-127b921c-2d99-4c80-904d-5c4980bf1bb0"
+                },
+                {
+                  "name": "latest",
+                  "item": [
+                    {
+                      "name": "Get Latest Deployment",
+                      "id": "d700a5e0-3237-4614-931d-ec1dcb774504",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/deployments/latest",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "deployments",
+                            "latest"
+                          ]
+                        },
+                        "description": "Returns the most recent deployment for the project."
+                      },
+                      "response": [
+                        {
+                          "id": "ce902742-49c0-4c0d-8d1d-74bde39ddc70",
+                          "name": "Latest deployment",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/deployments/latest",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "deployments",
+                                "latest"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"version\": \"<string>\",\n  \"status\": \"PENDING\",\n  \"createdAt\": \"<dateTime>\",\n  \"deployedAt\": \"<dateTime>\",\n  \"tasks\": [\n    {\n      \"identifier\": \"<string>\",\n      \"filePath\": \"<string>\"\n    },\n    {\n      \"identifier\": \"<string>\",\n      \"filePath\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T03:18:51.000Z",
+                          "updatedAt": "2026-07-28T03:18:51.000Z",
+                          "uid": "35240-ce902742-49c0-4c0d-8d1d-74bde39ddc70"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:18:51.000Z",
+                      "updatedAt": "2026-07-28T03:18:51.000Z",
+                      "uid": "35240-d700a5e0-3237-4614-931d-ec1dcb774504"
+                    }
+                  ],
+                  "id": "fd5e5e5d-48c3-4528-bda2-7ea66b2509c1",
+                  "createdAt": "2026-07-28T03:18:51.000Z",
+                  "updatedAt": "2026-07-28T03:18:51.000Z",
+                  "uid": "35240-fd5e5e5d-48c3-4528-bda2-7ea66b2509c1"
+                },
+                {
+                  "name": "List Deployments",
+                  "id": "ccca72ba-bf22-4975-96a9-1265ba9d18cf",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/deployments",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v1",
+                        "deployments"
+                      ]
+                    },
+                    "description": "Returns all deployments for the project, including version and status."
+                  },
+                  "response": [
+                    {
+                      "id": "92e5cc2a-0c02-4ab2-bd85-56157e116ae5",
+                      "name": "List of deployments",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/deployments",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "deployments"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"id\": \"<string>\",\n    \"version\": \"<string>\",\n    \"status\": \"DEPLOYED\",\n    \"createdAt\": \"<dateTime>\",\n    \"deployedAt\": \"<dateTime>\",\n    \"tasks\": [\n      {\n        \"identifier\": \"<string>\",\n        \"filePath\": \"<string>\"\n      },\n      {\n        \"identifier\": \"<string>\",\n        \"filePath\": \"<string>\"\n      }\n    ]\n  },\n  {\n    \"id\": \"<string>\",\n    \"version\": \"<string>\",\n    \"status\": \"FAILED\",\n    \"createdAt\": \"<dateTime>\",\n    \"deployedAt\": \"<dateTime>\",\n    \"tasks\": [\n      {\n        \"identifier\": \"<string>\",\n        \"filePath\": \"<string>\"\n      },\n      {\n        \"identifier\": \"<string>\",\n        \"filePath\": \"<string>\"\n      }\n    ]\n  }\n]",
+                      "createdAt": "2026-07-28T03:18:51.000Z",
+                      "updatedAt": "2026-07-28T03:18:51.000Z",
+                      "uid": "35240-92e5cc2a-0c02-4ab2-bd85-56157e116ae5"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:18:51.000Z",
+                  "updatedAt": "2026-07-28T03:18:51.000Z",
+                  "uid": "35240-ccca72ba-bf22-4975-96a9-1265ba9d18cf"
+                }
+              ],
+              "id": "98a68ea9-7b50-4168-a407-5aa2333e995f",
+              "createdAt": "2026-07-28T03:18:51.000Z",
+              "updatedAt": "2026-07-28T03:18:51.000Z",
+              "uid": "35240-98a68ea9-7b50-4168-a407-5aa2333e995f"
+            }
+          ],
+          "id": "cf2650ae-2996-4fae-a0a2-9c47836b1dc3",
+          "createdAt": "2026-07-28T03:18:51.000Z",
+          "updatedAt": "2026-07-28T03:18:51.000Z",
+          "uid": "35240-cf2650ae-2996-4fae-a0a2-9c47836b1dc3"
+        }
+      ],
+      "id": "deeadde0-3fca-480b-9382-f31e334412e6",
+      "createdAt": "2026-07-28T03:18:51.000Z",
+      "updatedAt": "2026-07-28T03:18:51.000Z",
+      "uid": "35240-deeadde0-3fca-480b-9382-f31e334412e6"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.trigger.dev"
+    }
+  ]
+}

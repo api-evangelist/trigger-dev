@@ -1,0 +1,263 @@
+{
+  "info": {
+    "_postman_id": "72ddd796-c5d4-4002-aef3-428caca72918",
+    "name": "Trigger.dev Management Batches API",
+    "description": "The Trigger.dev Management API provides comprehensive REST endpoints for managing workflow runs, tasks, schedules, deployments, queues, environment variables, batches, and waitpoints. Enables programmatic control over the full lifecycle of background job workflows including triggering, monitoring, cancellation, and observability. Authenticated via bearer token (secret API key starting with tr_dev_, tr_prod_, or tr_stg_).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:18:50.000Z",
+    "updatedAt": "2026-07-28T03:18:50.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-72ddd796-c5d4-4002-aef3-428caca72918"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "batches",
+              "item": [
+                {
+                  "name": "{batchId}",
+                  "item": [
+                    {
+                      "name": "Retrieve Batch",
+                      "id": "58dd2e96-b9fc-4d09-8345-f5c599b5e5ca",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/batches/:batchId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "batches",
+                            ":batchId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "41fa2335-9260-4315-b977-046484aaae83",
+                              "key": "batchId",
+                              "value": "<string>",
+                              "description": "(Required) Batch identifier"
+                            }
+                          ]
+                        },
+                        "description": "Get details of a specific batch including status and run count."
+                      },
+                      "response": [
+                        {
+                          "id": "9764b4b7-f10a-4ccb-8504-cef7b627cdac",
+                          "name": "Batch details",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/batches/:batchId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "batches",
+                                ":batchId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "batchId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"status\": \"PENDING\",\n  \"totalCount\": \"<integer>\",\n  \"completedCount\": \"<integer>\",\n  \"failedCount\": \"<integer>\",\n  \"createdAt\": \"<dateTime>\",\n  \"completedAt\": \"<dateTime>\"\n}",
+                          "createdAt": "2026-07-28T03:18:51.000Z",
+                          "updatedAt": "2026-07-28T03:18:51.000Z",
+                          "uid": "35240-9764b4b7-f10a-4ccb-8504-cef7b627cdac"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:18:51.000Z",
+                      "updatedAt": "2026-07-28T03:18:51.000Z",
+                      "uid": "35240-58dd2e96-b9fc-4d09-8345-f5c599b5e5ca"
+                    }
+                  ],
+                  "id": "54d05f1e-bb58-49c6-a6a8-195eab69b39f",
+                  "createdAt": "2026-07-28T03:18:50.000Z",
+                  "updatedAt": "2026-07-28T03:18:50.000Z",
+                  "uid": "35240-54d05f1e-bb58-49c6-a6a8-195eab69b39f"
+                },
+                {
+                  "name": "Create Batch",
+                  "id": "191544ed-4ff0-428c-8660-fa1dee355799",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"items\": [\n    {\n      \"payload\": {\n        \"description\": \"Task payload data (any JSON value)\"\n      },\n      \"context\": {\n        \"description\": \"Additional context data\"\n      },\n      \"options\": {\n        \"queue\": {\n          \"name\": \"<string>\",\n          \"concurrencyLimit\": \"<integer>\"\n        },\n        \"concurrencyKey\": \"<string>\",\n        \"idempotencyKey\": \"<string>\",\n        \"ttl\": \"<string>\",\n        \"delay\": \"<string>\",\n        \"tags\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"machine\": \"medium-1x\"\n      }\n    },\n    {\n      \"payload\": {\n        \"description\": \"Task payload data (any JSON value)\"\n      },\n      \"context\": {\n        \"description\": \"Additional context data\"\n      },\n      \"options\": {\n        \"queue\": {\n          \"name\": \"<string>\",\n          \"concurrencyLimit\": \"<integer>\"\n        },\n        \"concurrencyKey\": \"<string>\",\n        \"idempotencyKey\": \"<string>\",\n        \"ttl\": \"<string>\",\n        \"delay\": \"<string>\",\n        \"tags\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"machine\": \"medium-2x\"\n      }\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/batches",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v1",
+                        "batches"
+                      ]
+                    },
+                    "description": "Create a new batch of task runs. Used for large-scale parallel processing where runs can be streamed in incrementally."
+                  },
+                  "response": [
+                    {
+                      "id": "6931baa4-5b8e-473e-93bd-d5f677737817",
+                      "name": "Batch created",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"items\": [\n    {\n      \"payload\": {\n        \"description\": \"Task payload data (any JSON value)\"\n      },\n      \"context\": {\n        \"description\": \"Additional context data\"\n      },\n      \"options\": {\n        \"queue\": {\n          \"name\": \"<string>\",\n          \"concurrencyLimit\": \"<integer>\"\n        },\n        \"concurrencyKey\": \"<string>\",\n        \"idempotencyKey\": \"<string>\",\n        \"ttl\": \"<string>\",\n        \"delay\": \"<string>\",\n        \"tags\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"machine\": \"medium-1x\"\n      }\n    },\n    {\n      \"payload\": {\n        \"description\": \"Task payload data (any JSON value)\"\n      },\n      \"context\": {\n        \"description\": \"Additional context data\"\n      },\n      \"options\": {\n        \"queue\": {\n          \"name\": \"<string>\",\n          \"concurrencyLimit\": \"<integer>\"\n        },\n        \"concurrencyKey\": \"<string>\",\n        \"idempotencyKey\": \"<string>\",\n        \"ttl\": \"<string>\",\n        \"delay\": \"<string>\",\n        \"tags\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"machine\": \"medium-2x\"\n      }\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/batches",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "batches"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"runs\": [\n    {\n      \"id\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:18:51.000Z",
+                      "updatedAt": "2026-07-28T03:18:51.000Z",
+                      "uid": "35240-6931baa4-5b8e-473e-93bd-d5f677737817"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:18:51.000Z",
+                  "updatedAt": "2026-07-28T03:18:51.000Z",
+                  "uid": "35240-191544ed-4ff0-428c-8660-fa1dee355799"
+                }
+              ],
+              "id": "db85d10a-74ac-4a1b-a58f-254a2df4bf2d",
+              "createdAt": "2026-07-28T03:18:50.000Z",
+              "updatedAt": "2026-07-28T03:18:50.000Z",
+              "uid": "35240-db85d10a-74ac-4a1b-a58f-254a2df4bf2d"
+            }
+          ],
+          "id": "b836fa6a-15bd-4859-b0e2-f6efbcb87483",
+          "createdAt": "2026-07-28T03:18:50.000Z",
+          "updatedAt": "2026-07-28T03:18:50.000Z",
+          "uid": "35240-b836fa6a-15bd-4859-b0e2-f6efbcb87483"
+        }
+      ],
+      "id": "25a9176f-0d59-412c-840f-f45fea50beef",
+      "createdAt": "2026-07-28T03:18:50.000Z",
+      "updatedAt": "2026-07-28T03:18:50.000Z",
+      "uid": "35240-25a9176f-0d59-412c-840f-f45fea50beef"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.trigger.dev"
+    }
+  ]
+}

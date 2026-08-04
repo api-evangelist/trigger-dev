@@ -1,0 +1,853 @@
+{
+  "info": {
+    "_postman_id": "d2f33141-76ae-4426-af65-5b455cd59675",
+    "name": "Trigger.dev Management Batches Schedules API",
+    "description": "The Trigger.dev Management API provides comprehensive REST endpoints for managing workflow runs, tasks, schedules, deployments, queues, environment variables, batches, and waitpoints. Enables programmatic control over the full lifecycle of background job workflows including triggering, monitoring, cancellation, and observability. Authenticated via bearer token (secret API key starting with tr_dev_, tr_prod_, or tr_stg_).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:18:58.000Z",
+    "updatedAt": "2026-07-28T03:18:58.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-d2f33141-76ae-4426-af65-5b455cd59675"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "schedules",
+              "item": [
+                {
+                  "name": "{scheduleId}",
+                  "item": [
+                    {
+                      "name": "activate",
+                      "item": [
+                        {
+                          "name": "Activate Schedule",
+                          "id": "95213aee-d73e-4958-9841-92d62fd4d6d0",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/schedules/:scheduleId/activate",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "schedules",
+                                ":scheduleId",
+                                "activate"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "7224bdbc-467a-4708-86df-c175b438b870",
+                                  "key": "scheduleId",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Activate a deactivated schedule to resume its execution."
+                          },
+                          "response": [
+                            {
+                              "id": "c1c11e30-63cb-42b5-9da8-2622294e3028",
+                              "name": "Schedule activated",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/schedules/:scheduleId/activate",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "schedules",
+                                    ":scheduleId",
+                                    "activate"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "scheduleId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T03:18:58.000Z",
+                              "updatedAt": "2026-07-28T03:18:58.000Z",
+                              "uid": "35240-c1c11e30-63cb-42b5-9da8-2622294e3028"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:18:58.000Z",
+                          "updatedAt": "2026-07-28T03:18:58.000Z",
+                          "uid": "35240-95213aee-d73e-4958-9841-92d62fd4d6d0"
+                        }
+                      ],
+                      "id": "ce5cb140-5725-4306-a87c-a971ab647c38",
+                      "createdAt": "2026-07-28T03:18:58.000Z",
+                      "updatedAt": "2026-07-28T03:18:58.000Z",
+                      "uid": "35240-ce5cb140-5725-4306-a87c-a971ab647c38"
+                    },
+                    {
+                      "name": "deactivate",
+                      "item": [
+                        {
+                          "name": "Deactivate Schedule",
+                          "id": "89a3ba34-d56e-4bec-8018-6686cfa1fc12",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/schedules/:scheduleId/deactivate",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "schedules",
+                                ":scheduleId",
+                                "deactivate"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "52be8e55-5fdf-48c8-b9d3-ae1d5e2afd80",
+                                  "key": "scheduleId",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Pause a schedule without deleting it."
+                          },
+                          "response": [
+                            {
+                              "id": "29d3bee8-8f51-4b11-ac76-0bbc80cb2f04",
+                              "name": "Schedule deactivated",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/schedules/:scheduleId/deactivate",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "schedules",
+                                    ":scheduleId",
+                                    "deactivate"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "scheduleId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T03:18:58.000Z",
+                              "updatedAt": "2026-07-28T03:18:58.000Z",
+                              "uid": "35240-29d3bee8-8f51-4b11-ac76-0bbc80cb2f04"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:18:58.000Z",
+                          "updatedAt": "2026-07-28T03:18:58.000Z",
+                          "uid": "35240-89a3ba34-d56e-4bec-8018-6686cfa1fc12"
+                        }
+                      ],
+                      "id": "ccb6c535-3cd8-44c3-905d-4e1cf60b1909",
+                      "createdAt": "2026-07-28T03:18:58.000Z",
+                      "updatedAt": "2026-07-28T03:18:58.000Z",
+                      "uid": "35240-ccb6c535-3cd8-44c3-905d-4e1cf60b1909"
+                    },
+                    {
+                      "name": "Retrieve Schedule",
+                      "id": "ce37c7e8-8e27-48bb-ab0c-79297c9d5e2c",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/schedules/:scheduleId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "schedules",
+                            ":scheduleId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "f9b21f5f-469a-427e-b47a-92d2ad53de5e",
+                              "key": "scheduleId",
+                              "value": "<string>",
+                              "description": "(Required) Schedule identifier (prefixed with sched_)"
+                            }
+                          ]
+                        },
+                        "description": "Get details of a specific schedule including next run time and status."
+                      },
+                      "response": [
+                        {
+                          "id": "4b5cce27-4bc6-4d80-81bb-600e7b562d14",
+                          "name": "Schedule details",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/schedules/:scheduleId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "schedules",
+                                ":scheduleId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "scheduleId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"task\": \"<string>\",\n  \"type\": \"IMPERATIVE\",\n  \"active\": \"<boolean>\",\n  \"deduplicationKey\": \"<string>\",\n  \"externalId\": \"<string>\",\n  \"timezone\": \"<string>\",\n  \"nextRun\": \"<dateTime>\",\n  \"generator\": {\n    \"type\": \"<string>\",\n    \"expression\": \"<string>\",\n    \"description\": \"<string>\"\n  },\n  \"environments\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T03:18:58.000Z",
+                          "updatedAt": "2026-07-28T03:18:58.000Z",
+                          "uid": "35240-4b5cce27-4bc6-4d80-81bb-600e7b562d14"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:18:58.000Z",
+                      "updatedAt": "2026-07-28T03:18:58.000Z",
+                      "uid": "35240-ce37c7e8-8e27-48bb-ab0c-79297c9d5e2c"
+                    },
+                    {
+                      "name": "Update Schedule",
+                      "id": "6ac347cd-d83f-4303-924f-f8efbd36d802",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"cron\": \"<string>\",\n  \"timezone\": \"<string>\",\n  \"externalId\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/schedules/:scheduleId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "schedules",
+                            ":scheduleId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "00a88bfe-5afa-4aec-bf89-21da20413d5a",
+                              "key": "scheduleId",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Update an existing schedule's cron expression, timezone, or external ID."
+                      },
+                      "response": [
+                        {
+                          "id": "d712e5fe-7f32-4aa9-a334-006c47deeb0e",
+                          "name": "Schedule updated",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"cron\": \"<string>\",\n  \"timezone\": \"<string>\",\n  \"externalId\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/schedules/:scheduleId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "schedules",
+                                ":scheduleId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "scheduleId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"task\": \"<string>\",\n  \"type\": \"IMPERATIVE\",\n  \"active\": \"<boolean>\",\n  \"deduplicationKey\": \"<string>\",\n  \"externalId\": \"<string>\",\n  \"timezone\": \"<string>\",\n  \"nextRun\": \"<dateTime>\",\n  \"generator\": {\n    \"type\": \"<string>\",\n    \"expression\": \"<string>\",\n    \"description\": \"<string>\"\n  },\n  \"environments\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T03:18:58.000Z",
+                          "updatedAt": "2026-07-28T03:18:58.000Z",
+                          "uid": "35240-d712e5fe-7f32-4aa9-a334-006c47deeb0e"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:18:58.000Z",
+                      "updatedAt": "2026-07-28T03:18:58.000Z",
+                      "uid": "35240-6ac347cd-d83f-4303-924f-f8efbd36d802"
+                    },
+                    {
+                      "name": "Delete Schedule",
+                      "id": "c17407ab-9627-4164-90f3-1060c25f6a0c",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/schedules/:scheduleId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "schedules",
+                            ":scheduleId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "4e17cbe5-8720-455c-8475-361635734840",
+                              "key": "scheduleId",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Permanently delete a schedule."
+                      },
+                      "response": [
+                        {
+                          "id": "390aaa3e-0866-48f6-a51c-9764eb72802b",
+                          "name": "Schedule deleted",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/schedules/:scheduleId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "schedules",
+                                ":scheduleId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "scheduleId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T03:18:58.000Z",
+                          "updatedAt": "2026-07-28T03:18:58.000Z",
+                          "uid": "35240-390aaa3e-0866-48f6-a51c-9764eb72802b"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:18:58.000Z",
+                      "updatedAt": "2026-07-28T03:18:58.000Z",
+                      "uid": "35240-c17407ab-9627-4164-90f3-1060c25f6a0c"
+                    }
+                  ],
+                  "id": "47fa0c3e-526b-43d5-9372-ae4e7001b8b1",
+                  "createdAt": "2026-07-28T03:18:58.000Z",
+                  "updatedAt": "2026-07-28T03:18:58.000Z",
+                  "uid": "35240-47fa0c3e-526b-43d5-9372-ae4e7001b8b1"
+                },
+                {
+                  "name": "timezones",
+                  "item": [
+                    {
+                      "name": "Get Timezones",
+                      "id": "de7a34d4-8c0c-4e61-a750-511d661dd240",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/schedules/timezones",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "schedules",
+                            "timezones"
+                          ]
+                        },
+                        "description": "Returns a list of valid IANA timezone identifiers for schedule configuration."
+                      },
+                      "response": [
+                        {
+                          "id": "fc0f6e35-17a6-4a7c-afac-4e4ee73141bb",
+                          "name": "List of IANA timezone identifiers",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/schedules/timezones",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "schedules",
+                                "timezones"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "[\n  \"<string>\",\n  \"<string>\"\n]",
+                          "createdAt": "2026-07-28T03:18:58.000Z",
+                          "updatedAt": "2026-07-28T03:18:58.000Z",
+                          "uid": "35240-fc0f6e35-17a6-4a7c-afac-4e4ee73141bb"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:18:58.000Z",
+                      "updatedAt": "2026-07-28T03:18:58.000Z",
+                      "uid": "35240-de7a34d4-8c0c-4e61-a750-511d661dd240"
+                    }
+                  ],
+                  "id": "b42c43c3-69d9-4ca0-a1e9-3a382ce1bdec",
+                  "createdAt": "2026-07-28T03:18:58.000Z",
+                  "updatedAt": "2026-07-28T03:18:58.000Z",
+                  "uid": "35240-b42c43c3-69d9-4ca0-a1e9-3a382ce1bdec"
+                },
+                {
+                  "name": "List Schedules",
+                  "id": "d92271c4-c08a-4fa6-b7ed-b82eeaefb005",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/schedules",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v1",
+                        "schedules"
+                      ]
+                    },
+                    "description": "Returns all configured schedules for the project."
+                  },
+                  "response": [
+                    {
+                      "id": "a56fe06b-0590-4ec1-a1e6-28fa03d499ee",
+                      "name": "List of schedules",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/schedules",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "schedules"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"id\": \"<string>\",\n    \"task\": \"<string>\",\n    \"type\": \"DECLARATIVE\",\n    \"active\": \"<boolean>\",\n    \"deduplicationKey\": \"<string>\",\n    \"externalId\": \"<string>\",\n    \"timezone\": \"<string>\",\n    \"nextRun\": \"<dateTime>\",\n    \"generator\": {\n      \"type\": \"<string>\",\n      \"expression\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    \"environments\": [\n      {\n        \"id\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ]\n  },\n  {\n    \"id\": \"<string>\",\n    \"task\": \"<string>\",\n    \"type\": \"DECLARATIVE\",\n    \"active\": \"<boolean>\",\n    \"deduplicationKey\": \"<string>\",\n    \"externalId\": \"<string>\",\n    \"timezone\": \"<string>\",\n    \"nextRun\": \"<dateTime>\",\n    \"generator\": {\n      \"type\": \"<string>\",\n      \"expression\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    \"environments\": [\n      {\n        \"id\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ]\n  }\n]",
+                      "createdAt": "2026-07-28T03:18:58.000Z",
+                      "updatedAt": "2026-07-28T03:18:58.000Z",
+                      "uid": "35240-a56fe06b-0590-4ec1-a1e6-28fa03d499ee"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:18:58.000Z",
+                  "updatedAt": "2026-07-28T03:18:58.000Z",
+                  "uid": "35240-d92271c4-c08a-4fa6-b7ed-b82eeaefb005"
+                },
+                {
+                  "name": "Create Schedule",
+                  "id": "8f3e9fa9-f7d2-47a0-b15a-8253c6f4aa8f",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"task\": \"<string>\",\n  \"cron\": \"<string>\",\n  \"deduplicationKey\": \"<string>\",\n  \"externalId\": \"<string>\",\n  \"timezone\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/schedules",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v1",
+                        "schedules"
+                      ]
+                    },
+                    "description": "Create a new cron schedule that triggers a task on a recurring basis. Supports IANA timezone configuration and deduplication keys."
+                  },
+                  "response": [
+                    {
+                      "id": "cde1fad8-a53c-49fa-8d1a-4bfe184ffb39",
+                      "name": "Schedule created",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"task\": \"<string>\",\n  \"cron\": \"<string>\",\n  \"deduplicationKey\": \"<string>\",\n  \"externalId\": \"<string>\",\n  \"timezone\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/schedules",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "schedules"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"task\": \"<string>\",\n  \"type\": \"IMPERATIVE\",\n  \"active\": \"<boolean>\",\n  \"deduplicationKey\": \"<string>\",\n  \"externalId\": \"<string>\",\n  \"timezone\": \"<string>\",\n  \"nextRun\": \"<dateTime>\",\n  \"generator\": {\n    \"type\": \"<string>\",\n    \"expression\": \"<string>\",\n    \"description\": \"<string>\"\n  },\n  \"environments\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:18:58.000Z",
+                      "updatedAt": "2026-07-28T03:18:58.000Z",
+                      "uid": "35240-cde1fad8-a53c-49fa-8d1a-4bfe184ffb39"
+                    },
+                    {
+                      "id": "2d55ec7a-4a78-4178-b80c-66957e505091",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"task\": \"<string>\",\n  \"cron\": \"<string>\",\n  \"deduplicationKey\": \"<string>\",\n  \"externalId\": \"<string>\",\n  \"timezone\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/schedules",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "schedules"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:18:58.000Z",
+                      "updatedAt": "2026-07-28T03:18:58.000Z",
+                      "uid": "35240-2d55ec7a-4a78-4178-b80c-66957e505091"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:18:58.000Z",
+                  "updatedAt": "2026-07-28T03:18:58.000Z",
+                  "uid": "35240-8f3e9fa9-f7d2-47a0-b15a-8253c6f4aa8f"
+                }
+              ],
+              "id": "a42338a1-66a7-4f4a-a3f0-c615746444f3",
+              "createdAt": "2026-07-28T03:18:58.000Z",
+              "updatedAt": "2026-07-28T03:18:58.000Z",
+              "uid": "35240-a42338a1-66a7-4f4a-a3f0-c615746444f3"
+            }
+          ],
+          "id": "ad6eada8-2c18-4cd0-8d51-d890c7e4327d",
+          "createdAt": "2026-07-28T03:18:58.000Z",
+          "updatedAt": "2026-07-28T03:18:58.000Z",
+          "uid": "35240-ad6eada8-2c18-4cd0-8d51-d890c7e4327d"
+        }
+      ],
+      "id": "72cdbb5e-26a0-4612-bf0d-2e46692d3d78",
+      "createdAt": "2026-07-28T03:18:58.000Z",
+      "updatedAt": "2026-07-28T03:18:58.000Z",
+      "uid": "35240-72cdbb5e-26a0-4612-bf0d-2e46692d3d78"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.trigger.dev"
+    }
+  ]
+}

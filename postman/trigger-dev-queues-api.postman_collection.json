@@ -1,0 +1,622 @@
+{
+  "info": {
+    "_postman_id": "6ad2db30-cf66-46df-b080-6649cc080d14",
+    "name": "Trigger.dev Management Batches Queues API",
+    "description": "The Trigger.dev Management API provides comprehensive REST endpoints for managing workflow runs, tasks, schedules, deployments, queues, environment variables, batches, and waitpoints. Enables programmatic control over the full lifecycle of background job workflows including triggering, monitoring, cancellation, and observability. Authenticated via bearer token (secret API key starting with tr_dev_, tr_prod_, or tr_stg_).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:18:56.000Z",
+    "updatedAt": "2026-07-28T03:18:56.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-6ad2db30-cf66-46df-b080-6649cc080d14"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "queues",
+              "item": [
+                {
+                  "name": "{queueName}",
+                  "item": [
+                    {
+                      "name": "pause",
+                      "item": [
+                        {
+                          "name": "Pause Queue",
+                          "id": "648b3ce2-2a04-4890-979e-f0c6c2ad64d9",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/queues/:queueName/pause",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "queues",
+                                ":queueName",
+                                "pause"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "cbc29d7b-a238-44d7-8f9e-ab28841c35c1",
+                                  "key": "queueName",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Pause a queue to prevent new runs from starting."
+                          },
+                          "response": [
+                            {
+                              "id": "5a9fd313-b76f-48e7-9254-568e442d99b4",
+                              "name": "Queue paused",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/queues/:queueName/pause",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "queues",
+                                    ":queueName",
+                                    "pause"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "queueName"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T03:18:56.000Z",
+                              "updatedAt": "2026-07-28T03:18:56.000Z",
+                              "uid": "35240-5a9fd313-b76f-48e7-9254-568e442d99b4"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:18:56.000Z",
+                          "updatedAt": "2026-07-28T03:18:56.000Z",
+                          "uid": "35240-648b3ce2-2a04-4890-979e-f0c6c2ad64d9"
+                        }
+                      ],
+                      "id": "c495498c-44c0-4da1-95ca-ce3a27f747de",
+                      "createdAt": "2026-07-28T03:18:56.000Z",
+                      "updatedAt": "2026-07-28T03:18:56.000Z",
+                      "uid": "35240-c495498c-44c0-4da1-95ca-ce3a27f747de"
+                    },
+                    {
+                      "name": "resume",
+                      "item": [
+                        {
+                          "name": "Resume Queue",
+                          "id": "fd21eb2b-2972-48f7-92ee-68fe7dd09295",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/queues/:queueName/resume",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "queues",
+                                ":queueName",
+                                "resume"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "dbfea349-fd84-496d-b145-432a1058d0e3",
+                                  "key": "queueName",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Resume a paused queue to allow runs to execute."
+                          },
+                          "response": [
+                            {
+                              "id": "5c4b018f-5dee-4674-8ecb-1820d3419f8a",
+                              "name": "Queue resumed",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/queues/:queueName/resume",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "queues",
+                                    ":queueName",
+                                    "resume"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "queueName"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T03:18:56.000Z",
+                              "updatedAt": "2026-07-28T03:18:56.000Z",
+                              "uid": "35240-5c4b018f-5dee-4674-8ecb-1820d3419f8a"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:18:56.000Z",
+                          "updatedAt": "2026-07-28T03:18:56.000Z",
+                          "uid": "35240-fd21eb2b-2972-48f7-92ee-68fe7dd09295"
+                        }
+                      ],
+                      "id": "e0f7791a-1758-4419-9469-ac47fc418479",
+                      "createdAt": "2026-07-28T03:18:56.000Z",
+                      "updatedAt": "2026-07-28T03:18:56.000Z",
+                      "uid": "35240-e0f7791a-1758-4419-9469-ac47fc418479"
+                    },
+                    {
+                      "name": "concurrency",
+                      "item": [
+                        {
+                          "name": "reset",
+                          "item": [
+                            {
+                              "name": "Reset Queue Concurrency",
+                              "id": "91af6cc7-bb7f-447e-80c1-235da65a9931",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "POST",
+                                "header": [],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/queues/:queueName/concurrency/reset",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "queues",
+                                    ":queueName",
+                                    "concurrency",
+                                    "reset"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "64f1b721-c227-4867-85d4-d4eeeb931c81",
+                                      "key": "queueName",
+                                      "value": "<string>",
+                                      "description": "(Required) "
+                                    }
+                                  ]
+                                },
+                                "description": "Reset a queue's concurrency limit to its default."
+                              },
+                              "response": [
+                                {
+                                  "id": "78d52e05-d61a-4416-bdfa-e6144ac86d7f",
+                                  "name": "Concurrency limit reset",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/queues/:queueName/concurrency/reset",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "queues",
+                                        ":queueName",
+                                        "concurrency",
+                                        "reset"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "queueName"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T03:18:56.000Z",
+                                  "updatedAt": "2026-07-28T03:18:56.000Z",
+                                  "uid": "35240-78d52e05-d61a-4416-bdfa-e6144ac86d7f"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T03:18:56.000Z",
+                              "updatedAt": "2026-07-28T03:18:56.000Z",
+                              "uid": "35240-91af6cc7-bb7f-447e-80c1-235da65a9931"
+                            }
+                          ],
+                          "id": "fa8c1d5f-9ffa-4e33-9e4e-1ab7c9647055",
+                          "createdAt": "2026-07-28T03:18:56.000Z",
+                          "updatedAt": "2026-07-28T03:18:56.000Z",
+                          "uid": "35240-fa8c1d5f-9ffa-4e33-9e4e-1ab7c9647055"
+                        },
+                        {
+                          "name": "Override Queue Concurrency",
+                          "id": "01bf604c-fa38-4f22-9b49-215fdf0a44aa",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"concurrencyLimit\": \"<integer>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/queues/:queueName/concurrency",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "queues",
+                                ":queueName",
+                                "concurrency"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "d450aa36-9a27-4779-8f1d-4c9dd9b777e8",
+                                  "key": "queueName",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Override the concurrency limit for a queue."
+                          },
+                          "response": [
+                            {
+                              "id": "a3dee6b6-92c2-4259-a5c2-261b4bf4c675",
+                              "name": "Concurrency limit updated",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"concurrencyLimit\": \"<integer>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/queues/:queueName/concurrency",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "queues",
+                                    ":queueName",
+                                    "concurrency"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "queueName"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T03:18:56.000Z",
+                              "updatedAt": "2026-07-28T03:18:56.000Z",
+                              "uid": "35240-a3dee6b6-92c2-4259-a5c2-261b4bf4c675"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:18:56.000Z",
+                          "updatedAt": "2026-07-28T03:18:56.000Z",
+                          "uid": "35240-01bf604c-fa38-4f22-9b49-215fdf0a44aa"
+                        }
+                      ],
+                      "id": "41903be0-b79a-4253-8f53-395b22dfa0f9",
+                      "createdAt": "2026-07-28T03:18:56.000Z",
+                      "updatedAt": "2026-07-28T03:18:56.000Z",
+                      "uid": "35240-41903be0-b79a-4253-8f53-395b22dfa0f9"
+                    },
+                    {
+                      "name": "Retrieve Queue",
+                      "id": "dfa0e0e9-8cdd-4703-8be8-cda6bdb3eb7a",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/queues/:queueName",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "queues",
+                            ":queueName"
+                          ],
+                          "variable": [
+                            {
+                              "id": "9ebb1914-49f0-4cb5-b889-659443f1bda2",
+                              "key": "queueName",
+                              "value": "<string>",
+                              "description": "(Required) Queue name"
+                            }
+                          ]
+                        },
+                        "description": "Get details of a specific queue including current depth and concurrency settings."
+                      },
+                      "response": [
+                        {
+                          "id": "1166d756-e865-46d5-8f5c-20243ae1359a",
+                          "name": "Queue details",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/queues/:queueName",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "queues",
+                                ":queueName"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "queueName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"name\": \"<string>\",\n  \"paused\": \"<boolean>\",\n  \"concurrencyLimit\": \"<integer>\",\n  \"currentConcurrency\": \"<integer>\",\n  \"depth\": \"<integer>\"\n}",
+                          "createdAt": "2026-07-28T03:18:56.000Z",
+                          "updatedAt": "2026-07-28T03:18:56.000Z",
+                          "uid": "35240-1166d756-e865-46d5-8f5c-20243ae1359a"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:18:56.000Z",
+                      "updatedAt": "2026-07-28T03:18:56.000Z",
+                      "uid": "35240-dfa0e0e9-8cdd-4703-8be8-cda6bdb3eb7a"
+                    }
+                  ],
+                  "id": "81ca25ce-4773-4ade-9098-c066504aa992",
+                  "createdAt": "2026-07-28T03:18:56.000Z",
+                  "updatedAt": "2026-07-28T03:18:56.000Z",
+                  "uid": "35240-81ca25ce-4773-4ade-9098-c066504aa992"
+                },
+                {
+                  "name": "List Queues",
+                  "id": "4d98c16b-6352-4e12-a1bd-ebb1d00dc1d0",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/queues",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v1",
+                        "queues"
+                      ]
+                    },
+                    "description": "Returns all task queues for the project."
+                  },
+                  "response": [
+                    {
+                      "id": "354c940d-a3f6-45d1-bdf7-aec29f68c0c0",
+                      "name": "List of queues",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/queues",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "queues"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"name\": \"<string>\",\n    \"paused\": \"<boolean>\",\n    \"concurrencyLimit\": \"<integer>\",\n    \"currentConcurrency\": \"<integer>\",\n    \"depth\": \"<integer>\"\n  },\n  {\n    \"name\": \"<string>\",\n    \"paused\": \"<boolean>\",\n    \"concurrencyLimit\": \"<integer>\",\n    \"currentConcurrency\": \"<integer>\",\n    \"depth\": \"<integer>\"\n  }\n]",
+                      "createdAt": "2026-07-28T03:18:56.000Z",
+                      "updatedAt": "2026-07-28T03:18:56.000Z",
+                      "uid": "35240-354c940d-a3f6-45d1-bdf7-aec29f68c0c0"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:18:56.000Z",
+                  "updatedAt": "2026-07-28T03:18:56.000Z",
+                  "uid": "35240-4d98c16b-6352-4e12-a1bd-ebb1d00dc1d0"
+                }
+              ],
+              "id": "5c8ad552-677f-4629-8af6-afa71d2c1e36",
+              "createdAt": "2026-07-28T03:18:56.000Z",
+              "updatedAt": "2026-07-28T03:18:56.000Z",
+              "uid": "35240-5c8ad552-677f-4629-8af6-afa71d2c1e36"
+            }
+          ],
+          "id": "4197c80b-294a-49c9-8f69-728c2bac3cfd",
+          "createdAt": "2026-07-28T03:18:56.000Z",
+          "updatedAt": "2026-07-28T03:18:56.000Z",
+          "uid": "35240-4197c80b-294a-49c9-8f69-728c2bac3cfd"
+        }
+      ],
+      "id": "5fee3901-9422-4577-855f-96a2da5c8ddf",
+      "createdAt": "2026-07-28T03:18:56.000Z",
+      "updatedAt": "2026-07-28T03:18:56.000Z",
+      "uid": "35240-5fee3901-9422-4577-855f-96a2da5c8ddf"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.trigger.dev"
+    }
+  ]
+}

@@ -1,0 +1,211 @@
+{
+  "info": {
+    "_postman_id": "d03d2a1a-0893-4b96-846c-c8ecdc3f197e",
+    "name": "Trigger.dev Management Batches Query API",
+    "description": "The Trigger.dev Management API provides comprehensive REST endpoints for managing workflow runs, tasks, schedules, deployments, queues, environment variables, batches, and waitpoints. Enables programmatic control over the full lifecycle of background job workflows including triggering, monitoring, cancellation, and observability. Authenticated via bearer token (secret API key starting with tr_dev_, tr_prod_, or tr_stg_).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:18:55.000Z",
+    "updatedAt": "2026-07-28T03:18:55.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-d03d2a1a-0893-4b96-846c-c8ecdc3f197e"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "query",
+              "item": [
+                {
+                  "name": "Execute Query",
+                  "id": "2f194df8-c633-4aa9-be3d-98a4e98d7203",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"query\": \"<string>\",\n  \"scope\": \"environment\",\n  \"period\": \"<string>\",\n  \"from\": \"<dateTime>\",\n  \"to\": \"<dateTime>\",\n  \"format\": \"json\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/query",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v1",
+                        "query"
+                      ]
+                    },
+                    "description": "Execute a TRQL query against runs, tasks, and metrics. Supports environment, project, or organization scope. Returns JSON rows or CSV."
+                  },
+                  "response": [
+                    {
+                      "id": "17f77d16-c31e-4f39-9710-af507cc4d49d",
+                      "name": "Query result",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"query\": \"<string>\",\n  \"scope\": \"environment\",\n  \"period\": \"<string>\",\n  \"from\": \"<dateTime>\",\n  \"to\": \"<dateTime>\",\n  \"format\": \"json\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/query",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "query"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"format\": \"<string>\",\n  \"data\": [\n    {\n      \"eu_525\": -55063809.81727825,\n      \"exercitation_0\": \"sint fugiat quis\"\n    },\n    {\n      \"Lorem8ff\": 82561591.57606286\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:18:56.000Z",
+                      "updatedAt": "2026-07-28T03:18:56.000Z",
+                      "uid": "35240-17f77d16-c31e-4f39-9710-af507cc4d49d"
+                    },
+                    {
+                      "id": "8eda4fb6-a68c-432f-a14a-05e51d1c20a2",
+                      "name": "Invalid query",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"query\": \"<string>\",\n  \"scope\": \"environment\",\n  \"period\": \"<string>\",\n  \"from\": \"<dateTime>\",\n  \"to\": \"<dateTime>\",\n  \"format\": \"json\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/query",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "query"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:18:56.000Z",
+                      "updatedAt": "2026-07-28T03:18:56.000Z",
+                      "uid": "35240-8eda4fb6-a68c-432f-a14a-05e51d1c20a2"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:18:56.000Z",
+                  "updatedAt": "2026-07-28T03:18:56.000Z",
+                  "uid": "35240-2f194df8-c633-4aa9-be3d-98a4e98d7203"
+                }
+              ],
+              "id": "68bbe212-d216-45ff-becd-cc6b09a45b7f",
+              "createdAt": "2026-07-28T03:18:56.000Z",
+              "updatedAt": "2026-07-28T03:18:56.000Z",
+              "uid": "35240-68bbe212-d216-45ff-becd-cc6b09a45b7f"
+            }
+          ],
+          "id": "8ec3e3d8-7e68-4ac0-b80f-abd2bdf3c64a",
+          "createdAt": "2026-07-28T03:18:56.000Z",
+          "updatedAt": "2026-07-28T03:18:56.000Z",
+          "uid": "35240-8ec3e3d8-7e68-4ac0-b80f-abd2bdf3c64a"
+        }
+      ],
+      "id": "b41dbf6d-3236-4e84-98f9-d823c630d1b1",
+      "createdAt": "2026-07-28T03:18:56.000Z",
+      "updatedAt": "2026-07-28T03:18:56.000Z",
+      "uid": "35240-b41dbf6d-3236-4e84-98f9-d823c630d1b1"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.trigger.dev"
+    }
+  ]
+}

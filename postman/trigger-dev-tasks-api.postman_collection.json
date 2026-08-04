@@ -1,0 +1,590 @@
+{
+  "info": {
+    "_postman_id": "c2c92bac-c361-4766-b4eb-d668542fe027",
+    "name": "Trigger.dev Management Batches Tasks API",
+    "description": "The Trigger.dev Management API provides comprehensive REST endpoints for managing workflow runs, tasks, schedules, deployments, queues, environment variables, batches, and waitpoints. Enables programmatic control over the full lifecycle of background job workflows including triggering, monitoring, cancellation, and observability. Authenticated via bearer token (secret API key starting with tr_dev_, tr_prod_, or tr_stg_).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:18:59.000Z",
+    "updatedAt": "2026-07-28T03:18:59.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-c2c92bac-c361-4766-b4eb-d668542fe027"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "tasks",
+              "item": [
+                {
+                  "name": "{taskIdentifier}",
+                  "item": [
+                    {
+                      "name": "trigger",
+                      "item": [
+                        {
+                          "name": "Trigger Task",
+                          "id": "39509145-39e9-4b59-a98c-27e8c9ac0b44",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"payload\": {\n    \"description\": \"Task payload data (any JSON value)\"\n  },\n  \"context\": {\n    \"description\": \"Additional context data\"\n  },\n  \"options\": {\n    \"queue\": {\n      \"name\": \"<string>\",\n      \"concurrencyLimit\": \"<integer>\"\n    },\n    \"concurrencyKey\": \"<string>\",\n    \"idempotencyKey\": \"<string>\",\n    \"ttl\": \"<string>\",\n    \"delay\": \"<string>\",\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"machine\": \"large-1x\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/tasks/:taskIdentifier/trigger",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "tasks",
+                                ":taskIdentifier",
+                                "trigger"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "6c399d0a-7529-49df-84b7-b6f200cdc873",
+                                  "key": "taskIdentifier",
+                                  "value": "<string>",
+                                  "description": "(Required) The task identifier (e.g., my-task)"
+                                }
+                              ]
+                            },
+                            "description": "Trigger a single task run. Returns the run ID for tracking. Supports payload, context, queue options, concurrency keys, idempotency, TTL, delay, tags, and machine preset selection."
+                          },
+                          "response": [
+                            {
+                              "id": "ad002ddc-3799-4ff3-87e3-f999019bc9a7",
+                              "name": "Task triggered successfully",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"payload\": {\n    \"description\": \"Task payload data (any JSON value)\"\n  },\n  \"context\": {\n    \"description\": \"Additional context data\"\n  },\n  \"options\": {\n    \"queue\": {\n      \"name\": \"<string>\",\n      \"concurrencyLimit\": \"<integer>\"\n    },\n    \"concurrencyKey\": \"<string>\",\n    \"idempotencyKey\": \"<string>\",\n    \"ttl\": \"<string>\",\n    \"delay\": \"<string>\",\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"machine\": \"large-1x\"\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/tasks/:taskIdentifier/trigger",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "tasks",
+                                    ":taskIdentifier",
+                                    "trigger"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "taskIdentifier"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T03:18:59.000Z",
+                              "updatedAt": "2026-07-28T03:18:59.000Z",
+                              "uid": "35240-ad002ddc-3799-4ff3-87e3-f999019bc9a7"
+                            },
+                            {
+                              "id": "73148668-8b37-436b-9f98-139054e6e89f",
+                              "name": "Bad request",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"payload\": {\n    \"description\": \"Task payload data (any JSON value)\"\n  },\n  \"context\": {\n    \"description\": \"Additional context data\"\n  },\n  \"options\": {\n    \"queue\": {\n      \"name\": \"<string>\",\n      \"concurrencyLimit\": \"<integer>\"\n    },\n    \"concurrencyKey\": \"<string>\",\n    \"idempotencyKey\": \"<string>\",\n    \"ttl\": \"<string>\",\n    \"delay\": \"<string>\",\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"machine\": \"large-1x\"\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/tasks/:taskIdentifier/trigger",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "tasks",
+                                    ":taskIdentifier",
+                                    "trigger"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "taskIdentifier"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"<string>\",\n  \"details\": [\n    {\n      \"code\": \"<string>\",\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"code\": \"<string>\",\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T03:18:59.000Z",
+                              "updatedAt": "2026-07-28T03:18:59.000Z",
+                              "uid": "35240-73148668-8b37-436b-9f98-139054e6e89f"
+                            },
+                            {
+                              "id": "c9f3ebca-fa97-49a2-a4d1-be0240bee1df",
+                              "name": "Unauthorized",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"payload\": {\n    \"description\": \"Task payload data (any JSON value)\"\n  },\n  \"context\": {\n    \"description\": \"Additional context data\"\n  },\n  \"options\": {\n    \"queue\": {\n      \"name\": \"<string>\",\n      \"concurrencyLimit\": \"<integer>\"\n    },\n    \"concurrencyKey\": \"<string>\",\n    \"idempotencyKey\": \"<string>\",\n    \"ttl\": \"<string>\",\n    \"delay\": \"<string>\",\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"machine\": \"large-1x\"\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/tasks/:taskIdentifier/trigger",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "tasks",
+                                    ":taskIdentifier",
+                                    "trigger"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "taskIdentifier"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T03:18:59.000Z",
+                              "updatedAt": "2026-07-28T03:18:59.000Z",
+                              "uid": "35240-c9f3ebca-fa97-49a2-a4d1-be0240bee1df"
+                            },
+                            {
+                              "id": "efef817b-d8e0-4300-944e-7d49e9580ae4",
+                              "name": "Task not found",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"payload\": {\n    \"description\": \"Task payload data (any JSON value)\"\n  },\n  \"context\": {\n    \"description\": \"Additional context data\"\n  },\n  \"options\": {\n    \"queue\": {\n      \"name\": \"<string>\",\n      \"concurrencyLimit\": \"<integer>\"\n    },\n    \"concurrencyKey\": \"<string>\",\n    \"idempotencyKey\": \"<string>\",\n    \"ttl\": \"<string>\",\n    \"delay\": \"<string>\",\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"machine\": \"large-1x\"\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/tasks/:taskIdentifier/trigger",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "tasks",
+                                    ":taskIdentifier",
+                                    "trigger"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "taskIdentifier"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T03:18:59.000Z",
+                              "updatedAt": "2026-07-28T03:18:59.000Z",
+                              "uid": "35240-efef817b-d8e0-4300-944e-7d49e9580ae4"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:18:59.000Z",
+                          "updatedAt": "2026-07-28T03:18:59.000Z",
+                          "uid": "35240-39509145-39e9-4b59-a98c-27e8c9ac0b44"
+                        }
+                      ],
+                      "id": "04d09662-93a2-4b4a-b952-4df5b3b9d32a",
+                      "createdAt": "2026-07-28T03:18:59.000Z",
+                      "updatedAt": "2026-07-28T03:18:59.000Z",
+                      "uid": "35240-04d09662-93a2-4b4a-b952-4df5b3b9d32a"
+                    }
+                  ],
+                  "id": "c583bec9-04d2-47b1-adc2-c47cdcd55050",
+                  "createdAt": "2026-07-28T03:18:59.000Z",
+                  "updatedAt": "2026-07-28T03:18:59.000Z",
+                  "uid": "35240-c583bec9-04d2-47b1-adc2-c47cdcd55050"
+                },
+                {
+                  "name": "batch",
+                  "item": [
+                    {
+                      "name": "Batch Trigger Tasks",
+                      "id": "87053c41-a1c4-4422-8b08-eb97872eb331",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"items\": [\n    {\n      \"payload\": {\n        \"description\": \"Task payload data (any JSON value)\"\n      },\n      \"context\": {\n        \"description\": \"Additional context data\"\n      },\n      \"options\": {\n        \"queue\": {\n          \"name\": \"<string>\",\n          \"concurrencyLimit\": \"<integer>\"\n        },\n        \"concurrencyKey\": \"<string>\",\n        \"idempotencyKey\": \"<string>\",\n        \"ttl\": \"<string>\",\n        \"delay\": \"<string>\",\n        \"tags\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"machine\": \"large-2x\"\n      }\n    },\n    {\n      \"payload\": {\n        \"description\": \"Task payload data (any JSON value)\"\n      },\n      \"context\": {\n        \"description\": \"Additional context data\"\n      },\n      \"options\": {\n        \"queue\": {\n          \"name\": \"<string>\",\n          \"concurrencyLimit\": \"<integer>\"\n        },\n        \"concurrencyKey\": \"<string>\",\n        \"idempotencyKey\": \"<string>\",\n        \"ttl\": \"<string>\",\n        \"delay\": \"<string>\",\n        \"tags\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"machine\": \"medium-2x\"\n      }\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/tasks/batch",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "tasks",
+                            "batch"
+                          ]
+                        },
+                        "description": "Trigger multiple task runs in a single batch request. Returns a batch ID and array of run IDs. All items in the batch must reference the same task."
+                      },
+                      "response": [
+                        {
+                          "id": "48d9c130-9c31-4fd2-a33c-317011ec4c0d",
+                          "name": "Batch triggered successfully",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"items\": [\n    {\n      \"payload\": {\n        \"description\": \"Task payload data (any JSON value)\"\n      },\n      \"context\": {\n        \"description\": \"Additional context data\"\n      },\n      \"options\": {\n        \"queue\": {\n          \"name\": \"<string>\",\n          \"concurrencyLimit\": \"<integer>\"\n        },\n        \"concurrencyKey\": \"<string>\",\n        \"idempotencyKey\": \"<string>\",\n        \"ttl\": \"<string>\",\n        \"delay\": \"<string>\",\n        \"tags\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"machine\": \"large-2x\"\n      }\n    },\n    {\n      \"payload\": {\n        \"description\": \"Task payload data (any JSON value)\"\n      },\n      \"context\": {\n        \"description\": \"Additional context data\"\n      },\n      \"options\": {\n        \"queue\": {\n          \"name\": \"<string>\",\n          \"concurrencyLimit\": \"<integer>\"\n        },\n        \"concurrencyKey\": \"<string>\",\n        \"idempotencyKey\": \"<string>\",\n        \"ttl\": \"<string>\",\n        \"delay\": \"<string>\",\n        \"tags\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"machine\": \"medium-2x\"\n      }\n    }\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/tasks/batch",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "tasks",
+                                "batch"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"runs\": [\n    {\n      \"id\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T03:18:59.000Z",
+                          "updatedAt": "2026-07-28T03:18:59.000Z",
+                          "uid": "35240-48d9c130-9c31-4fd2-a33c-317011ec4c0d"
+                        },
+                        {
+                          "id": "0d33f419-a05b-4e14-8a0e-ecde088a7a14",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"items\": [\n    {\n      \"payload\": {\n        \"description\": \"Task payload data (any JSON value)\"\n      },\n      \"context\": {\n        \"description\": \"Additional context data\"\n      },\n      \"options\": {\n        \"queue\": {\n          \"name\": \"<string>\",\n          \"concurrencyLimit\": \"<integer>\"\n        },\n        \"concurrencyKey\": \"<string>\",\n        \"idempotencyKey\": \"<string>\",\n        \"ttl\": \"<string>\",\n        \"delay\": \"<string>\",\n        \"tags\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"machine\": \"large-2x\"\n      }\n    },\n    {\n      \"payload\": {\n        \"description\": \"Task payload data (any JSON value)\"\n      },\n      \"context\": {\n        \"description\": \"Additional context data\"\n      },\n      \"options\": {\n        \"queue\": {\n          \"name\": \"<string>\",\n          \"concurrencyLimit\": \"<integer>\"\n        },\n        \"concurrencyKey\": \"<string>\",\n        \"idempotencyKey\": \"<string>\",\n        \"ttl\": \"<string>\",\n        \"delay\": \"<string>\",\n        \"tags\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"machine\": \"medium-2x\"\n      }\n    }\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/tasks/batch",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "tasks",
+                                "batch"
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T03:18:59.000Z",
+                          "updatedAt": "2026-07-28T03:18:59.000Z",
+                          "uid": "35240-0d33f419-a05b-4e14-8a0e-ecde088a7a14"
+                        },
+                        {
+                          "id": "93cdba22-81c4-48cd-91d4-e704d499790f",
+                          "name": "Unauthorized",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"items\": [\n    {\n      \"payload\": {\n        \"description\": \"Task payload data (any JSON value)\"\n      },\n      \"context\": {\n        \"description\": \"Additional context data\"\n      },\n      \"options\": {\n        \"queue\": {\n          \"name\": \"<string>\",\n          \"concurrencyLimit\": \"<integer>\"\n        },\n        \"concurrencyKey\": \"<string>\",\n        \"idempotencyKey\": \"<string>\",\n        \"ttl\": \"<string>\",\n        \"delay\": \"<string>\",\n        \"tags\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"machine\": \"large-2x\"\n      }\n    },\n    {\n      \"payload\": {\n        \"description\": \"Task payload data (any JSON value)\"\n      },\n      \"context\": {\n        \"description\": \"Additional context data\"\n      },\n      \"options\": {\n        \"queue\": {\n          \"name\": \"<string>\",\n          \"concurrencyLimit\": \"<integer>\"\n        },\n        \"concurrencyKey\": \"<string>\",\n        \"idempotencyKey\": \"<string>\",\n        \"ttl\": \"<string>\",\n        \"delay\": \"<string>\",\n        \"tags\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"machine\": \"medium-2x\"\n      }\n    }\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/tasks/batch",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "tasks",
+                                "batch"
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T03:18:59.000Z",
+                          "updatedAt": "2026-07-28T03:18:59.000Z",
+                          "uid": "35240-93cdba22-81c4-48cd-91d4-e704d499790f"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:18:59.000Z",
+                      "updatedAt": "2026-07-28T03:18:59.000Z",
+                      "uid": "35240-87053c41-a1c4-4422-8b08-eb97872eb331"
+                    }
+                  ],
+                  "id": "7147db71-c8ea-4db2-9764-6d2d968a4e19",
+                  "createdAt": "2026-07-28T03:18:59.000Z",
+                  "updatedAt": "2026-07-28T03:18:59.000Z",
+                  "uid": "35240-7147db71-c8ea-4db2-9764-6d2d968a4e19"
+                }
+              ],
+              "id": "03bd8db4-75d4-4934-855f-6592dc710b00",
+              "createdAt": "2026-07-28T03:18:59.000Z",
+              "updatedAt": "2026-07-28T03:18:59.000Z",
+              "uid": "35240-03bd8db4-75d4-4934-855f-6592dc710b00"
+            }
+          ],
+          "id": "5d92e5f4-3af6-44bb-a9f2-0780465f934e",
+          "createdAt": "2026-07-28T03:18:59.000Z",
+          "updatedAt": "2026-07-28T03:18:59.000Z",
+          "uid": "35240-5d92e5f4-3af6-44bb-a9f2-0780465f934e"
+        }
+      ],
+      "id": "929311ba-63f1-4ceb-8167-925cac5b92dc",
+      "createdAt": "2026-07-28T03:18:59.000Z",
+      "updatedAt": "2026-07-28T03:18:59.000Z",
+      "uid": "35240-929311ba-63f1-4ceb-8167-925cac5b92dc"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.trigger.dev"
+    }
+  ]
+}

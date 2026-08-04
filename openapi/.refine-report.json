@@ -1,0 +1,30 @@
+{
+  "provider": "trigger-dev",
+  "sources": [
+    "trigger-dev-batches-api-openapi.yml",
+    "trigger-dev-deployments-api-openapi.yml",
+    "trigger-dev-environment-variables-api-openapi.yml",
+    "trigger-dev-query-api-openapi.yml",
+    "trigger-dev-queues-api-openapi.yml",
+    "trigger-dev-runs-api-openapi.yml",
+    "trigger-dev-schedules-api-openapi.yml",
+    "trigger-dev-tasks-api-openapi.yml",
+    "trigger-dev-waitpoints-api-openapi.yml"
+  ],
+  "outputs": [
+    "trigger-dev-batches-api-openapi.yml",
+    "trigger-dev-deployments-api-openapi.yml",
+    "trigger-dev-environment-variables-api-openapi.yml",
+    "trigger-dev-query-api-openapi.yml",
+    "trigger-dev-queues-api-openapi.yml",
+    "trigger-dev-runs-api-openapi.yml",
+    "trigger-dev-schedules-api-openapi.yml",
+    "trigger-dev-tasks-api-openapi.yml",
+    "trigger-dev-waitpoints-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
