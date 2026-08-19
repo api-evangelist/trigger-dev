@@ -33,7 +33,7 @@ tags:
 url: https://raw.githubusercontent.com/api-evangelist/trigger-dev/refs/heads/main/apis.yml
 created: '2026-03-27'
 modified: '2026-05-22'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
 - aid: trigger-dev:trigger-dev-realtime
   name: Trigger.dev Realtime API
