@@ -1,0 +1,156 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Trigger.dev Management Batches Schedules API",
+    "version": "3.1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Schedules",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Schedules",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trigger.dev/api/v1/schedules"
+          },
+          "docs": "Returns all configured schedules for the project."
+        },
+        {
+          "info": {
+            "name": "Create Schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trigger.dev/api/v1/schedules",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new cron schedule that triggers a task on a recurring basis. Supports IANA timezone configuration and deduplication keys."
+        },
+        {
+          "info": {
+            "name": "Retrieve Schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trigger.dev/api/v1/schedules/:scheduleId",
+            "params": [
+              {
+                "name": "scheduleId",
+                "value": "",
+                "type": "path",
+                "description": "Schedule identifier (prefixed with sched_)"
+              }
+            ]
+          },
+          "docs": "Get details of a specific schedule including next run time and status."
+        },
+        {
+          "info": {
+            "name": "Update Schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.trigger.dev/api/v1/schedules/:scheduleId",
+            "params": [
+              {
+                "name": "scheduleId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing schedule's cron expression, timezone, or external ID."
+        },
+        {
+          "info": {
+            "name": "Delete Schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.trigger.dev/api/v1/schedules/:scheduleId",
+            "params": [
+              {
+                "name": "scheduleId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Permanently delete a schedule."
+        },
+        {
+          "info": {
+            "name": "Activate Schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trigger.dev/api/v1/schedules/:scheduleId/activate",
+            "params": [
+              {
+                "name": "scheduleId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Activate a deactivated schedule to resume its execution."
+        },
+        {
+          "info": {
+            "name": "Deactivate Schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trigger.dev/api/v1/schedules/:scheduleId/deactivate",
+            "params": [
+              {
+                "name": "scheduleId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Pause a schedule without deleting it."
+        },
+        {
+          "info": {
+            "name": "Get Timezones",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trigger.dev/api/v1/schedules/timezones"
+          },
+          "docs": "Returns a list of valid IANA timezone identifiers for schedule configuration."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Trigger.dev Management Batches Query API",
+    "version": "3.1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Query",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Execute Query",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trigger.dev/api/v1/query",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Execute a TRQL query against runs, tasks, and metrics. Supports environment, project, or organization scope. Returns JSON rows or CSV."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

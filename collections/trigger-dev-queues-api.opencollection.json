@@ -1,0 +1,130 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Trigger.dev Management Batches Queues API",
+    "version": "3.1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Queues",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Queues",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trigger.dev/api/v1/queues"
+          },
+          "docs": "Returns all task queues for the project."
+        },
+        {
+          "info": {
+            "name": "Retrieve Queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trigger.dev/api/v1/queues/:queueName",
+            "params": [
+              {
+                "name": "queueName",
+                "value": "",
+                "type": "path",
+                "description": "Queue name"
+              }
+            ]
+          },
+          "docs": "Get details of a specific queue including current depth and concurrency settings."
+        },
+        {
+          "info": {
+            "name": "Pause Queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trigger.dev/api/v1/queues/:queueName/pause",
+            "params": [
+              {
+                "name": "queueName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Pause a queue to prevent new runs from starting."
+        },
+        {
+          "info": {
+            "name": "Resume Queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trigger.dev/api/v1/queues/:queueName/resume",
+            "params": [
+              {
+                "name": "queueName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Resume a paused queue to allow runs to execute."
+        },
+        {
+          "info": {
+            "name": "Override Queue Concurrency",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.trigger.dev/api/v1/queues/:queueName/concurrency",
+            "params": [
+              {
+                "name": "queueName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Override the concurrency limit for a queue."
+        },
+        {
+          "info": {
+            "name": "Reset Queue Concurrency",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trigger.dev/api/v1/queues/:queueName/concurrency/reset",
+            "params": [
+              {
+                "name": "queueName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Reset a queue's concurrency limit to its default."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

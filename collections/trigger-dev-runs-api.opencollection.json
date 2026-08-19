@@ -1,0 +1,269 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Trigger.dev Management Batches Runs API",
+    "version": "3.1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Runs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Runs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trigger.dev/api/v1/runs",
+            "params": [
+              {
+                "name": "filter[status]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by run status"
+              },
+              {
+                "name": "filter[taskIdentifier]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by task identifiers"
+              },
+              {
+                "name": "filter[tag]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by tags"
+              },
+              {
+                "name": "filter[isTest]",
+                "value": "",
+                "type": "query",
+                "description": "Filter to test runs only"
+              },
+              {
+                "name": "filter[createdAt.from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter runs created after this time"
+              },
+              {
+                "name": "filter[createdAt.to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter runs created before this time"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Runs per page"
+              },
+              {
+                "name": "page[after]",
+                "value": "",
+                "type": "query",
+                "description": "Run ID to paginate after"
+              },
+              {
+                "name": "page[before]",
+                "value": "",
+                "type": "query",
+                "description": "Run ID to paginate before"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of runs filtered by status, task, tags, date range, and other criteria."
+        },
+        {
+          "info": {
+            "name": "Retrieve Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trigger.dev/api/v1/runs/:runId",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path",
+                "description": "Run identifier (prefixed with run_)"
+              }
+            ]
+          },
+          "docs": "Retrieve detailed information about a specific run including status, payload, output, hierarchy (root/parent/children), attempts, tags, and cost metadata."
+        },
+        {
+          "info": {
+            "name": "Cancel Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trigger.dev/api/v1/runs/:runId/cancel",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path",
+                "description": "Run identifier"
+              }
+            ]
+          },
+          "docs": "Cancel a queued or executing run."
+        },
+        {
+          "info": {
+            "name": "Replay Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trigger.dev/api/v1/runs/:runId/replay",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path",
+                "description": "Run identifier"
+              }
+            ]
+          },
+          "docs": "Replay a completed run with the same payload. Creates a new run with the original task and payload."
+        },
+        {
+          "info": {
+            "name": "Reschedule Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trigger.dev/api/v1/runs/:runId/reschedule",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Reschedule a delayed run to execute at a new time."
+        },
+        {
+          "info": {
+            "name": "Add Tags to Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.trigger.dev/api/v1/runs/:runId/tags",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add one or more tags to an existing run for filtering and organization."
+        },
+        {
+          "info": {
+            "name": "Retrieve Run Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trigger.dev/api/v1/runs/:runId/events",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path",
+                "description": "Run identifier (prefixed with run_)"
+              }
+            ]
+          },
+          "docs": "Retrieve the OpenTelemetry spans / events for a specific run, including timing, level, kind, and nested events. Used for tracing and debugging task execution."
+        },
+        {
+          "info": {
+            "name": "Retrieve Run Result",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trigger.dev/api/v1/runs/:runId/result",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve the final result of a completed run, including output payload or error details."
+        },
+        {
+          "info": {
+            "name": "Retrieve Run Trace",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trigger.dev/api/v1/runs/:runId/trace",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve the distributed trace tree for a run including all child runs, spans, and timing data."
+        },
+        {
+          "info": {
+            "name": "Update Run Metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.trigger.dev/api/v1/runs/:runId/metadata",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the metadata object attached to a run. Useful for storing custom progress or context."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

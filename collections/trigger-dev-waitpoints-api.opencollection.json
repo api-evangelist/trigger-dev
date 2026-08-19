@@ -1,0 +1,152 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Trigger.dev Management Batches Waitpoints API",
+    "version": "3.1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Waitpoints",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Waitpoint Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trigger.dev/api/v1/waitpoints",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a waitpoint token for human-in-the-loop workflows. The run will pause until this token is completed."
+        },
+        {
+          "info": {
+            "name": "Retrieve Waitpoint Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trigger.dev/api/v1/waitpoints/:tokenId",
+            "params": [
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the status and details of a waitpoint token."
+        },
+        {
+          "info": {
+            "name": "Complete Waitpoint Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trigger.dev/api/v1/waitpoints/:tokenId/complete",
+            "params": [
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Complete a waitpoint token to resume the paused run. Optionally pass a result payload back to the waiting run."
+        },
+        {
+          "info": {
+            "name": "List Waitpoint Tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trigger.dev/api/v1/waitpoints/tokens",
+            "params": [
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Tokens per page"
+              },
+              {
+                "name": "page[after]",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for next page"
+              },
+              {
+                "name": "page[before]",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for previous page"
+              },
+              {
+                "name": "filter[status]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter[tags]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter[idempotencyKey]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter[createdAt][period]",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of waitpoint tokens filterable by status, tags, idempotency key, and creation period."
+        },
+        {
+          "info": {
+            "name": "Complete Waitpoint Token via Callback",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trigger.dev/api/v1/waitpoints/:tokenId/callback",
+            "params": [
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Complete a waitpoint token by callback URL — used when an external system signals completion of a human-in-the-loop step."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

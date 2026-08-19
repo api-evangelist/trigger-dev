@@ -1,0 +1,1810 @@
+{
+  "item": [
+    {
+      "id": "b2614124-12fd-4cdb-883e-7f0af7899c96",
+      "name": "Runs",
+      "description": {
+        "content": "List, retrieve, cancel, replay, reschedule, tag, and inspect run events, results, and traces.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "29216069-64f5-4bf9-a188-3b8c0bdfb33d",
+          "name": "List Runs",
+          "request": {
+            "name": "List Runs",
+            "description": {
+              "content": "Returns a paginated list of runs filtered by status, task, tags, date range, and other criteria.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "runs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filter[status]",
+                  "value": "<string>",
+                  "description": "Filter by run status"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[status]",
+                  "value": "<string>",
+                  "description": "Filter by run status"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[taskIdentifier]",
+                  "value": "<string>",
+                  "description": "Filter by task identifiers"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[taskIdentifier]",
+                  "value": "<string>",
+                  "description": "Filter by task identifiers"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[tag]",
+                  "value": "<string>",
+                  "description": "Filter by tags"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[tag]",
+                  "value": "<string>",
+                  "description": "Filter by tags"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[isTest]",
+                  "value": "<boolean>",
+                  "description": "Filter to test runs only"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[createdAt.from]",
+                  "value": "<dateTime>",
+                  "description": "Filter runs created after this time"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[createdAt.to]",
+                  "value": "<dateTime>",
+                  "description": "Filter runs created before this time"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[size]",
+                  "value": "25",
+                  "description": "Runs per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[after]",
+                  "value": "<string>",
+                  "description": "Run ID to paginate after"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[before]",
+                  "value": "<string>",
+                  "description": "Run ID to paginate before"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1c9c5aa5-e593-4593-8f1d-357d00897424",
+              "name": "Paginated list of runs",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "runs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter[status]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[status]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[taskIdentifier]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[taskIdentifier]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[tag]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[tag]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[isTest]",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "filter[createdAt.from]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter[createdAt.to]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "25"
+                    },
+                    {
+                      "key": "page[after]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[before]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"status\": \"<string>\",\n      \"taskIdentifier\": \"string\",\n      \"version\": \"string\",\n      \"createdAt\": \"1986-08-03T11:42:15.300Z\",\n      \"updatedAt\": \"2016-11-28T13:15:07.510Z\",\n      \"startedAt\": \"1972-08-18T16:55:39.594Z\",\n      \"finishedAt\": \"2007-04-04T01:07:15.858Z\",\n      \"isTest\": false,\n      \"payload\": {},\n      \"output\": {},\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"metadata\": {\n        \"key_0\": false,\n        \"key_1\": \"string\",\n        \"key_2\": 8382\n      },\n      \"relatedRuns\": {\n        \"root\": {\n          \"id\": \"string\",\n          \"status\": \"<string>\",\n          \"taskIdentifier\": \"string\"\n        },\n        \"parent\": {\n          \"id\": \"string\",\n          \"status\": \"<string>\",\n          \"taskIdentifier\": \"string\"\n        },\n        \"children\": [\n          {\n            \"id\": \"string\",\n            \"status\": \"<string>\",\n            \"taskIdentifier\": \"string\"\n          },\n          {\n            \"id\": \"string\",\n            \"status\": \"<string>\",\n            \"taskIdentifier\": \"string\"\n          }\n        ]\n      },\n      \"attempts\": [\n        {\n          \"id\": \"string\",\n          \"status\": \"string\",\n          \"startedAt\": \"1964-07-29T00:40:40.540Z\",\n          \"completedAt\": \"1973-12-07T02:23:30.400Z\",\n          \"error\": {\n            \"message\": \"string\",\n            \"stack\": \"string\"\n          }\n        },\n        {\n          \"id\": \"string\",\n          \"status\": \"string\",\n          \"startedAt\": \"2022-07-14T08:05:07.884Z\",\n          \"completedAt\": \"1970-04-29T02:00:07.070Z\",\n          \"error\": {\n            \"message\": \"string\",\n            \"stack\": \"string\"\n          }\n        }\n      ],\n      \"schedule\": {\n        \"id\": \"string\",\n        \"type\": \"string\",\n        \"expression\": \"string\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"status\": \"<string>\",\n      \"taskIdentifier\": \"string\",\n      \"version\": \"string\",\n      \"createdAt\": \"1994-11-11T17:28:51.790Z\",\n      \"updatedAt\": \"1998-02-01T09:05:04.145Z\",\n      \"startedAt\": \"1964-12-25T17:26:52.535Z\",\n      \"finishedAt\": \"1966-04-10T18:04:16.746Z\",\n      \"isTest\": true,\n      \"payload\": {},\n      \"output\": {},\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"metadata\": {\n        \"key_0\": 6557.2666270515965,\n        \"key_1\": \"string\"\n      },\n      \"relatedRuns\": {\n        \"root\": {\n          \"id\": \"string\",\n          \"status\": \"<string>\",\n          \"taskIdentifier\": \"string\"\n        },\n        \"parent\": {\n          \"id\": \"string\",\n          \"status\": \"<string>\",\n          \"taskIdentifier\": \"string\"\n        },\n        \"children\": [\n          {\n            \"id\": \"string\",\n            \"status\": \"<string>\",\n            \"taskIdentifier\": \"string\"\n          },\n          {\n            \"id\": \"string\",\n            \"status\": \"<string>\",\n            \"taskIdentifier\": \"string\"\n          }\n        ]\n      },\n      \"attempts\": [\n        {\n          \"id\": \"string\",\n          \"status\": \"string\",\n          \"startedAt\": \"1950-09-26T20:06:43.026Z\",\n          \"completedAt\": \"1996-09-02T20:51:53.682Z\",\n          \"error\": {\n            \"message\": \"string\",\n            \"stack\": \"string\"\n          }\n        },\n        {\n          \"id\": \"string\",\n          \"status\": \"string\",\n          \"startedAt\": \"1949-09-19T16:40:49.225Z\",\n          \"completedAt\": \"1981-01-16T00:37:24.835Z\",\n          \"error\": {\n            \"message\": \"string\",\n            \"stack\": \"string\"\n          }\n        }\n      ],\n      \"schedule\": {\n        \"id\": \"string\",\n        \"type\": \"string\",\n        \"expression\": \"string\"\n      }\n    }\n  ],\n  \"pagination\": {\n    \"next\": \"string\",\n    \"previous\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "64d3a3b6-845c-48ed-a633-2e87ebed3b2e",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "runs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter[status]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[status]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[taskIdentifier]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[taskIdentifier]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[tag]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[tag]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[isTest]",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "filter[createdAt.from]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter[createdAt.to]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "25"
+                    },
+                    {
+                      "key": "page[after]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[before]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9c488c65-ef4d-40f6-a855-d3ea2c9560ae",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "runs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter[status]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[status]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[taskIdentifier]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[taskIdentifier]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[tag]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[tag]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[isTest]",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "filter[createdAt.from]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter[createdAt.to]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "25"
+                    },
+                    {
+                      "key": "page[after]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[before]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b6649c5f-8c20-497e-8018-d6abb4fde912",
+          "name": "Retrieve Run",
+          "request": {
+            "name": "Retrieve Run",
+            "description": {
+              "content": "Retrieve detailed information about a specific run including status, payload, output, hierarchy (root/parent/children), attempts, tags, and cost metadata.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "runs",
+                ":runId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "runId",
+                  "description": "(Required) Run identifier (prefixed with run_)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e3da2c67-63ea-418b-b009-725e0339c20f",
+              "name": "Run details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "runs",
+                    ":runId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "runId",
+                      "description": "(Required) Run identifier (prefixed with run_)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"status\": \"<string>\",\n  \"taskIdentifier\": \"string\",\n  \"version\": \"string\",\n  \"createdAt\": \"1950-05-08T06:51:36.053Z\",\n  \"updatedAt\": \"2010-12-12T20:44:34.707Z\",\n  \"startedAt\": \"1958-02-19T20:18:24.993Z\",\n  \"finishedAt\": \"1961-08-28T18:08:36.291Z\",\n  \"isTest\": true,\n  \"payload\": {},\n  \"output\": {},\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"metadata\": {\n    \"key_0\": 2528,\n    \"key_1\": true,\n    \"key_2\": 5800.770517392051\n  },\n  \"relatedRuns\": {\n    \"root\": {\n      \"id\": \"string\",\n      \"status\": \"<string>\",\n      \"taskIdentifier\": \"string\"\n    },\n    \"parent\": {\n      \"id\": \"string\",\n      \"status\": \"<string>\",\n      \"taskIdentifier\": \"string\"\n    },\n    \"children\": [\n      {\n        \"id\": \"string\",\n        \"status\": \"<string>\",\n        \"taskIdentifier\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"status\": \"<string>\",\n        \"taskIdentifier\": \"string\"\n      }\n    ]\n  },\n  \"attempts\": [\n    {\n      \"id\": \"string\",\n      \"status\": \"string\",\n      \"startedAt\": \"1962-06-04T18:05:19.862Z\",\n      \"completedAt\": \"1955-03-03T11:14:29.624Z\",\n      \"error\": {\n        \"message\": \"string\",\n        \"stack\": \"string\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"status\": \"string\",\n      \"startedAt\": \"2007-08-11T11:30:00.086Z\",\n      \"completedAt\": \"1977-02-12T05:38:26.323Z\",\n      \"error\": {\n        \"message\": \"string\",\n        \"stack\": \"string\"\n      }\n    }\n  ],\n  \"schedule\": {\n    \"id\": \"string\",\n    \"type\": \"string\",\n    \"expression\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "58525523-04a1-40a6-98e2-b1df76170035",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "runs",
+                    ":runId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "runId",
+                      "description": "(Required) Run identifier (prefixed with run_)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "78a1a6d3-97ba-4d2a-a1c4-b8ea0cfbc781",
+              "name": "Run not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "runs",
+                    ":runId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "runId",
+                      "description": "(Required) Run identifier (prefixed with run_)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "36ff2172-0b9d-460d-ae3a-b739e94c1325",
+          "name": "Cancel Run",
+          "request": {
+            "name": "Cancel Run",
+            "description": {
+              "content": "Cancel a queued or executing run.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "runs",
+                ":runId",
+                "cancel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "runId",
+                  "description": "(Required) Run identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0b4d4f51-2c15-464a-bd33-02f499a550b0",
+              "name": "Run cancelled",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "runs",
+                    ":runId",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "runId",
+                      "description": "(Required) Run identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"status\": \"<string>\",\n  \"taskIdentifier\": \"string\",\n  \"version\": \"string\",\n  \"createdAt\": \"1950-05-08T06:51:36.053Z\",\n  \"updatedAt\": \"2010-12-12T20:44:34.707Z\",\n  \"startedAt\": \"1958-02-19T20:18:24.993Z\",\n  \"finishedAt\": \"1961-08-28T18:08:36.291Z\",\n  \"isTest\": true,\n  \"payload\": {},\n  \"output\": {},\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"metadata\": {\n    \"key_0\": 2528,\n    \"key_1\": true,\n    \"key_2\": 5800.770517392051\n  },\n  \"relatedRuns\": {\n    \"root\": {\n      \"id\": \"string\",\n      \"status\": \"<string>\",\n      \"taskIdentifier\": \"string\"\n    },\n    \"parent\": {\n      \"id\": \"string\",\n      \"status\": \"<string>\",\n      \"taskIdentifier\": \"string\"\n    },\n    \"children\": [\n      {\n        \"id\": \"string\",\n        \"status\": \"<string>\",\n        \"taskIdentifier\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"status\": \"<string>\",\n        \"taskIdentifier\": \"string\"\n      }\n    ]\n  },\n  \"attempts\": [\n    {\n      \"id\": \"string\",\n      \"status\": \"string\",\n      \"startedAt\": \"1962-06-04T18:05:19.862Z\",\n      \"completedAt\": \"1955-03-03T11:14:29.624Z\",\n      \"error\": {\n        \"message\": \"string\",\n        \"stack\": \"string\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"status\": \"string\",\n      \"startedAt\": \"2007-08-11T11:30:00.086Z\",\n      \"completedAt\": \"1977-02-12T05:38:26.323Z\",\n      \"error\": {\n        \"message\": \"string\",\n        \"stack\": \"string\"\n      }\n    }\n  ],\n  \"schedule\": {\n    \"id\": \"string\",\n    \"type\": \"string\",\n    \"expression\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f53ebd68-d6a1-4132-b678-87ac4a6dcb0c",
+              "name": "Run not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "runs",
+                    ":runId",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "runId",
+                      "description": "(Required) Run identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a2d0ccb7-2e4b-4e70-8cac-87dae84b8404",
+          "name": "Replay Run",
+          "request": {
+            "name": "Replay Run",
+            "description": {
+              "content": "Replay a completed run with the same payload. Creates a new run with the original task and payload.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "runs",
+                ":runId",
+                "replay"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "runId",
+                  "description": "(Required) Run identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a66e2a32-ffb7-414a-ac2b-4551ef5339bb",
+              "name": "New run created via replay",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "runs",
+                    ":runId",
+                    "replay"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "runId",
+                      "description": "(Required) Run identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4f3c6991-b3a0-455f-af01-b0843475c7e3",
+              "name": "Run not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "runs",
+                    ":runId",
+                    "replay"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "runId",
+                      "description": "(Required) Run identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a74766ab-b4ac-4021-b858-b81092eff424",
+          "name": "Reschedule Run",
+          "request": {
+            "name": "Reschedule Run",
+            "description": {
+              "content": "Reschedule a delayed run to execute at a new time.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "runs",
+                ":runId",
+                "reschedule"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "runId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"delay\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bfc818f8-5221-404e-9a04-623ec6611a52",
+              "name": "Run rescheduled",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "runs",
+                    ":runId",
+                    "reschedule"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "runId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"delay\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"status\": \"<string>\",\n  \"taskIdentifier\": \"string\",\n  \"version\": \"string\",\n  \"createdAt\": \"1950-05-08T06:51:36.053Z\",\n  \"updatedAt\": \"2010-12-12T20:44:34.707Z\",\n  \"startedAt\": \"1958-02-19T20:18:24.993Z\",\n  \"finishedAt\": \"1961-08-28T18:08:36.291Z\",\n  \"isTest\": true,\n  \"payload\": {},\n  \"output\": {},\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"metadata\": {\n    \"key_0\": 2528,\n    \"key_1\": true,\n    \"key_2\": 5800.770517392051\n  },\n  \"relatedRuns\": {\n    \"root\": {\n      \"id\": \"string\",\n      \"status\": \"<string>\",\n      \"taskIdentifier\": \"string\"\n    },\n    \"parent\": {\n      \"id\": \"string\",\n      \"status\": \"<string>\",\n      \"taskIdentifier\": \"string\"\n    },\n    \"children\": [\n      {\n        \"id\": \"string\",\n        \"status\": \"<string>\",\n        \"taskIdentifier\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"status\": \"<string>\",\n        \"taskIdentifier\": \"string\"\n      }\n    ]\n  },\n  \"attempts\": [\n    {\n      \"id\": \"string\",\n      \"status\": \"string\",\n      \"startedAt\": \"1962-06-04T18:05:19.862Z\",\n      \"completedAt\": \"1955-03-03T11:14:29.624Z\",\n      \"error\": {\n        \"message\": \"string\",\n        \"stack\": \"string\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"status\": \"string\",\n      \"startedAt\": \"2007-08-11T11:30:00.086Z\",\n      \"completedAt\": \"1977-02-12T05:38:26.323Z\",\n      \"error\": {\n        \"message\": \"string\",\n        \"stack\": \"string\"\n      }\n    }\n  ],\n  \"schedule\": {\n    \"id\": \"string\",\n    \"type\": \"string\",\n    \"expression\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ccf33688-560a-4d3a-9bee-9bb3c2599551",
+          "name": "Add Tags to Run",
+          "request": {
+            "name": "Add Tags to Run",
+            "description": {
+              "content": "Add one or more tags to an existing run for filtering and organization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "runs",
+                ":runId",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "runId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "697877f8-356f-4140-9654-a678e5c3323d",
+              "name": "Tags added successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "runs",
+                    ":runId",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "runId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"status\": \"<string>\",\n  \"taskIdentifier\": \"string\",\n  \"version\": \"string\",\n  \"createdAt\": \"1950-05-08T06:51:36.053Z\",\n  \"updatedAt\": \"2010-12-12T20:44:34.707Z\",\n  \"startedAt\": \"1958-02-19T20:18:24.993Z\",\n  \"finishedAt\": \"1961-08-28T18:08:36.291Z\",\n  \"isTest\": true,\n  \"payload\": {},\n  \"output\": {},\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"metadata\": {\n    \"key_0\": 2528,\n    \"key_1\": true,\n    \"key_2\": 5800.770517392051\n  },\n  \"relatedRuns\": {\n    \"root\": {\n      \"id\": \"string\",\n      \"status\": \"<string>\",\n      \"taskIdentifier\": \"string\"\n    },\n    \"parent\": {\n      \"id\": \"string\",\n      \"status\": \"<string>\",\n      \"taskIdentifier\": \"string\"\n    },\n    \"children\": [\n      {\n        \"id\": \"string\",\n        \"status\": \"<string>\",\n        \"taskIdentifier\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"status\": \"<string>\",\n        \"taskIdentifier\": \"string\"\n      }\n    ]\n  },\n  \"attempts\": [\n    {\n      \"id\": \"string\",\n      \"status\": \"string\",\n      \"startedAt\": \"1962-06-04T18:05:19.862Z\",\n      \"completedAt\": \"1955-03-03T11:14:29.624Z\",\n      \"error\": {\n        \"message\": \"string\",\n        \"stack\": \"string\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"status\": \"string\",\n      \"startedAt\": \"2007-08-11T11:30:00.086Z\",\n      \"completedAt\": \"1977-02-12T05:38:26.323Z\",\n      \"error\": {\n        \"message\": \"string\",\n        \"stack\": \"string\"\n      }\n    }\n  ],\n  \"schedule\": {\n    \"id\": \"string\",\n    \"type\": \"string\",\n    \"expression\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4232f5df-cac9-489b-889f-f95e8c71f468",
+          "name": "Retrieve Run Events",
+          "request": {
+            "name": "Retrieve Run Events",
+            "description": {
+              "content": "Retrieve the OpenTelemetry spans / events for a specific run, including timing, level, kind, and nested events. Used for tracing and debugging task execution.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "runs",
+                ":runId",
+                "events"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "runId",
+                  "description": "(Required) Run identifier (prefixed with run_)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "980ad98c-82b7-4778-be87-2c03ff705881",
+              "name": "List of run events",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "runs",
+                    ":runId",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "runId",
+                      "description": "(Required) Run identifier (prefixed with run_)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"events\": [\n    {\n      \"spanId\": \"string\",\n      \"parentId\": \"string\",\n      \"runId\": \"string\",\n      \"message\": \"string\",\n      \"startTime\": \"1986-12-30T20:49:58.329Z\",\n      \"duration\": 5820,\n      \"isError\": true,\n      \"isPartial\": false,\n      \"isCancelled\": false,\n      \"level\": \"TRACE\",\n      \"kind\": \"CLIENT\",\n      \"attemptNumber\": 1572,\n      \"taskSlug\": \"string\",\n      \"events\": [\n        {\n          \"key_0\": 9378.040794026003,\n          \"key_1\": \"string\",\n          \"key_2\": \"string\"\n        },\n        {\n          \"key_0\": true\n        }\n      ],\n      \"style\": {\n        \"icon\": \"string\",\n        \"variant\": \"string\",\n        \"accessory\": \"string\"\n      }\n    },\n    {\n      \"spanId\": \"string\",\n      \"parentId\": \"string\",\n      \"runId\": \"string\",\n      \"message\": \"string\",\n      \"startTime\": \"1990-05-24T03:06:48.576Z\",\n      \"duration\": 1096,\n      \"isError\": true,\n      \"isPartial\": true,\n      \"isCancelled\": false,\n      \"level\": \"LOG\",\n      \"kind\": \"CONSUMER\",\n      \"attemptNumber\": 9217,\n      \"taskSlug\": \"string\",\n      \"events\": [\n        {\n          \"key_0\": 2332.5720652677105,\n          \"key_1\": \"string\"\n        },\n        {\n          \"key_0\": 1168.3161312994027,\n          \"key_1\": 6828.333936343387,\n          \"key_2\": 1509.354512453549\n        }\n      ],\n      \"style\": {\n        \"icon\": \"string\",\n        \"variant\": \"string\",\n        \"accessory\": \"string\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f8711402-9691-4e65-ac9a-3cab52822988",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "runs",
+                    ":runId",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "runId",
+                      "description": "(Required) Run identifier (prefixed with run_)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "30ce441f-b15a-413d-ac35-d2d1d20306e8",
+              "name": "Run not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "runs",
+                    ":runId",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "runId",
+                      "description": "(Required) Run identifier (prefixed with run_)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "654740ee-18be-444d-9772-28d47449b361",
+          "name": "Retrieve Run Result",
+          "request": {
+            "name": "Retrieve Run Result",
+            "description": {
+              "content": "Retrieve the final result of a completed run, including output payload or error details.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "runs",
+                ":runId",
+                "result"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "runId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f74fa8ea-9e84-4c7a-9af3-b0b834cb2351",
+              "name": "Run result",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "runs",
+                    ":runId",
+                    "result"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "runId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true,\n  \"output\": {},\n  \"error\": {\n    \"message\": \"string\",\n    \"stack\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e3054717-8394-4f2e-8c57-3babb1c52c0a",
+              "name": "Run not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "runs",
+                    ":runId",
+                    "result"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "runId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1e9a4f01-0f02-4735-85b1-91e6a305f614",
+          "name": "Retrieve Run Trace",
+          "request": {
+            "name": "Retrieve Run Trace",
+            "description": {
+              "content": "Retrieve the distributed trace tree for a run including all child runs, spans, and timing data.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "runs",
+                ":runId",
+                "trace"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "runId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ddffad8e-e4ea-445f-8eb9-8ea92b513ad5",
+              "name": "Run trace tree",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "runs",
+                    ":runId",
+                    "trace"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "runId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": 1535,\n  \"key_1\": \"string\",\n  \"key_2\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "55007616-b988-4cc1-aad0-c5ea70e8e3ac",
+              "name": "Run not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "runs",
+                    ":runId",
+                    "trace"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "runId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bc90d342-cd72-4182-813f-ffefaf8b2c8c",
+          "name": "Update Run Metadata",
+          "request": {
+            "name": "Update Run Metadata",
+            "description": {
+              "content": "Update the metadata object attached to a run. Useful for storing custom progress or context.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "runs",
+                ":runId",
+                "metadata"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "runId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"metadata\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c0b19c0c-9332-4ee3-8a0b-d1ab769dd32e",
+              "name": "Metadata updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "runs",
+                    ":runId",
+                    "metadata"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "runId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metadata\": {\n    \"key_0\": \"string\",\n    \"key_1\": false,\n    \"key_2\": \"string\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"status\": \"<string>\",\n  \"taskIdentifier\": \"string\",\n  \"version\": \"string\",\n  \"createdAt\": \"1950-05-08T06:51:36.053Z\",\n  \"updatedAt\": \"2010-12-12T20:44:34.707Z\",\n  \"startedAt\": \"1958-02-19T20:18:24.993Z\",\n  \"finishedAt\": \"1961-08-28T18:08:36.291Z\",\n  \"isTest\": true,\n  \"payload\": {},\n  \"output\": {},\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"metadata\": {\n    \"key_0\": 2528,\n    \"key_1\": true,\n    \"key_2\": 5800.770517392051\n  },\n  \"relatedRuns\": {\n    \"root\": {\n      \"id\": \"string\",\n      \"status\": \"<string>\",\n      \"taskIdentifier\": \"string\"\n    },\n    \"parent\": {\n      \"id\": \"string\",\n      \"status\": \"<string>\",\n      \"taskIdentifier\": \"string\"\n    },\n    \"children\": [\n      {\n        \"id\": \"string\",\n        \"status\": \"<string>\",\n        \"taskIdentifier\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"status\": \"<string>\",\n        \"taskIdentifier\": \"string\"\n      }\n    ]\n  },\n  \"attempts\": [\n    {\n      \"id\": \"string\",\n      \"status\": \"string\",\n      \"startedAt\": \"1962-06-04T18:05:19.862Z\",\n      \"completedAt\": \"1955-03-03T11:14:29.624Z\",\n      \"error\": {\n        \"message\": \"string\",\n        \"stack\": \"string\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"status\": \"string\",\n      \"startedAt\": \"2007-08-11T11:30:00.086Z\",\n      \"completedAt\": \"1977-02-12T05:38:26.323Z\",\n      \"error\": {\n        \"message\": \"string\",\n        \"stack\": \"string\"\n      }\n    }\n  ],\n  \"schedule\": {\n    \"id\": \"string\",\n    \"type\": \"string\",\n    \"expression\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.trigger.dev",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ec0077aa-6ef4-4e79-ab6c-ed9a0fb3b7bb",
+    "name": "Trigger.dev Management Batches Runs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Trigger.dev Management API provides comprehensive REST endpoints for managing workflow runs, tasks, schedules, deployments, queues, environment variables, batches, and waitpoints. Enables programmatic control over the full lifecycle of background job workflows including triggering, monitoring, cancellation, and observability. Authenticated via bearer token (secret API key starting with tr_dev_, tr_prod_, or tr_stg_).",
+      "type": "text/plain"
+    }
+  }
+}

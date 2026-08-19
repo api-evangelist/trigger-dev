@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Trigger.dev Management Batches Tasks API",
+    "version": "3.1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tasks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Trigger Task",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trigger.dev/api/v1/tasks/:taskIdentifier/trigger",
+            "params": [
+              {
+                "name": "taskIdentifier",
+                "value": "",
+                "type": "path",
+                "description": "The task identifier (e.g., my-task)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Trigger a single task run. Returns the run ID for tracking. Supports payload, context, queue options, concurrency keys, idempotency, TTL, delay, tags, and machine preset selection."
+        },
+        {
+          "info": {
+            "name": "Batch Trigger Tasks",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trigger.dev/api/v1/tasks/batch",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Trigger multiple task runs in a single batch request. Returns a batch ID and array of run IDs. All items in the batch must reference the same task."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
