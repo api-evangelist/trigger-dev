@@ -23,6 +23,15 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/trigger-dev.png
 tags:
   - Developer-First
+  - Workflow-Automation
+  - Background Jobs
+  - Durable Execution
+  - TypeScript
+  - AI Agents
+  - Real-Time
+  - Open-Source
+tags_raw:
+  - Developer-First
   - Workflow Automation
   - Background Jobs
   - Durable Execution
@@ -45,6 +54,13 @@ apis:
     interfaces.
   humanURL: https://trigger.dev/docs/realtime/overview
   tags:
+  - Real-Time
+  - Streaming
+  - React
+  - WebSockets
+  - AI Streaming
+  - Frontend
+  tags_raw:
   - Realtime
   - Streaming
   - React
@@ -104,6 +120,8 @@ apis:
   humanURL: https://trigger.dev/docs/management/overview
   baseURL: https://api.trigger.dev
   tags:
+  - Deployment
+  tags_raw:
   - Deployments
   properties:
   - type: OpenAPI
@@ -346,6 +364,8 @@ apis:
   humanURL: https://trigger.dev/docs/management/overview
   baseURL: https://api.trigger.dev
   tags:
+  - Task
+  tags_raw:
   - Tasks
   properties:
   - type: OpenAPI
