@@ -70,7 +70,7 @@ apis:
   - Real-Time
   - Streaming
   - React
-  - WebSockets
+  - WebSocket
   - AI Streaming
   - Frontend
   tags_raw:
@@ -337,6 +337,8 @@ apis:
   humanURL: https://trigger.dev/docs/management/overview
   baseURL: https://api.trigger.dev
   tags:
+  - Schedule
+  tags_raw:
   - Schedules
   properties:
   - type: OpenAPI
