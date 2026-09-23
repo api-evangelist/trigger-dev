@@ -1,0 +1,35 @@
+# Front Door AI Index — trigger-dev — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: trigger-dev
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: trigger.dev
+  final_host: trigger.dev
+  ownership: own
+  owner: trigger-dev
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 54
+  host_score: 54
+  density: 30.98
+  words: 1743
+  tiers:
+    agentic: 16
+    core: 35
+    model: 3
+  ambiguous: 24
+  top_terms:
+    AI: 31
+    agent: 20
+    AI agent: 10
+    LLMs: 4
+    prompts: 3
+    smart: 3
+    Claude: 2
+    agentic: 2
+    Anthropic: 1
+    MCP: 1
+    automation: 1

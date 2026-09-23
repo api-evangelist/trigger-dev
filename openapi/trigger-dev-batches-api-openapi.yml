@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Trigger.dev Management Batches API
   description: The Trigger.dev Management API provides comprehensive REST endpoints for managing workflow runs, tasks, schedules, deployments, queues, environment variables, batches, and waitpoints. Enables programmatic control over the full lifecycle of background job workflows including triggering, monitoring, cancellation, and observability. Authenticated via bearer token (secret API key starting with tr_dev_, tr_prod_, or tr_stg_).
@@ -62,23 +62,6 @@ paths:
                 $ref: '#/components/schemas/Batch'
 components:
   schemas:
-    BatchTriggerRequest:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/TriggerTaskRequest'
-    BatchTriggerResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Batch identifier
-        runs:
-          type: array
-          items:
-            $ref: '#/components/schemas/TriggerTaskResponse'
     TriggerTaskRequest:
       type: object
       properties:
@@ -125,6 +108,31 @@ components:
               - large-1x
               - large-2x
               description: Machine preset for the run
+    BatchTriggerRequest:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/TriggerTaskRequest'
+    TriggerTaskResponse:
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+          description: Run identifier (prefixed with run_)
+    BatchTriggerResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Batch identifier
+        runs:
+          type: array
+          items:
+            $ref: '#/components/schemas/TriggerTaskResponse'
     Batch:
       type: object
       properties:
@@ -150,14 +158,6 @@ components:
         completedAt:
           type: string
           format: date-time
-    TriggerTaskResponse:
-      type: object
-      required:
-      - id
-      properties:
-        id:
-          type: string
-          description: Run identifier (prefixed with run_)
   securitySchemes:
     bearerAuth:
       type: http

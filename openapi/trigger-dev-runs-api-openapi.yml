@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Trigger.dev Management Batches Runs API
+  title: Trigger.dev Management Runs API
   description: The Trigger.dev Management API provides comprehensive REST endpoints for managing workflow runs, tasks, schedules, deployments, queues, environment variables, batches, and waitpoints. Enables programmatic control over the full lifecycle of background job workflows including triggering, monitoring, cancellation, and observability. Authenticated via bearer token (secret API key starting with tr_dev_, tr_prod_, or tr_stg_).
   version: 3.1.0
   contact:
@@ -351,108 +351,34 @@ paths:
                 $ref: '#/components/schemas/Run'
 components:
   schemas:
-    RunStatus:
-      type: string
-      enum:
-      - QUEUED
-      - EXECUTING
-      - REATTEMPTING
-      - WAITING_FOR_DEPLOY
-      - WAITING_TO_RESUME
-      - COMPLETED_SUCCESSFULLY
-      - COMPLETED_WITH_ERRORS
-      - INTERRUPTED
-      - CANCELLED
-      - CRASHED
-      - FAILED_TO_RUN
-      - TIMED_OUT
-      - EXPIRED
-      - DELAYED
-      - SYSTEM_FAILURE
-      description: Current status of a task run
-    ListRunsResponse:
+    RunAttempt:
       type: object
       properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Run'
-        pagination:
+        id:
+          type: string
+        status:
+          type: string
+        startedAt:
+          type: string
+          format: date-time
+        completedAt:
+          type: string
+          format: date-time
+        error:
           type: object
           properties:
-            next:
+            message:
               type: string
-              description: Run ID for next page
-            previous:
+            stack:
               type: string
-              description: Run ID for previous page
-    Run:
+    TriggerTaskResponse:
       type: object
       required:
       - id
-      - status
-      - taskIdentifier
       properties:
         id:
           type: string
           description: Run identifier (prefixed with run_)
-        status:
-          $ref: '#/components/schemas/RunStatus'
-        taskIdentifier:
-          type: string
-          description: The task that this run executes
-        version:
-          type: string
-          description: Deployment version that ran the task
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-        startedAt:
-          type: string
-          format: date-time
-        finishedAt:
-          type: string
-          format: date-time
-        isTest:
-          type: boolean
-        payload:
-          description: The payload data passed to the task
-        output:
-          description: The task's return value (if completed successfully)
-        tags:
-          type: array
-          items:
-            type: string
-        metadata:
-          type: object
-          additionalProperties: true
-        relatedRuns:
-          type: object
-          properties:
-            root:
-              $ref: '#/components/schemas/RunReference'
-            parent:
-              $ref: '#/components/schemas/RunReference'
-            children:
-              type: array
-              items:
-                $ref: '#/components/schemas/RunReference'
-        attempts:
-          type: array
-          items:
-            $ref: '#/components/schemas/RunAttempt'
-        schedule:
-          type: object
-          properties:
-            id:
-              type: string
-            type:
-              type: string
-            expression:
-              type: string
     RunEvent:
       type: object
       properties:
@@ -520,34 +446,108 @@ components:
           $ref: '#/components/schemas/RunStatus'
         taskIdentifier:
           type: string
-    TriggerTaskResponse:
+    Run:
       type: object
       required:
       - id
+      - status
+      - taskIdentifier
       properties:
         id:
           type: string
           description: Run identifier (prefixed with run_)
-    RunAttempt:
-      type: object
-      properties:
-        id:
-          type: string
         status:
+          $ref: '#/components/schemas/RunStatus'
+        taskIdentifier:
           type: string
+          description: The task that this run executes
+        version:
+          type: string
+          description: Deployment version that ran the task
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
         startedAt:
           type: string
           format: date-time
-        completedAt:
+        finishedAt:
           type: string
           format: date-time
-        error:
+        isTest:
+          type: boolean
+        payload:
+          description: The payload data passed to the task
+        output:
+          description: The task's return value (if completed successfully)
+        tags:
+          type: array
+          items:
+            type: string
+        metadata:
+          type: object
+          additionalProperties: true
+        relatedRuns:
           type: object
           properties:
-            message:
+            root:
+              $ref: '#/components/schemas/RunReference'
+            parent:
+              $ref: '#/components/schemas/RunReference'
+            children:
+              type: array
+              items:
+                $ref: '#/components/schemas/RunReference'
+        attempts:
+          type: array
+          items:
+            $ref: '#/components/schemas/RunAttempt'
+        schedule:
+          type: object
+          properties:
+            id:
               type: string
-            stack:
+            type:
               type: string
+            expression:
+              type: string
+    RunStatus:
+      type: string
+      enum:
+      - QUEUED
+      - EXECUTING
+      - REATTEMPTING
+      - WAITING_FOR_DEPLOY
+      - WAITING_TO_RESUME
+      - COMPLETED_SUCCESSFULLY
+      - COMPLETED_WITH_ERRORS
+      - INTERRUPTED
+      - CANCELLED
+      - CRASHED
+      - FAILED_TO_RUN
+      - TIMED_OUT
+      - EXPIRED
+      - DELAYED
+      - SYSTEM_FAILURE
+      description: Current status of a task run
+    ListRunsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Run'
+        pagination:
+          type: object
+          properties:
+            next:
+              type: string
+              description: Run ID for next page
+            previous:
+              type: string
+              description: Run ID for previous page
   securitySchemes:
     bearerAuth:
       type: http

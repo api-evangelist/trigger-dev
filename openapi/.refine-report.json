@@ -1,15 +1,7 @@
 {
   "provider": "trigger-dev",
   "sources": [
-    "trigger-dev-batches-api-openapi.yml",
-    "trigger-dev-deployments-api-openapi.yml",
-    "trigger-dev-environment-variables-api-openapi.yml",
-    "trigger-dev-query-api-openapi.yml",
-    "trigger-dev-queues-api-openapi.yml",
-    "trigger-dev-runs-api-openapi.yml",
-    "trigger-dev-schedules-api-openapi.yml",
-    "trigger-dev-tasks-api-openapi.yml",
-    "trigger-dev-waitpoints-api-openapi.yml"
+    "_original/trigger-dev-management-openapi.yml"
   ],
   "outputs": [
     "trigger-dev-batches-api-openapi.yml",
@@ -25,6 +17,20 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "trigger-dev-management-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "trigger-dev-batches-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "trigger-dev-deployments-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "trigger-dev-environment-variables-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "trigger-dev-query-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "trigger-dev-queues-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "trigger-dev-runs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "trigger-dev-schedules-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "trigger-dev-tasks-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "trigger-dev-waitpoints-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

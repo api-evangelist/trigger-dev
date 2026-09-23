@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Trigger.dev Management Batches Schedules API
+  title: Trigger.dev Management Schedules API
   description: The Trigger.dev Management API provides comprehensive REST endpoints for managing workflow runs, tasks, schedules, deployments, queues, environment variables, batches, and waitpoints. Enables programmatic control over the full lifecycle of background job workflows including triggering, monitoring, cancellation, and observability. Authenticated via bearer token (secret API key starting with tr_dev_, tr_prod_, or tr_stg_).
   version: 3.1.0
   contact:
@@ -167,6 +167,28 @@ paths:
                   type: string
 components:
   schemas:
+    CreateScheduleRequest:
+      type: object
+      required:
+      - task
+      - cron
+      - deduplicationKey
+      properties:
+        task:
+          type: string
+          description: Task identifier to trigger
+        cron:
+          type: string
+          description: CRON expression (e.g., "0 9 * * MON-FRI")
+        deduplicationKey:
+          type: string
+          description: Prevents duplicate schedule creation
+        externalId:
+          type: string
+          description: Custom external identifier
+        timezone:
+          type: string
+          description: IANA timezone (defaults to UTC)
     Schedule:
       type: object
       required:
@@ -218,28 +240,6 @@ components:
                 type: string
               type:
                 type: string
-    CreateScheduleRequest:
-      type: object
-      required:
-      - task
-      - cron
-      - deduplicationKey
-      properties:
-        task:
-          type: string
-          description: Task identifier to trigger
-        cron:
-          type: string
-          description: CRON expression (e.g., "0 9 * * MON-FRI")
-        deduplicationKey:
-          type: string
-          description: Prevents duplicate schedule creation
-        externalId:
-          type: string
-          description: Custom external identifier
-        timezone:
-          type: string
-          description: IANA timezone (defaults to UTC)
     UpdateScheduleRequest:
       type: object
       properties:

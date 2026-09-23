@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Trigger.dev Management Batches Tasks API
+  title: Trigger.dev Management Tasks API
   description: The Trigger.dev Management API provides comprehensive REST endpoints for managing workflow runs, tasks, schedules, deployments, queues, environment variables, batches, and waitpoints. Enables programmatic control over the full lifecycle of background job workflows including triggering, monitoring, cancellation, and observability. Authenticated via bearer token (secret API key starting with tr_dev_, tr_prod_, or tr_stg_).
   version: 3.1.0
   contact:
@@ -82,39 +82,6 @@ paths:
           description: Unauthorized
 components:
   schemas:
-    BatchTriggerResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Batch identifier
-        runs:
-          type: array
-          items:
-            $ref: '#/components/schemas/TriggerTaskResponse'
-    BatchTriggerRequest:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/TriggerTaskRequest'
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-        details:
-          type: array
-          items:
-            type: object
-            properties:
-              code:
-                type: string
-              message:
-                type: string
-              path:
-                type: string
     TriggerTaskRequest:
       type: object
       properties:
@@ -161,6 +128,29 @@ components:
               - large-1x
               - large-2x
               description: Machine preset for the run
+    BatchTriggerRequest:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/TriggerTaskRequest'
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              message:
+                type: string
+              path:
+                type: string
     TriggerTaskResponse:
       type: object
       required:
@@ -169,6 +159,16 @@ components:
         id:
           type: string
           description: Run identifier (prefixed with run_)
+    BatchTriggerResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Batch identifier
+        runs:
+          type: array
+          items:
+            $ref: '#/components/schemas/TriggerTaskResponse'
   securitySchemes:
     bearerAuth:
       type: http
