@@ -36,13 +36,13 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/trigger-dev.png
 tags:
   - Developer-First
-  - Workflow-Automation
+  - Workflow Automation
   - Background Jobs
   - Durable Execution
   - TypeScript
   - AI Agents
   - Real-Time
-  - Open-Source
+  - Open Source
 tags_raw:
   - Developer-First
   - Workflow Automation
@@ -52,6 +52,8 @@ tags_raw:
   - AI Agents
   - Realtime
   - Open Source
+  - Workflow-Automation
+  - Open-Source
 url: https://raw.githubusercontent.com/api-evangelist/trigger-dev/refs/heads/main/apis.yml
 created: '2026-03-27'
 modified: '2026-05-22'
