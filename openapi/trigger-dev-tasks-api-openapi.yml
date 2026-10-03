@@ -82,22 +82,6 @@ paths:
           description: Unauthorized
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-        details:
-          type: array
-          items:
-            type: object
-            properties:
-              code:
-                type: string
-              message:
-                type: string
-              path:
-                type: string
     TriggerTaskResponse:
       type: object
       required:
@@ -106,13 +90,6 @@ components:
         id:
           type: string
           description: Run identifier (prefixed with run_)
-    BatchTriggerRequest:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/TriggerTaskRequest'
     BatchTriggerResponse:
       type: object
       properties:
@@ -169,6 +146,29 @@ components:
               - large-1x
               - large-2x
               description: Machine preset for the run
+    BatchTriggerRequest:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/TriggerTaskRequest'
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              message:
+                type: string
+              path:
+                type: string
   securitySchemes:
     bearerAuth:
       type: http

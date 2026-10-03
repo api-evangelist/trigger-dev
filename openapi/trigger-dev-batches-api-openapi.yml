@@ -70,13 +70,16 @@ components:
         id:
           type: string
           description: Run identifier (prefixed with run_)
-    BatchTriggerRequest:
+    BatchTriggerResponse:
       type: object
       properties:
-        items:
+        id:
+          type: string
+          description: Batch identifier
+        runs:
           type: array
           items:
-            $ref: '#/components/schemas/TriggerTaskRequest'
+            $ref: '#/components/schemas/TriggerTaskResponse'
     Batch:
       type: object
       properties:
@@ -102,16 +105,6 @@ components:
         completedAt:
           type: string
           format: date-time
-    BatchTriggerResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Batch identifier
-        runs:
-          type: array
-          items:
-            $ref: '#/components/schemas/TriggerTaskResponse'
     TriggerTaskRequest:
       type: object
       properties:
@@ -158,6 +151,13 @@ components:
               - large-1x
               - large-2x
               description: Machine preset for the run
+    BatchTriggerRequest:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/TriggerTaskRequest'
   securitySchemes:
     bearerAuth:
       type: http
