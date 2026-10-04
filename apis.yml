@@ -545,6 +545,9 @@ github:
     language: TypeScript
     stars: 8
 common:
+  - type: CapabilityMap
+    url: capabilities/trigger-dev-capability-edges.yml
+    name: Trigger.dev Business Capability Map
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/triggerdev/overview
   - type: AgenticAccess

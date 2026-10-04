@@ -1,0 +1,36 @@
+slug: trigger-dev
+provider: Trigger.dev
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 2
+edges:
+- tag: Deployments
+  spec_file: trigger-dev-deployments-api-openapi.yml
+  capability_id: BC-4210.40
+  capability_id_l1: BC-4210
+  capability_name: Deployment Orchestration
+  confidence: 0.8
+  evidence: POST /api/v1/deployments/{deploymentId}/promote  promoteDeployment  Promote Deployment; GET
+    /api/v1/deployments/latest  Get Latest Deployment
+  reason: Operations list, inspect and promote versioned deployments of code to environments, which is
+    release/deployment orchestration for software delivery; sub-capability choice between release engineering
+    and deployment orchestration carries some ambiguity.
+- tag: Environment Variables
+  spec_file: trigger-dev-environment-variables-api-openapi.yml
+  capability_id: BC-4210.60
+  capability_id_l1: BC-4210
+  capability_name: Configuration & Secrets Management
+  confidence: 0.8
+  evidence: POST /api/v1/envvars  createEnvVar  Create Environment Variable; POST /api/v1/envvars/import  Import
+    Environment Variables
+  reason: CRUD over environment variables consumed by deployed services is exactly runtime configuration
+    and secrets management for software environments.
