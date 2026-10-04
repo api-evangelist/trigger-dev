@@ -62,49 +62,13 @@ paths:
                 $ref: '#/components/schemas/Batch'
 components:
   schemas:
-    TriggerTaskResponse:
-      type: object
-      required:
-      - id
-      properties:
-        id:
-          type: string
-          description: Run identifier (prefixed with run_)
-    BatchTriggerResponse:
+    BatchTriggerRequest:
       type: object
       properties:
-        id:
-          type: string
-          description: Batch identifier
-        runs:
+        items:
           type: array
           items:
-            $ref: '#/components/schemas/TriggerTaskResponse'
-    Batch:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Batch identifier
-        status:
-          type: string
-          enum:
-          - PENDING
-          - PROCESSING
-          - COMPLETED
-          - FAILED
-        totalCount:
-          type: integer
-        completedCount:
-          type: integer
-        failedCount:
-          type: integer
-        createdAt:
-          type: string
-          format: date-time
-        completedAt:
-          type: string
-          format: date-time
+            $ref: '#/components/schemas/TriggerTaskRequest'
     TriggerTaskRequest:
       type: object
       properties:
@@ -151,13 +115,49 @@ components:
               - large-1x
               - large-2x
               description: Machine preset for the run
-    BatchTriggerRequest:
+    Batch:
       type: object
       properties:
-        items:
+        id:
+          type: string
+          description: Batch identifier
+        status:
+          type: string
+          enum:
+          - PENDING
+          - PROCESSING
+          - COMPLETED
+          - FAILED
+        totalCount:
+          type: integer
+        completedCount:
+          type: integer
+        failedCount:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        completedAt:
+          type: string
+          format: date-time
+    TriggerTaskResponse:
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+          description: Run identifier (prefixed with run_)
+    BatchTriggerResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Batch identifier
+        runs:
           type: array
           items:
-            $ref: '#/components/schemas/TriggerTaskRequest'
+            $ref: '#/components/schemas/TriggerTaskResponse'
   securitySchemes:
     bearerAuth:
       type: http

@@ -351,14 +351,6 @@ paths:
                 $ref: '#/components/schemas/Run'
 components:
   schemas:
-    TriggerTaskResponse:
-      type: object
-      required:
-      - id
-      properties:
-        id:
-          type: string
-          description: Run identifier (prefixed with run_)
     RunEvent:
       type: object
       properties:
@@ -416,6 +408,69 @@ components:
             variant:
               type: string
             accessory:
+              type: string
+    ListRunsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Run'
+        pagination:
+          type: object
+          properties:
+            next:
+              type: string
+              description: Run ID for next page
+            previous:
+              type: string
+              description: Run ID for previous page
+    RunStatus:
+      type: string
+      enum:
+      - QUEUED
+      - EXECUTING
+      - REATTEMPTING
+      - WAITING_FOR_DEPLOY
+      - WAITING_TO_RESUME
+      - COMPLETED_SUCCESSFULLY
+      - COMPLETED_WITH_ERRORS
+      - INTERRUPTED
+      - CANCELLED
+      - CRASHED
+      - FAILED_TO_RUN
+      - TIMED_OUT
+      - EXPIRED
+      - DELAYED
+      - SYSTEM_FAILURE
+      description: Current status of a task run
+    TriggerTaskResponse:
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+          description: Run identifier (prefixed with run_)
+    RunAttempt:
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          type: string
+        startedAt:
+          type: string
+          format: date-time
+        completedAt:
+          type: string
+          format: date-time
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+            stack:
               type: string
     Run:
       type: object
@@ -484,61 +539,6 @@ components:
               type: string
             expression:
               type: string
-    RunAttempt:
-      type: object
-      properties:
-        id:
-          type: string
-        status:
-          type: string
-        startedAt:
-          type: string
-          format: date-time
-        completedAt:
-          type: string
-          format: date-time
-        error:
-          type: object
-          properties:
-            message:
-              type: string
-            stack:
-              type: string
-    ListRunsResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Run'
-        pagination:
-          type: object
-          properties:
-            next:
-              type: string
-              description: Run ID for next page
-            previous:
-              type: string
-              description: Run ID for previous page
-    RunStatus:
-      type: string
-      enum:
-      - QUEUED
-      - EXECUTING
-      - REATTEMPTING
-      - WAITING_FOR_DEPLOY
-      - WAITING_TO_RESUME
-      - COMPLETED_SUCCESSFULLY
-      - COMPLETED_WITH_ERRORS
-      - INTERRUPTED
-      - CANCELLED
-      - CRASHED
-      - FAILED_TO_RUN
-      - TIMED_OUT
-      - EXPIRED
-      - DELAYED
-      - SYSTEM_FAILURE
-      description: Current status of a task run
     RunReference:
       type: object
       properties:

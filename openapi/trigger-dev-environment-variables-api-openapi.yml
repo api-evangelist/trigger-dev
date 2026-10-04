@@ -139,16 +139,6 @@ paths:
           description: Environment variable deleted
 components:
   schemas:
-    CreateEnvVarRequest:
-      type: object
-      required:
-      - name
-      - value
-      properties:
-        name:
-          type: string
-        value:
-          type: string
     EnvVar:
       type: object
       required:
@@ -160,6 +150,16 @@ components:
         value:
           type: string
           description: Variable value (may be redacted)
+    CreateEnvVarRequest:
+      type: object
+      required:
+      - name
+      - value
+      properties:
+        name:
+          type: string
+        value:
+          type: string
   securitySchemes:
     bearerAuth:
       type: http

@@ -82,24 +82,29 @@ paths:
           description: Unauthorized
 components:
   schemas:
-    TriggerTaskResponse:
-      type: object
-      required:
-      - id
-      properties:
-        id:
-          type: string
-          description: Run identifier (prefixed with run_)
-    BatchTriggerResponse:
+    BatchTriggerRequest:
       type: object
       properties:
-        id:
-          type: string
-          description: Batch identifier
-        runs:
+        items:
           type: array
           items:
-            $ref: '#/components/schemas/TriggerTaskResponse'
+            $ref: '#/components/schemas/TriggerTaskRequest'
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              message:
+                type: string
+              path:
+                type: string
     TriggerTaskRequest:
       type: object
       properties:
@@ -146,29 +151,24 @@ components:
               - large-1x
               - large-2x
               description: Machine preset for the run
-    BatchTriggerRequest:
+    TriggerTaskResponse:
       type: object
+      required:
+      - id
       properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/TriggerTaskRequest'
-    ErrorResponse:
-      type: object
-      properties:
-        error:
+        id:
           type: string
-        details:
+          description: Run identifier (prefixed with run_)
+    BatchTriggerResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Batch identifier
+        runs:
           type: array
           items:
-            type: object
-            properties:
-              code:
-                type: string
-              message:
-                type: string
-              path:
-                type: string
+            $ref: '#/components/schemas/TriggerTaskResponse'
   securitySchemes:
     bearerAuth:
       type: http
