@@ -545,6 +545,8 @@ github:
     language: TypeScript
     stars: 8
 common:
+  - type: Plans
+    url: plans/trigger-dev-plans-pricing.yml
   - type: CapabilityMap
     url: capabilities/trigger-dev-capability-edges.yml
     name: Trigger.dev Business Capability Map
