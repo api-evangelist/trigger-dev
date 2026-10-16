@@ -2,6 +2,13 @@
   "repo": "trigger-dev",
   "feeds": [
     {
+      "source": "https://trigger.dev/blog",
+      "feed_url": "https://trigger.dev/blog/rss.xml",
+      "title": "",
+      "saved": 1,
+      "method": "discovered"
+    },
+    {
       "source": "https://trigger.dev/docs/limits",
       "feed_url": "https://trigger.dev/docs/limits",
       "title": "",
@@ -9,8 +16,8 @@
       "method": "none"
     }
   ],
-  "post_count": 2,
-  "fetched": "2026-10-03T12:30:02Z",
+  "post_count": 3,
+  "fetched": "2026-10-10T13:15:00Z",
   "agent_pulled": "2026-07-04",
   "feed_nature": "vendor-blog",
   "feed_nature_basis": "path_blog",
