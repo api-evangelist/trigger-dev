@@ -425,33 +425,6 @@ components:
             previous:
               type: string
               description: Run ID for previous page
-    RunStatus:
-      type: string
-      enum:
-      - QUEUED
-      - EXECUTING
-      - REATTEMPTING
-      - WAITING_FOR_DEPLOY
-      - WAITING_TO_RESUME
-      - COMPLETED_SUCCESSFULLY
-      - COMPLETED_WITH_ERRORS
-      - INTERRUPTED
-      - CANCELLED
-      - CRASHED
-      - FAILED_TO_RUN
-      - TIMED_OUT
-      - EXPIRED
-      - DELAYED
-      - SYSTEM_FAILURE
-      description: Current status of a task run
-    TriggerTaskResponse:
-      type: object
-      required:
-      - id
-      properties:
-        id:
-          type: string
-          description: Run identifier (prefixed with run_)
     RunAttempt:
       type: object
       properties:
@@ -472,6 +445,42 @@ components:
               type: string
             stack:
               type: string
+    RunStatus:
+      type: string
+      enum:
+      - QUEUED
+      - EXECUTING
+      - REATTEMPTING
+      - WAITING_FOR_DEPLOY
+      - WAITING_TO_RESUME
+      - COMPLETED_SUCCESSFULLY
+      - COMPLETED_WITH_ERRORS
+      - INTERRUPTED
+      - CANCELLED
+      - CRASHED
+      - FAILED_TO_RUN
+      - TIMED_OUT
+      - EXPIRED
+      - DELAYED
+      - SYSTEM_FAILURE
+      description: Current status of a task run
+    RunReference:
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          $ref: '#/components/schemas/RunStatus'
+        taskIdentifier:
+          type: string
+    TriggerTaskResponse:
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+          description: Run identifier (prefixed with run_)
     Run:
       type: object
       required:
@@ -539,15 +548,6 @@ components:
               type: string
             expression:
               type: string
-    RunReference:
-      type: object
-      properties:
-        id:
-          type: string
-        status:
-          $ref: '#/components/schemas/RunStatus'
-        taskIdentifier:
-          type: string
   securitySchemes:
     bearerAuth:
       type: http

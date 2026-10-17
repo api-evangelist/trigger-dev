@@ -62,13 +62,6 @@ paths:
                 $ref: '#/components/schemas/Batch'
 components:
   schemas:
-    BatchTriggerRequest:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/TriggerTaskRequest'
     TriggerTaskRequest:
       type: object
       properties:
@@ -115,6 +108,31 @@ components:
               - large-1x
               - large-2x
               description: Machine preset for the run
+    BatchTriggerRequest:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/TriggerTaskRequest'
+    TriggerTaskResponse:
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+          description: Run identifier (prefixed with run_)
+    BatchTriggerResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Batch identifier
+        runs:
+          type: array
+          items:
+            $ref: '#/components/schemas/TriggerTaskResponse'
     Batch:
       type: object
       properties:
@@ -140,24 +158,6 @@ components:
         completedAt:
           type: string
           format: date-time
-    TriggerTaskResponse:
-      type: object
-      required:
-      - id
-      properties:
-        id:
-          type: string
-          description: Run identifier (prefixed with run_)
-    BatchTriggerResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Batch identifier
-        runs:
-          type: array
-          items:
-            $ref: '#/components/schemas/TriggerTaskResponse'
   securitySchemes:
     bearerAuth:
       type: http
