@@ -1,4 +1,4 @@
-# Trigger.dev (trigger-dev)
+# Trigger.dev
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,117 +66,192 @@
 
 Trigger.dev is an open source platform for building and deploying fully-managed AI agents and background workflows in TypeScript. It provides durable task execution without timeout constraints, automatic retries, scheduled cron tasks, queues with concurrency controls, real-time observability, React hooks for streaming run status, human-in-the-loop waitpoints, batch triggering, and a comprehensive Management API. Cloud-hosted at cloud.trigger.dev and self-hostable via Docker or Fly.io.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/trigger-dev/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/trigger-dev/refs/heads/main/apis.yml)
+**Areas:** Developer-First · Workflow Automation · Background Jobs · Durable Execution · TypeScript · AI Agents · Real-Time · Open Source
 
-## Scope
+## Trigger.dev on APIs.io
 
-- **Type:** Index
+Everything profiled for Trigger.dev is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/trigger-dev/](https://apis.io/providers/trigger-dev/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (10)
 
-- Developer-First
-- Workflow Automation
-- Background Jobs
-- Durable Execution
-- TypeScript
-- AI Agents
-- Realtime
-- Open Source
+- [Trigger.dev Realtime API](https://apis.io/apis/trigger-dev/trigger-dev-realtime/) — The Trigger.dev Realtime API streams live run state and typed stream data to backend and frontend clients. Backend SDK methods include runs.subscribeToRun,…
+- [Trigger.dev Batches API](https://apis.io/apis/trigger-dev/trigger-dev-batches-api/) — Create and retrieve large-scale batch runs.
+- [Trigger.dev Deployments API](https://apis.io/apis/trigger-dev/trigger-dev-deployments-api/) — List deployments and promote versions to production.
+- [Trigger.dev Environment Variables API](https://apis.io/apis/trigger-dev/trigger-dev-environment-variables-api/) — Create, read, update, delete, and import environment variables per project and environment.
+- [Trigger.dev Query API](https://apis.io/apis/trigger-dev/trigger-dev-query-api/) — Execute TRQL queries against runs, tasks, and metrics for dashboards and analytics.
+- [Trigger.dev Queues API](https://apis.io/apis/trigger-dev/trigger-dev-queues-api/) — Manage task queues including pause, resume, and concurrency overrides.
+- [Trigger.dev Runs API](https://apis.io/apis/trigger-dev/trigger-dev-runs-api/) — List, retrieve, cancel, replay, reschedule, tag, and inspect run events, results, and traces.
+- [Trigger.dev Schedules API](https://apis.io/apis/trigger-dev/trigger-dev-schedules-api/) — Create and manage cron schedules with IANA timezone support.
+- [Trigger.dev Tasks API](https://apis.io/apis/trigger-dev/trigger-dev-tasks-api/) — Trigger individual or batched task runs.
+- [Trigger.dev Waitpoints API](https://apis.io/apis/trigger-dev/trigger-dev-waitpoints-api/) — Create, list, retrieve, and complete waitpoint tokens for human-in-the-loop workflows.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-03-27
-- **Modified:** 2026-05-22
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### Agentic access (1)
 
-### Trigger.dev Management API
+Which operations an agent can call, which act, and which need a human in the loop.
 
-The Trigger.dev Management API provides comprehensive REST endpoints for managing workflow runs, tasks, schedules, deployments, queues, environment variables, batches, waitpoints, and query/dashboards. Enables programmatic control over the full lifecycle of background job workflows including triggering, monitoring, cancellation, replay, tagging, and observability. Authenticated via bearer token (secret API key prefixed tr_dev_/tr_prod_ or personal access token tr_pat_) at https://api.trigger.dev.
+- [Trigger Dev Agentic Access](https://apis.io/agentic-access/trigger-dev/trigger-dev-agentic-access/)
 
-- **Human URL:** [https://trigger.dev/docs/management/overview](https://trigger.dev/docs/management/overview)
-- **Base URL:** `https://api.trigger.dev`
+#### JSON Schema (3)
 
-#### Tags
+The data models the API reads and writes.
 
-- Workflow Automation
-- Background Jobs
-- Task Management
-- Scheduling
-- Deployments
-- Queue Management
-- Waitpoints
-- Batches
-- Environment Variables
-- Query
+- [Trigger.dev Run](https://apis.io/schemas/trigger-dev/trigger-dev-run/)
+- [Trigger.dev Schedule](https://apis.io/schemas/trigger-dev/trigger-dev-schedule/)
+- [Trigger.dev Waitpoint Token](https://apis.io/schemas/trigger-dev/trigger-dev-waitpoint-token/)
 
-#### Properties
+#### JSON Structure (1)
 
-- [Documentation](https://trigger.dev/docs/management/overview)
-- [Getting Started](https://trigger.dev/docs/introduction)
-- [Authentication](https://trigger.dev/docs/management/authentication)
-- [OpenAPI](openapi/trigger-dev-management-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/trigger-dev-management.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/trigger-dev-management.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Spectral Rules](rules/trigger-dev-rules.yml)
-- [SDK](https://www.npmjs.com/package/@trigger.dev/sdk)
-- [JSON Schema](json-schema/trigger-dev-run-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/trigger-dev-schedule-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/trigger-dev-waitpoint-token-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Structure](json-structure/trigger-dev-run-structure.json)
-- [Example](examples/trigger-dev-trigger-task-example.json)
-- [Example](examples/trigger-dev-list-runs-example.json)
-- [Example](examples/trigger-dev-create-schedule-example.json)
-- [Example](examples/trigger-dev-create-waitpoint-example.json)
-- [Example](examples/trigger-dev-execute-query-example.json)
-- [Example](examples/trigger-dev-retrieve-run-events-example.json)
+Data models expressed in JSON Structure.
 
-### Trigger.dev Realtime API
+- [Trigger Dev Run Structure](https://apis.io/json-structure/trigger-dev/trigger-dev-run-structure/)
 
-The Trigger.dev Realtime API streams live run state and typed stream data to backend and frontend clients. Backend SDK methods include runs.subscribeToRun, runs.subscribeToRunsWithTag, and runs.subscribeToBatch. React hooks include useRealtimeRun, useRealtimeRunsWithTag, useRealtimeBatch, useRealtimeStream, useWaitToken, and trigger-plus-subscribe hooks. Powers progress UIs, AI streaming output, and human-in-the-loop interfaces.
+#### JSON-LD (1)
 
-- **Human URL:** [https://trigger.dev/docs/realtime/overview](https://trigger.dev/docs/realtime/overview)
+Linked-data contexts for the provider's vocabulary.
 
-#### Tags
+- [Trigger Dev Context](https://apis.io/jsonld/trigger-dev/trigger-dev-context/)
 
-- Realtime
-- Streaming
-- React
-- WebSockets
-- AI Streaming
-- Frontend
+#### Vocabulary (1)
 
-#### Properties
+The provider's domain terms, defined.
 
-- [Documentation](https://trigger.dev/docs/realtime/overview)
-- [Authentication](https://trigger.dev/docs/realtime/auth)
-- [SDK](https://www.npmjs.com/package/@trigger.dev/react-hooks)
-- [Postman Collection](collections/trigger-dev-management.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/trigger-dev-management.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Trigger.dev Vocabulary](https://apis.io/vocabularies/trigger-dev/trigger-dev-vocabulary/)
 
-## Common Properties
+#### Examples (6)
 
-- [LinkedIn](https://www.linkedin.com/company/triggerdotdev)
+Example requests and responses.
+
+- [Trigger Dev Create Schedule Example](https://apis.io/examples/trigger-dev/trigger-dev-create-schedule-example/)
+- [Trigger Dev Create Waitpoint Example](https://apis.io/examples/trigger-dev/trigger-dev-create-waitpoint-example/)
+- [Trigger Dev Execute Query Example](https://apis.io/examples/trigger-dev/trigger-dev-execute-query-example/)
+- [Trigger Dev List Runs Example](https://apis.io/examples/trigger-dev/trigger-dev-list-runs-example/)
+- [Trigger Dev Retrieve Run Events Example](https://apis.io/examples/trigger-dev/trigger-dev-retrieve-run-events-example/)
+- [Trigger Dev Trigger Task Example](https://apis.io/examples/trigger-dev/trigger-dev-trigger-task-example/)
+
+#### Collections (19)
+
+Postman and Open Collection request collections.
+
+- [Trigger.dev Management Batches API](https://apis.io/collections/trigger-dev/open-trigger-dev-batches-api/)
+- [Trigger.dev Management Batches Deployments API](https://apis.io/collections/trigger-dev/open-trigger-dev-deployments-api/)
+- [Trigger.dev Management Batches Environment Variables API](https://apis.io/collections/trigger-dev/open-trigger-dev-environment-variables-api/)
+- [Trigger.dev Management API](https://apis.io/collections/trigger-dev/open-trigger-dev-management/)
+- [Trigger.dev Management Batches Query API](https://apis.io/collections/trigger-dev/open-trigger-dev-query-api/)
+- [Trigger.dev Management Batches Queues API](https://apis.io/collections/trigger-dev/open-trigger-dev-queues-api/)
+- [Trigger.dev Management Batches Runs API](https://apis.io/collections/trigger-dev/open-trigger-dev-runs-api/)
+- [Trigger.dev Management Batches Schedules API](https://apis.io/collections/trigger-dev/open-trigger-dev-schedules-api/)
+- [Trigger.dev Management Batches Tasks API](https://apis.io/collections/trigger-dev/open-trigger-dev-tasks-api/)
+- [Trigger.dev Management Batches Waitpoints API](https://apis.io/collections/trigger-dev/open-trigger-dev-waitpoints-api/)
+- [Trigger.dev Management Batches API](https://apis.io/collections/trigger-dev/postman-trigger-dev-batches-api/)
+- [Trigger.dev Management Batches Deployments API](https://apis.io/collections/trigger-dev/postman-trigger-dev-deployments-api/)
+- [Trigger.dev Management Batches Environment Variables API](https://apis.io/collections/trigger-dev/postman-trigger-dev-environment-variables-api/)
+- [Trigger.dev Management Batches Query API](https://apis.io/collections/trigger-dev/postman-trigger-dev-query-api/)
+- [Trigger.dev Management Batches Queues API](https://apis.io/collections/trigger-dev/postman-trigger-dev-queues-api/)
+- [Trigger.dev Management Batches Runs API](https://apis.io/collections/trigger-dev/postman-trigger-dev-runs-api/)
+- [Trigger.dev Management Batches Schedules API](https://apis.io/collections/trigger-dev/postman-trigger-dev-schedules-api/)
+- [Trigger.dev Management Batches Tasks API](https://apis.io/collections/trigger-dev/postman-trigger-dev-tasks-api/)
+- [Trigger.dev Management Batches Waitpoints API](https://apis.io/collections/trigger-dev/postman-trigger-dev-waitpoints-api/)
+
+#### Governance rules (2)
+
+Spectral rulesets for the provider's contracts.
+
+- [Trigger.dev — jsonschema rules](https://apis.io/rules/trigger-dev/trigger-dev-jsonschema-spectral-rules/)
+- [Trigger.dev API Rules](https://apis.io/rules/trigger-dev/trigger-dev-rules/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Trigger Dev Authentication](https://apis.io/security/trigger-dev/trigger-dev-authentication/)
+- [Trigger Dev Domain Security](https://apis.io/security/trigger-dev/trigger-dev-domain-security/)
+- [Trigger Dev Trust Center](https://apis.io/security/trigger-dev/trigger-dev-trust-center/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Trigger Dev Plans Pricing](https://apis.io/plans/trigger-dev/trigger-dev-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Trigger Dev Rate Limits](https://apis.io/rate-limits/trigger-dev/trigger-dev-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Trigger Dev Finops](https://apis.io/finops/trigger-dev/trigger-dev-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Website](https://trigger.dev)
 - [Documentation](https://trigger.dev/docs)
-- [Getting Started](https://trigger.dev/docs/introduction)
-- [Git Hub](https://github.com/triggerdotdev)
-- [SDK](https://www.npmjs.com/package/@trigger.dev/sdk)
-- [C L I](https://www.npmjs.com/package/trigger.dev)
-- [Sign Up](https://cloud.trigger.dev/login)
+- [Getting started](https://trigger.dev/docs/introduction)
 - [Pricing](https://trigger.dev/pricing)
-- [Pricing Plans](plans/trigger-dev-plans-pricing.yml)
-- [Rate Limits](rate-limits/trigger-dev-rate-limits.yml)
-- [Fin Ops](finops/trigger-dev-finops.yml)
-- [Limits](https://trigger.dev/docs/limits)
-- [Blog](https://trigger.dev/blog)
 - [Changelog](https://trigger.dev/changelog)
-- [Status Page](https://status.trigger.dev)
-- [Self Hosting](https://github.com/triggerdotdev/docker)
-- [Vocabulary](vocabulary/trigger-dev-vocabulary.yml)
-- [JSON-LD](json-ld/trigger-dev-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
+- [Blog](https://trigger.dev/blog)
+- [Status](https://status.trigger.dev)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 52.2** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 57.1 |
+| Contract quality | 69.1 |
+| Contract governance | 27.3 |
+| Operational transparency | 36.8 |
+| Developer ergonomics | 51.2 |
+| Access clarity | 39.5 |
+
+**Agent readiness 27.9** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | verified |
+| Error Semantics | — |
+| OpenAPI Examples | documented (partial credit) |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 21.6** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/trigger-dev/](https://apis.io/providers/trigger-dev/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Trigger.dev: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/trigger-dev/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
